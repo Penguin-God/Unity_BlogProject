@@ -406,6 +406,7 @@ GameObject:
   - component: {fileID: 1179706622}
   - component: {fileID: 1179706621}
   - component: {fileID: 1179706620}
+  - component: {fileID: 1179706624}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -489,6 +490,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1179706624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1179706619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcd2d1baaed9aa34c8089c6d4c5fbd74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventName: "\uBD09\uB780 \uCCAB\uC778\uC0AC"
+  talkDatas: []
 --- !u!1 &1845474690
 GameObject:
   m_ObjectHideFlags: 0
@@ -501,6 +516,7 @@ GameObject:
   - component: {fileID: 1845474693}
   - component: {fileID: 1845474692}
   - component: {fileID: 1845474691}
+  - component: {fileID: 1845474695}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -585,6 +601,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1845474695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845474690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcd2d1baaed9aa34c8089c6d4c5fbd74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventName: "\uC544\uBB34\uAC83\uB3C4 \uC5C6\uB2E4."
+  talkDatas: []
 --- !u!1 &1995414000
 GameObject:
   m_ObjectHideFlags: 0
@@ -629,4 +659,89 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   csvFile: {fileID: 4900000, guid: eaf70d9f74d5d344c81165b6413ce426, type: 3}
-  DEBUGTEXTS: []
+  DEBUGTEXTS:
+  - eventName: "\uBD09\uB780 \uCCAB\uC778\uC0AC"
+    tds:
+    - name: "\uBD09\uB780"
+      contexts:
+      - "\uC548\uB155| \uBC29\uAE08 \uCC98\uC74C \uC654\uB098\uBCF4\uB124 \\n\uC774\uB984\uC774
+        \uBB50\uC57C?"
+    - name: "\uC8FC\uC778\uACF5"
+      contexts:
+      - "\uB09C \uD3AD\uADC4\uAC13"
+    - name: "\uBD09\uB780"
+      contexts:
+      - "\uADF8\uB798 \uC774\uB984 \uD55C\uBC88 \u24E8\uADF8\uC9C0\uAC19\uB124\u24E6"
+      - "\uB0B4 \uC774\uB984\uC740 \u24E8\uBD09\uB780\u24E6\uC774\uC57C \uC798 \uBD80\uD0C1\uD574"
+    - name: "\uB3C5\uBC31"
+      contexts:
+      - "\u24D2\uBD09\uB780\uC774\uB77C\uACE0 \uD558\uB294 \uC774\uCE5C\uAD6C "
+      - "\u24D2\uCC98\uC74C\uBCF4\uB294 \uAC70\uC9C0\uB9CC \uC0C1\uB2F9\uD788 \uC2F8\uAC00\uC9C0\uAC00
+        \uC5C6\uB294\uB4EF\uD558\uB2E4"
+    - name: "\uBD09\uB780"
+      contexts:
+      - "\uB108 \uD639\uC2DC \uB9C8\uC74C\uC18D\uC73C\uB85C \uB098 \uAE4C\uACE0 \uC788\uB2C8?
+        \\n\uD45C\uC815\uC774 \uADF8\uB798\uBCF4\uC5EC\uC11C"
+    - name: "\uC8FC\uC778\uACF5"
+      contexts:
+      - "\uC544... \uC544\uB2C8 \uBCC4\uC0DD\uAC01 \uC548\uD588\uC5B4"
+    - name: "\uB3C5\uBC31"
+      contexts:
+      - "\u24D2\uB610\uD55C \uB3C5\uC2EC\uC220\uC5D0\uB3C4 \uB2A5\uD574 \uBCF4\uC778\uB2E4"
+  - eventName: "\uC2EC\uC2EC\uD55C \uBD09\uB780"
+    tds:
+    - name: "\uBD09\uB780"
+      contexts:
+      - "\u2462\uC680\uCF00 \uC9C0\uB8E8\uD574\uBCF4\uC774\uB0D0"
+      - "\uB0B4\uAC00 \uC7AC\uBC0C\uB294\uAC78 \uBCF4\uC5EC\uC8FC\uC9C0"
+      - "\uD558! \uBD84\uC2E0\uC220!!!"
+    - name: "\uBD09\uB7801"
+      contexts:
+      - "\uB0B4\uAC00 1\uBC88\uC9F8 \uBD84\uC2E0"
+    - name: "\u24B3\uBD09\uB7802"
+      contexts:
+      - "\uB0B4\uAC00 2\uBC88\uC9F8 \uBD84\uC2E0\uC774\uB2E4 !!"
+  - eventName: "\uAD34\uC0C1\uD55C \uB3C4\uAD6C"
+    tds:
+    - name: "\uBD09\uB780"
+      contexts:
+      - "\uC57C \uB108 \uC800\uAC70 \uBD24\uB0D0?"
+    - name: "\uC8FC\uC778\uACF5"
+      contexts:
+      - "\uC800\uAC70\uB77C\uB2C8? \uBB34\uC2A8 \uB9D0\uC744\u2026"
+    - name: "\uB3C5\uBC31"
+      contexts:
+      - "\uB098\uB294 \uBD09\uB780\uC758 \uC190\uB05D\uC744 \uBCF4\uACE0 \uC21C\uAC04
+        \uB9D0\uC744 \uC783\uC5C8\uB2E4"
+      - "\uAD34\uC0C1\uD558\uAC8C \uC0DD\uAE34 \uB3C4\uAD6C\uC640 \uC548\uC5D0 \uB4E4\uC5B4
+        \uC788\uB294 \uC561\uCCB4"
+      - "\uADF8\uB9AC\uACE0 \uC561\uCCB4 \uC548\uC5D0 \uC788\uB294 \uC22B\uC790\uAC00
+        \uC368\uC9C4 \uC885\uC774"
+      - "\uBB54\uAC00 \uBD88\uC548\uD558\uB2E4 \\n \uADF8\uB7F0 \uC0DD\uAC01\uC774
+        \uB4E4\uC5C8\uB2E4."
+    - name: "\uBD09\uB780"
+      contexts:
+      - "\uBB50\uC57C \uC644\uC804 \uBAA8\uB974\uB294 \uB208\uBE5B\uC774\uC796\uC544"
+      - "\uB208\uBE5B\uB9CC\uC73C\uB85C \uC0AC\uB78C\uC744 \uC2E4\uB9DD\uC2DC\uD0A4\uB2E4\uB2C8
+        \uAF64\uB098 \uB2A5\uB825\uC794\uB370?"
+  - eventName: "\uAD34\uC0C1\uD55C \uB3C4\uAD6CAfter"
+    tds:
+    - name: "\uBD09\uB780"
+      contexts:
+      - "\uC5B4 \uC800\uAC70\uC758 \uC815\uCCB4\uB97C \uC54C\uC544\uB0B8 \uAC70 \uAC19\uC544"
+    - name: "\uC8FC\uC778\uACF5"
+      contexts:
+      - "\uADF8\uB798? \uBB54\uB370"
+    - name: "\uBD09\uB780"
+      contexts:
+      - "\uADF8\uB798 \uC800\uAC74 \uBC14\uB85C"
+      - "\uBB3C\uAC10\uD1B5\uC774\uC57C!! \uC800\uAE30\uC5D0 \uB2F4\uACA8\uC788\uB294
+        \uC561\uCCB4\uB294 \\n\uBE68\uAC04\uC0C9 \uBB3C\uAC10\uC778\uAC70\uC9C0!!!"
+    - name: "\uC8FC\uC778\uACF5"
+      contexts:
+      - "\u2026..............."
+  - eventName: "\uBB38 \uB2EB\uD600\uC788\uC74C"
+    tds:
+    - name: "\u24B3\uBB38"
+      contexts:
+      - "\u24D2\uAD73\uAC8C \uC7A0\uACA8\uC788\uB2E4."
