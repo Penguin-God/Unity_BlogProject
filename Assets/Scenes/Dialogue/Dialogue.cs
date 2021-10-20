@@ -11,20 +11,8 @@ public class Dialogue : MonoBehaviour
 {
     [SerializeField] string eventName = null;
     [SerializeField] TalkData[] talkDatas = null;
-
-    void Start()
+    public TalkData[] GetObjectDialogue()
     {
-        if (DialogueParse.TalkDictionary.ContainsKey(eventName)) talkDatas = DialogueParse.TalkDictionary[eventName];
-        else Debug.LogWarning("찾을 수 없는 이벤트 이름 : " + eventName);
-    }
-
-    public void GetDialogue()
-    {
-        for(int i = 0; i < talkDatas.Length; i++)
-        {
-            Debug.Log(talkDatas[i].name);
-            foreach (string context in talkDatas[i].contexts) Debug.Log(context);
-        }
-
+        return DialogueParse.GetDialogue(eventName);
     }
 }
