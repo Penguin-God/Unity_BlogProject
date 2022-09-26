@@ -192,7 +192,11 @@ namespace ParserCore
         {
             _type = type;
         }
-        public object GetParserValue(string value) => Enum.Parse(_type, value);
+        public object GetParserValue(string value)
+        {
+            Enum.TryParse(_type, value, out object result);
+            return result;
+        }
         public Type GetParserType() => _type;
     }
 

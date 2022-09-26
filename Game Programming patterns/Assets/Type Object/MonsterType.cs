@@ -22,6 +22,9 @@ public class MonsterType
     [SerializeField] string _message;
     public string Message => _message;
 
+    [SerializeField] MonsterPassiveType _passive;
+    public MonsterPassiveType Passive => _passive;
+
 
     public void OverrideParnet(IReadOnlyDictionary<string, MonsterType> nameByType)
     {
