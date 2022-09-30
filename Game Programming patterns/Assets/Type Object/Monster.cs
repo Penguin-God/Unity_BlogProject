@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class Monster : MonoBehaviour
 {
     [SerializeField] string _name;
+
+    [SerializeField] int _level;
+    public int Level => _level;
 
     [SerializeField] int _maxHp;
     public int Hp => _maxHp;
@@ -16,18 +18,14 @@ public class Monster : MonoBehaviour
     }
 
     [SerializeField] int _currentHp;
-    public void OnDamaged(int damage)
-    {
-        print("아파요");
-        _currentHp -= damage;
-    }
 
     [SerializeField] int _damage;
     public int Damage => _damage;
     public void UpDamage(int addDamage) => _damage += addDamage;
 
     [SerializeField] Color32 _color;
-    [SerializeField] string _message;
+
+    public int _arcanePorce;
 
     public void SetInfo(MonsterType type)
     {
@@ -37,8 +35,16 @@ public class Monster : MonoBehaviour
         _currentHp = _maxHp;
         _damage = type.Damage;
         GetComponent<SpriteRenderer>().color = type.Color;
-        _message = type.Message;
-        print(type.Passive);
         new MonsterPassiveFactory().GetMonsterPassive(type.Passive)?.Invoke(this);
+        damageCalculater = new DamageCalculaterFatory().GetCalculater(type.Region);
+    }
+
+    IDamageCalculater damageCalculater;
+    public void OnDamaged(int damage, Player player)
+    {
+        if(damageCalculater != null)
+            damage = damageCalculater.CalculateDamage(damage, player, this);
+        _currentHp -= damage;
+        print($"아파요 : {damage}");
     }
 }
