@@ -17,20 +17,26 @@ public class MonsterType
     [SerializeField] string _parent;
     public string Parent => _parent;
 
+    [SerializeField] int _level;
+    public int Level => _level;
+
     [SerializeField] int _hp;
     public int Hp => _hp;
 
     [SerializeField] int _damage;
     public int Damage => _damage;
 
+    [SerializeField] float _defenseRate;
+    [SerializeField] int _avoidability;
+
     [SerializeField] Color32 _color;
     public Color32 Color => _color;
 
-    [SerializeField] MonsterPassiveType _passive;
-    public MonsterPassiveType Passive => _passive;
-
     [SerializeField] MonsterRegion _region;
     public MonsterRegion Region => _region;
+
+    [SerializeField] MonsterPassiveType _passive;
+    public MonsterPassiveType Passive => _passive;
 
     public void OverrideParnet(IReadOnlyDictionary<string, MonsterType> nameByType)
     {

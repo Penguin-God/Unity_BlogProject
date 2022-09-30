@@ -31,6 +31,7 @@ public class Monster : MonoBehaviour
     {
         _name = type.Name;
         gameObject.name = _name;
+        _level = type.Level;
         _maxHp = type.Hp;
         _currentHp = _maxHp;
         _damage = type.Damage;
