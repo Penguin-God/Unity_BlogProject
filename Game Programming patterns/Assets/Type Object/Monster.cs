@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Monster : MonoBehaviour
 {
@@ -47,5 +48,11 @@ public class Monster : MonoBehaviour
             damage = damageCalculater.CalculateDamage(damage, player, this);
         _currentHp -= damage;
         print($"¾ÆÆÄ¿ä : {damage}");
+    }
+
+    public event Action OnDead;
+    void Dead()
+    {
+        OnDead?.Invoke();
     }
 }
