@@ -6,9 +6,8 @@ using System;
 public enum MonsterPassiveType
 {
     None,
-    UpDamage,
-    UpMaxHp,
-    AreaEffectPosingDamage,
+    AreaEffectSlow,
+    Breed,
 }
 
 public class MonsterPassiveFactory
@@ -17,9 +16,8 @@ public class MonsterPassiveFactory
     {
         switch (type)
         {
-            case MonsterPassiveType.UpDamage: return new MonsterPassives().UpDamage;
-            case MonsterPassiveType.UpMaxHp: return new MonsterPassives().UpMaxHp;
-            case MonsterPassiveType.AreaEffectPosingDamage: return new MonsterPassives().AreaEffectPosingDamage;
+            case MonsterPassiveType.AreaEffectSlow: return new MonsterPassives().AreaEffectSlow;
+            case MonsterPassiveType.Breed: return new MonsterPassives().BreedWhenDead;
         }
         return null;
     }
@@ -27,7 +25,14 @@ public class MonsterPassiveFactory
 
 class MonsterPassives
 {
-    public void UpDamage(Monster monster) => monster?.UpDamage(50);
-    public void UpMaxHp(Monster monster) => monster?.UpMaxHp(20);
-    public void AreaEffectPosingDamage(Monster monster) => monster.gameObject.AddComponent<RangeDamage>().SetRadius(5);
+    public void AreaEffectSlow(Monster monster) => monster.gameObject.AddComponent<RangeSlower>().SetRadius(5);
+
+    class RangeSlower : MonoBehaviour
+    {
+        public void SetRadius(float radius) => GetComponent<CircleCollider2D>().radius = radius;
+        void OnTriggerStay2D(Collider2D collision) => collision.GetComponent<Player>()?.SetSpeed(2);
+        void OnTriggerExit2D(Collider2D collision) => collision.GetComponent<Player>()?.SetSpeed(5);
+    }
+
+    public void BreedWhenDead(Monster monster) => monster.OnDead += () => MonsterSpawner.SpawnMonster("ÁÖÈ² ¹ö¼¸");
 }

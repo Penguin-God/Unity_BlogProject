@@ -9,6 +9,7 @@ public enum MonsterRegion
     Cernium,
 }
 
+[System.Serializable]
 public class MonsterType
 {
     [SerializeField] string _name;

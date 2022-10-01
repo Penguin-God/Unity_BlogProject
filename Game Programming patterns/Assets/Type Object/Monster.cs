@@ -5,37 +5,18 @@ using System;
 
 public class Monster : MonoBehaviour
 {
-    [SerializeField] string _name;
-
-    [SerializeField] int _level;
-    public int Level => _level;
-
-    [SerializeField] int _maxHp;
-    public int Hp => _maxHp;
-    public void UpMaxHp(int addHp)
-    {
-        _maxHp += addHp;
-        _currentHp += addHp;
-    }
+    [SerializeField] MonsterType _type;
+    public MonsterType Type => _type;
 
     [SerializeField] int _currentHp;
 
-    [SerializeField] int _damage;
-    public int Damage => _damage;
-    public void UpDamage(int addDamage) => _damage += addDamage;
-
     [SerializeField] Color32 _color;
-
-    public int _arcanePorce;
 
     public void SetInfo(MonsterType type)
     {
-        _name = type.Name;
-        gameObject.name = _name;
-        _level = type.Level;
-        _maxHp = type.Hp;
-        _currentHp = _maxHp;
-        _damage = type.Damage;
+        _type = type;
+        gameObject.name = _type.Name;
+        _currentHp = _type.Hp;
         GetComponent<SpriteRenderer>().color = type.Color;
         new MonsterPassiveFactory().GetMonsterPassive(type.Passive)?.Invoke(this);
         damageCalculater = new DamageCalculaterFatory().GetCalculater(type.Region);

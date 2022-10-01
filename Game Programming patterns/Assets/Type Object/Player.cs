@@ -5,11 +5,12 @@ using System.Linq;
 
 public class Player : MonoBehaviour
 {
-    int _level;
+    [SerializeField] int _level;
     public int Level => _level;
 
-    int _speed;
+    [SerializeField] int _speed;
     public int Speed => _speed;
+    public void SetSpeed(int newSpeed) => _speed = newSpeed;
 
     int _arcanePorce;
     public int ArcanePorce => _arcanePorce;
@@ -30,7 +31,7 @@ public class Player : MonoBehaviour
 
     void AttackRangeInMonster()
     {
-         IEnumerable<Monster> monsters = Physics2D.CircleCastAll(transform.position, 10, Vector2.zero).Select(x => x.transform.GetComponent<Monster>());
+        IEnumerable<Monster> monsters = Physics2D.CircleCastAll(transform.position, 10, Vector2.zero).Select(x => x.transform.GetComponent<Monster>());
         foreach (var monster in monsters)
         {
             monster.OnDamaged(100, this);
