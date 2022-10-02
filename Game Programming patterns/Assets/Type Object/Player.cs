@@ -8,16 +8,21 @@ public class Player : MonoBehaviour
     [SerializeField] int _level;
     public int Level => _level;
 
-    [SerializeField] int _speed;
-    public int Speed => _speed;
-    public void SetSpeed(int newSpeed) => _speed = newSpeed;
+    [SerializeField] float _originSpeed;
+    [SerializeField] float _speed;
+    public float Speed => _speed;
+    public void SetSpeed(float newSpeed) => _speed = newSpeed;
+
+    public void Slow(float newSpeed) => _speed -= _speed * (0.01f * newSpeed);
+    public void ExitSlow() => _speed = _originSpeed;
+
 
     int _arcanePorce;
     public int ArcanePorce => _arcanePorce;
 
     void Awake()
     {
-        StartCoroutine(Co_AttackRangeInMonsterLoop());
+        //StartCoroutine(Co_AttackRangeInMonsterLoop());
     }
 
     IEnumerator Co_AttackRangeInMonsterLoop()

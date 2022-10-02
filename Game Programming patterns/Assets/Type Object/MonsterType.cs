@@ -10,6 +10,16 @@ public enum MonsterRegion
 }
 
 [System.Serializable]
+public class MonsterPassive
+{
+    [SerializeField] MonsterPassiveType _passiveType;
+    public MonsterPassiveType PassiveType => _passiveType;
+
+    [SerializeField] string[] _datas;
+    public IReadOnlyList<string> Datas => _datas;
+}
+
+[System.Serializable]
 public class MonsterType
 {
     [SerializeField] string _name;
@@ -27,17 +37,11 @@ public class MonsterType
     [SerializeField] int _damage;
     public int Damage => _damage;
 
-    [SerializeField] float _defenseRate;
-    [SerializeField] int _avoidability;
-
     [SerializeField] Color32 _color;
     public Color32 Color => _color;
 
-    [SerializeField] MonsterRegion _region;
-    public MonsterRegion Region => _region;
-
-    [SerializeField] MonsterPassiveType _passive;
-    public MonsterPassiveType Passive => _passive;
+    [SerializeField] MonsterPassive[] _passives;
+    public IReadOnlyList<MonsterPassive> Passives => _passives;
 
     public void OverrideParnet(IReadOnlyDictionary<string, MonsterType> nameByType)
     {

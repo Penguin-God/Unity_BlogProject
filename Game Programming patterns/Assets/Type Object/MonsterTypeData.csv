@@ -1,5 +1,5 @@
-﻿_name,_parent,_level,_hp,_damage,_defenseRate,_avoidability,_color,r,g,b,a,_color,_region,_passive
-주황버섯,,10,125,41,10,0,,253,132,31,255,,MapleWorld,
-초록버섯,주황버섯,,,47,5,,,95,208,104,255,,,AreaEffectSlow
-좀비버섯,,66,15000,350,20,29,,162,123,92,255,,,AreaEffectSlow
-짜증내는 좀비버섯,좀비버섯,67,,433,,,,97,65,36,255,,,
+﻿_name,_parent,_level,_hp,_damage,_color,r,g,b,a,_color,_passives
+주황버섯,,10,125,41,,253,132,31,255,,
+초록버섯,주황버섯,,,47,,95,208,104,255,,AreaEffectSlow
+좀비버섯,,66,15000,350,,162,123,92,255,,AreaEffectSlow
+짜증내는 좀비버섯,좀비버섯,67,,433,,97,65,36,255,,

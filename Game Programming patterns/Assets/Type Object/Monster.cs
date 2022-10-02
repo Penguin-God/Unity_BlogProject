@@ -18,20 +18,25 @@ public class Monster : MonoBehaviour
         gameObject.name = _type.Name;
         _currentHp = _type.Hp;
         GetComponent<SpriteRenderer>().color = type.Color;
-        new MonsterPassiveFactory().GetMonsterPassive(type.Passive)?.Invoke(this);
-        damageCalculater = new DamageCalculaterFatory().GetCalculater(type.Region);
+
+        foreach (var passive in _type.Passives)
+            new MonsterPassiveFactory().GetMonsterPassive(passive.PassiveType, passive.Datas)?.Invoke(this);
+
+        //damageCalculater = new DamageCalculaterFatory().GetCalculater(type.Region);
     }
 
     IDamageCalculater damageCalculater;
+
     public void OnDamaged(int damage, Player player)
     {
         if(damageCalculater != null)
             damage = damageCalculater.CalculateDamage(damage, player, this);
         _currentHp -= damage;
-        print($"¾ÆÆÄ¿ä : {damage}");
     }
 
+   
     public event Action OnDead;
+    [ContextMenu("Dead")]
     void Dead()
     {
         OnDead?.Invoke();

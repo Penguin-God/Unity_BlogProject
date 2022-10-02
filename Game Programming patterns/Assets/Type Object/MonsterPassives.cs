@@ -8,16 +8,17 @@ public enum MonsterPassiveType
     None,
     AreaEffectSlow,
     Breed,
+    DarkAntagonism,
 }
 
 public class MonsterPassiveFactory
 {
-    public Action<Monster> GetMonsterPassive(MonsterPassiveType type)
+    public Action<Monster> GetMonsterPassive(MonsterPassiveType type, IReadOnlyList<string> datas)
     {
         switch (type)
         {
-            case MonsterPassiveType.AreaEffectSlow: return new MonsterPassives().AreaEffectSlow;
-            case MonsterPassiveType.Breed: return new MonsterPassives().BreedWhenDead;
+            case MonsterPassiveType.AreaEffectSlow: return (monster) => new MonsterPassives().AreaEffectSlow(monster, datas[0], datas[1]);
+            case MonsterPassiveType.Breed: return (monster) => new MonsterPassives().BreedWhenDead(monster, datas[0]);
         }
         return null;
     }
@@ -25,14 +26,29 @@ public class MonsterPassiveFactory
 
 class MonsterPassives
 {
-    public void AreaEffectSlow(Monster monster) => monster.gameObject.AddComponent<RangeSlower>().SetRadius(5);
-
-    class RangeSlower : MonoBehaviour
+    public void AreaEffectSlow(Monster monster, string radiusText, string slowRateText)
     {
-        public void SetRadius(float radius) => GetComponent<CircleCollider2D>().radius = radius;
-        void OnTriggerStay2D(Collider2D collision) => collision.GetComponent<Player>()?.SetSpeed(2);
-        void OnTriggerExit2D(Collider2D collision) => collision.GetComponent<Player>()?.SetSpeed(5);
+        Debug.Assert(float.TryParse(radiusText, out float radius), "float 데이터 입력 잘못한 듯?");
+        Debug.Assert(float.TryParse(slowRateText, out float slowRate), "float 데이터 입력 잘못한 듯?");
+        monster.gameObject.AddComponent<RangeSlower>().SetCollider(radius, slowRate);
     }
+    public void BreedWhenDead(Monster monster, string birthName) => monster.OnDead += () => MonsterSpawner.SpawnMonster(birthName, monster.transform.position);
+    public void DarkAntagonism(Monster monster, string rateText)
+    {
 
-    public void BreedWhenDead(Monster monster) => monster.OnDead += () => MonsterSpawner.SpawnMonster("주황 버섯");
+    }
+}
+
+class RangeSlower : MonoBehaviour
+{
+    [SerializeField] float _slowRate;
+    public void SetCollider(float radius, float slowRate)
+    {
+        var colldier = gameObject.AddComponent<CircleCollider2D>();
+        colldier.radius = radius;
+        colldier.isTrigger = true;
+        _slowRate = slowRate;
+    }
+    void OnTriggerEnter2D(Collider2D collision) => collision.GetComponent<Player>()?.Slow(_slowRate);
+    void OnTriggerExit2D(Collider2D collision) => collision.GetComponent<Player>()?.ExitSlow();
 }
