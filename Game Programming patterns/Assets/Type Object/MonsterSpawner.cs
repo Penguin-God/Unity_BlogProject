@@ -12,10 +12,9 @@ public class MonsterSpawner : MonoBehaviour
     [SerializeField] TextAsset passiveData;
 
     static Dictionary<string, MonsterType> _nameByMonsterType = new Dictionary<string, MonsterType>();
-    Dictionary<string, IReadOnlyList<MonsterPassive>> _nameByPassives = new Dictionary<string, IReadOnlyList<MonsterPassive>>();
     void Awake()
     {
-        _nameByPassives = CsvUtility.CsvToArray<MonsterType>(passiveData.text).ToDictionary(x => x.Name, x => x.Passives);
+        
         _nameByMonsterType = CsvUtility.CsvToArray<MonsterType>(monsterTypes.text).ToDictionary(x => x.Name, x => x);
         
         monsterPrefab = _monsterPrefab;
@@ -35,6 +34,7 @@ public class MonsterSpawner : MonoBehaviour
 
     void SetPassives()
     {
+        var _nameByPassives = CsvUtility.CsvToArray<MonsterType>(passiveData.text).ToDictionary(x => x.Name, x => x.Passives);
         foreach (var type in _nameByMonsterType.Values)
         {
             if (_nameByPassives.TryGetValue(type.Name, out IReadOnlyList<MonsterPassive> passives) == false) continue;
