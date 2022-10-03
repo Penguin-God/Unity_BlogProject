@@ -43,12 +43,14 @@ public class MonsterType
     [SerializeField] MonsterPassive[] _passives;
     public IReadOnlyList<MonsterPassive> Passives => _passives;
 
-    public void OverrideParnet(IReadOnlyDictionary<string, MonsterType> nameByType)
+    public void OverrideParnet(MonsterType parent)
     {
-        if (nameByType.TryGetValue(_parent, out MonsterType parent) == false) return;
+        Debug.Assert(_parent == parent.Name, "이상한 사람이 부모라고 함(유괴인 듯?)");
 
+        if (_level == 0) _level = parent._level;
         if (_hp == 0) _hp = parent._hp;
         if (_damage == 0) _damage = parent._damage;
         if (_color.a == 0) _color = parent._color;
+        if (_passives.Length == 0) _passives = parent._passives;
     }
 }
