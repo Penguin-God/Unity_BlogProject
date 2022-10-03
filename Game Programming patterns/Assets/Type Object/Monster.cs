@@ -7,11 +7,7 @@ public class Monster : MonoBehaviour
 {
     [SerializeField] MonsterType _type;
     public MonsterType Type => _type;
-
     [SerializeField] int _currentHp;
-
-    [SerializeField] Color32 _color;
-
     public void SetInfo(MonsterType type)
     {
         _type = type;
@@ -25,20 +21,31 @@ public class Monster : MonoBehaviour
         //damageCalculater = new DamageCalculaterFatory().GetCalculater(type.Region);
     }
 
-    IDamageCalculater damageCalculater;
+    //IDamageCalculater damageCalculater;
+    public event Func<int, AttackType, int> DamageCalculte = null;
 
-    public void OnDamaged(int damage, Player player)
+    int DamageCalculteAll(Attack attack)
     {
-        if(damageCalculater != null)
-            damage = damageCalculater.CalculateDamage(damage, player, this);
-        _currentHp -= damage;
+        if (DamageCalculte == null) return attack.Damage;
+
+        int result = attack.Damage;
+        foreach (Func<int, AttackType, int> func in DamageCalculte.GetInvocationList())
+            result = func.Invoke(result, attack.AttackType);
+        return result;
     }
 
-   
+    public void OnDamaged(Attack attack)
+    {
+        _currentHp -= DamageCalculteAll(attack);
+        if (_currentHp <= 0)
+            Dead();
+    }
+
     public event Action OnDead;
     [ContextMenu("Dead")]
     void Dead()
     {
         OnDead?.Invoke();
+        Destroy(gameObject);
     }
 }

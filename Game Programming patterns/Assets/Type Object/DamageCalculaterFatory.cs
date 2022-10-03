@@ -31,7 +31,7 @@ public class DamageCalculaterFatory
 
     class ArcaneDamageCalculater : IDamageCalculater
     {
-        int _arcanePorce = 30; // TODO : ¾îµğ¼±°¡ ¸ó½ºÅÍ Á¤º¸ ÀÌ¿ëÇØ¼­ °¡Á®¿À±â
+        int _arcanePorce = 30; // TODO : ì–´ë””ì„ ê°€ ëª¬ìŠ¤í„° ì •ë³´ ì´ìš©í•´ì„œ ê°€ì ¸ì˜¤ê¸°
 
         public int CalculateDamage(int damage, Player player, Monster monster)
         {
