@@ -15,8 +15,11 @@ public class Monster : MonoBehaviour
         _currentHp = _type.Hp;
         GetComponent<SpriteRenderer>().color = type.Color;
 
-        foreach (var passive in _type.Passives)
-            new MonsterPassiveFactory().GetMonsterPassive(passive.PassiveType, passive.Datas)?.Invoke(this);
+        if(_type.Passives != null)
+        {
+            foreach (var passive in _type.Passives)
+                new MonsterPassiveFactory().GetMonsterPassive(passive.PassiveType, passive.Datas)?.Invoke(this);
+        }
 
         //damageCalculater = new DamageCalculaterFatory().GetCalculater(type.Region);
     }

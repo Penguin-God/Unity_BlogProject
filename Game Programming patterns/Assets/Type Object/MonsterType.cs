@@ -42,6 +42,7 @@ public class MonsterType
 
     [SerializeField] MonsterPassive[] _passives;
     public IReadOnlyList<MonsterPassive> Passives => _passives;
+    public void SetPassive(MonsterPassive[] newPassive) => _passives = newPassive;
 
     public void OverrideParnet(MonsterType parent)
     {
@@ -51,6 +52,6 @@ public class MonsterType
         if (_hp == 0) _hp = parent._hp;
         if (_damage == 0) _damage = parent._damage;
         if (_color.a == 0) _color = parent._color;
-        if (_passives.Length == 0) _passives = parent._passives;
+        if ((_passives == null || _passives.Length == 0) && parent._passives != null) _passives = parent._passives;
     }
 }
