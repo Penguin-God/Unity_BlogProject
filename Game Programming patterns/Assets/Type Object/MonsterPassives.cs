@@ -35,7 +35,8 @@ class MonsterPassives
         monster.gameObject.AddComponent<RangeSlower>().SetCollider(radius, slowRate);
     }
 
-    public void BreedWhenDead(Monster monster, string birthName) => monster.OnDead += () => MonsterSpawner.SpawnMonster(birthName, monster.transform.position);
+    public void BreedWhenDead(Monster monster, string birthName) 
+        => monster.OnDead += () => MonsterSpawner.SpawnMonster(birthName, monster.transform.position);
 
     public void DarkAntagonism(Monster monster, string rateText)
     {
