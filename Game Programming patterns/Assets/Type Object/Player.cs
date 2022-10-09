@@ -61,7 +61,6 @@ public class Player : MonoBehaviour
         foreach (var monster in monsters)
         {
             monster.OnDamaged(new Attack(AttackType.Dark, 300));
-            print($"{monster.gameObject.name} 공격");
         }
     }
 }

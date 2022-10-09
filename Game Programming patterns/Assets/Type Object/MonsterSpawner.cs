@@ -27,7 +27,7 @@ public class MonsterSpawner : MonoBehaviour
     {
         foreach (var monsterType in _nameByMonsterType.Values)
         {
-            Vector2 spawnPos = new Vector2(UnityEngine.Random.Range(-9, 9), UnityEngine.Random.Range(-4, 4));
+            Vector2 spawnPos = new Vector2(Random.Range(-9, 9), Random.Range(-4, 4));
             SpawnMonster(monsterType.Name, spawnPos);
         }
     }

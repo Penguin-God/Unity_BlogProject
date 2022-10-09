@@ -34,6 +34,7 @@ public class Monster : MonoBehaviour
         int result = attack.Damage;
         foreach (Func<int, AttackType, int> func in DamageCalculte.GetInvocationList())
             result = func.Invoke(result, attack.AttackType);
+        print($"대미지 감소되서 {result}됨");
         return result;
     }
 
