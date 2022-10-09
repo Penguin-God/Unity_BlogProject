@@ -60,7 +60,7 @@ public class Player : MonoBehaviour
             .Select(x => x.transform.GetComponent<Monster>());
         foreach (var monster in monsters)
         {
-            monster.OnDamaged(new Attack(AttackType.Dark, 300));
+            monster.OnDamaged(new Attack(AttackType.Dark, 10));
         }
     }
 }

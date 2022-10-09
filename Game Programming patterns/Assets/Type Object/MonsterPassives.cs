@@ -45,7 +45,6 @@ class MonsterPassives
         {
             if(attackType == AttackType.Dark) 
                 damage -= Mathf.FloorToInt(damage * (0.01f * rate));
-            Debug.Log($"암흑 반감으로 대미지 {damage}로 줄어듬");
             return damage;
         };
     }

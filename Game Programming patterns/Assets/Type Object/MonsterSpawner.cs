@@ -37,8 +37,8 @@ public class MonsterSpawner : MonoBehaviour
         var _nameByPassives = CsvUtility.CsvToArray<MonsterType>(passiveData.text).ToDictionary(x => x.Name, x => x.Passives);
         foreach (var type in _nameByMonsterType.Values)
         {
-            if (_nameByPassives.TryGetValue(type.Name, out IReadOnlyList<MonsterPassive> passives) == false) continue;
-            type.SetPassive(passives.ToArray());
+            if (_nameByPassives.TryGetValue(type.Name, out IReadOnlyList<MonsterPassive> passives))
+                type.SetPassive(passives.ToArray());
         }
     }
 
