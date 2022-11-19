@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - WayPoint
+  - Attack
+  - RedSwordman
+  - RedSpearman
+  - RedMage
+  - BlueSwordman
+  - BlueArcher
+  - BlueSpearman
+  - BlueMage
+  - YellowSwordman
+  - YellowArcher
+  - YellowSpearman
+  - YellowMage
+  - GreenSwordman
+  - GreenArcher
+  - GreenSpearman
+  - GreenMage
+  - OrangeSwordman
+  - OrangeArcher
+  - OrangeSpearman
+  - OrangeMage
+  - VioletSwordman
+  - VioletArcher
+  - VioletSpearman
+  - VioletMage
+  - RedArcher
+  - Tower
+  - World
+  - Boss
+  - WhiteSwordman
+  - WhiteArcher
+  - WhiteSpearman
+  - WhiteMage
+  - BlackSwordman
+  - BlackArcher
+  - BlackSpearman
+  - BlackMage
+  - Structures
+  - Arrow
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Boss
+  - Unit
+  - SowrdmanEnemy
+  - ArcherEnemy
+  - SpearmanEnemy
+  - MageEnemy
+  - Weapon
+  - Skill
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0

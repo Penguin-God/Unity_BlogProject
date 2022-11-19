@@ -1,0 +1,13 @@
+﻿_skillType,_skillClass,_moneyType,_skillName,_description,_imagePath
+태극스킬,Main,Iron,태극,빨파조합,Sprites/Taegeuk
+검은유닛강화,Main,Iron,검은유닛강화,검은유닛 쎄짐,Sprites/BlackUnitUpgrade
+노란기사강화,Main,Iron,노란기사강화,노란기사 조합 골드 증가,Sprites/YellowSwordmanUpgrade
+상대색깔변경,Main,Iron,상대색깔변경,하얀 유닛을 소환할 때마다 동일한 클래스의 상대 유닛 중 하나의 색깔이 무작위로 바뀝니다.,Sprites/ChangeColor
+,,,,,
+,,,,,
+고기혐오자,Sub,Iron,고기혐오자,"획득하는 모든 고기가 골드로 바뀝니다. 또한, 고기로 구매할 수 있는 물픔은 골드로 구매할 수 있도록 바뀝니다.",Sprites/FoodUpgrade
+판매보상증가,Sub,Iron,판매보상증가,유닛 판매 보상이 증가합니다.,Sprites/SellRewardUpgrade
+보스데미지증가,Sub,Iron,보스데미지증가,모든 유닛의 보스 공격력이 증가합니다.,Sprites/BossDamageUpgrade
+시작골드증가,Sub,Iron,시작 골드 증가,시작 골드가 증가합니다,Sprites/GoldUpgrade
+시작고기증가,Sub,Iron,시작 고기 증가,시작 고기가 증가합니다,Sprites/FoodUpgrade
+최대유닛증가,Sub,Iron,시작 최대 유닛 증가,시작 최대 유닛이 증가합니다,Sprites/MaxUnitUpgrade
