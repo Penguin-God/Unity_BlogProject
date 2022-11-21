@@ -344,25 +344,3 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         Multi_Managers.Clear();
     }
 }
-
-[Serializable]
-class GameRuleUseCase
-{
-    GameRuleEntity _gameRuleEntity;
-
-    public event Action OnLoss = null;
-    void UpdateEnemyCount()
-    {
-        if (_gameRuleEntity.IsLoss) OnLoss?.Invoke();
-    }
-}
-
-[Serializable]
-class GameRuleEntity
-{
-    public GameRuleEntity(int maxEnemyCount) => _maxEnemyCount = maxEnemyCount;
-
-    public int _currentEnemyCount;
-    public int _maxEnemyCount;
-    public bool IsLoss => _currentEnemyCount >= _maxEnemyCount;
-}
