@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using System;
 
-namespace BattleEntities
+namespace RuleEntities
 {
     enum PlayerLookWorld
     {
@@ -19,9 +19,9 @@ namespace BattleEntities
         PlayerLookWorld _playerLookWorld;
     }
 
-    public class CountRuleEntity
+    public class CountRule
     {
-        public CountRuleEntity(int maxEnemyCount, int maxUnitCount)
+        public CountRule(int maxEnemyCount, int maxUnitCount)
         {
             MaxMonsterCount = maxEnemyCount;
             MaxUnitCount = maxUnitCount;
@@ -32,6 +32,17 @@ namespace BattleEntities
 
         public int MaxUnitCount { get; private set; }
         public bool CheckFullUnit(int unitCount) => unitCount >= MaxUnitCount;
+    }
+
+    public class StageRule
+    {
+        public int Stage { get; private set; } = 1;
+        public event Action<int> OnChangedStage;
+        public void StageUp()
+        {
+            Stage++;
+            OnChangedStage?.Invoke(Stage);
+        }
     }
 }
 

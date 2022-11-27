@@ -5,9 +5,11 @@ using Tests;
 
 public class Tester : MonoBehaviour
 {
-    [ContextMenu("RuleTest")]
-    void RuleTest()
+    [ContextMenu("TestRule")]
+    void TestRule()
     {
-        new TestGameRules().TestCountRule();
+        var tester = new TestGameRules();
+        tester.TestCountRule();
+        tester.TestStageReul();
     }
 }
