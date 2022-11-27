@@ -19,13 +19,19 @@ namespace BattleEntities
         PlayerLookWorld _playerLookWorld;
     }
 
-    public class BattleRuleEntity
+    public class CountRuleEntity
     {
-        public BattleRuleEntity(int maxEnemyCount) => _maxEnemyCount = maxEnemyCount;
+        public CountRuleEntity(int maxEnemyCount, int maxUnitCount)
+        {
+            MaxMonsterCount = maxEnemyCount;
+            MaxUnitCount = maxUnitCount;
+        }
 
-        public int _currentEnemyCount;
-        public int _maxEnemyCount;
-        public bool IsLoss => _currentEnemyCount >= _maxEnemyCount;
+        public int MaxMonsterCount { get; private set; }
+        public bool CheckLoss(int monsterCount) => monsterCount >= MaxMonsterCount;
+
+        public int MaxUnitCount { get; private set; }
+        public bool CheckFullUnit(int unitCount) => unitCount >= MaxUnitCount;
     }
 }
 
