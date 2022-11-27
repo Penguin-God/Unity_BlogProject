@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RuleEntities;
+using CreatureEntities;
 
 namespace Tests
 {
@@ -28,4 +29,38 @@ namespace Tests
         }
     }
 
+    public class TestCreatures
+    {
+        public void TestUnitAttackToMonster()
+        {
+            var unit = new Knight(100);
+            var monster = new NormalMonster(1000);
+            int getChangedHp = 0;
+            bool getDeadState = false;
+            monster.OnChanagedHp += (hp) => getChangedHp = hp;
+            monster.OnDead += () => getDeadState = true;
+
+            unit.Attack(monster);
+            Debug.Assert(monster.CurrentHp == 900);
+            Debug.Assert(getChangedHp == 900);
+            Debug.Assert(getDeadState == false);
+
+            monster.OnDamage(-333);
+            Debug.Assert(monster.CurrentHp == 900);
+            Debug.Assert(getChangedHp == 900);
+            Debug.Assert(getDeadState == false);
+
+            int eventCount = 0;
+            monster.OnChanagedHp += (hp) => eventCount++;
+            for (int i = 0; i < 15; i++)
+                unit.Attack(monster);
+
+            Debug.Assert(monster.CurrentHp == 0);
+            Debug.Assert(eventCount == 9);
+            Debug.Assert(getChangedHp == 0);
+            Debug.Assert(getDeadState);
+
+            Debug.Log("PassAttack!!");
+        }
+    }
 }

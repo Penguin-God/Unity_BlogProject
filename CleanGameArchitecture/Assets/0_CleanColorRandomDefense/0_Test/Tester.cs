@@ -12,4 +12,11 @@ public class Tester : MonoBehaviour
         tester.TestCountRule();
         tester.TestStageReul();
     }
+
+    [ContextMenu("TestCreature")]
+    void TestCreature()
+    {
+        var tester = new TestCreatures();
+        tester.TestUnitAttackToMonster();
+    }
 }
