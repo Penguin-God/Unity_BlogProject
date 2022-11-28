@@ -11,6 +11,9 @@ namespace Tests
         public void TestCountRule()
         {
             var rule = new CountRule(50, 15);
+
+            Debug.Assert(rule.MaxMonsterCount == 50);
+            Debug.Assert(rule.MaxUnitCount == 15);
             Debug.Assert(rule.CheckLoss(50));
             Debug.Assert(rule.CheckFullUnit(15));
             Debug.Log("PassCountRule!!");
