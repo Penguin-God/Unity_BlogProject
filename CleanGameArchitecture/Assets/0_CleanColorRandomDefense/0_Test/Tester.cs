@@ -5,6 +5,16 @@ using Tests;
 
 public class Tester : MonoBehaviour
 {
+    void Awake()
+    {
+        print("====================");
+        print("Test Start");
+        TestRule();
+        TestCreature();
+        print("Test End");
+        print("====================");
+    }
+
     [ContextMenu("TestRule")]
     void TestRule()
     {
