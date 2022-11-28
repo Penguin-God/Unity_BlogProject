@@ -19,7 +19,7 @@ namespace RuleEntities
         PlayerLookWorld _playerLookWorld;
     }
 
-    public class CountRule
+    public class CountRule // 룰 2개 분리하기
     {
         public CountRule(int maxEnemyCount, int maxUnitCount)
         {

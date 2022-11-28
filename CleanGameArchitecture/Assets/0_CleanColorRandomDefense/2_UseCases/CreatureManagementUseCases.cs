@@ -2,11 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using CreatureEntities;
+using RuleEntities;
 
 namespace CreatureManagementUseCases
 {
     public class UnitManager
     {
+        public UnitManager() // TODO : Rule 받아와서 Spawn시 조건 검사하기
+        {
+
+        }
+
         List<Unit> _units = new List<Unit>();
         public IReadOnlyList<Unit> Units => _units;
         public Unit Spawn(UnitFlags flag)
