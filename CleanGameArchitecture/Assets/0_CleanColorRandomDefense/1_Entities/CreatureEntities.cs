@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System;
 
+public enum UnitColor { red, blue, yellow, green, orange, violet, white, black };
+public enum UnitClass { sowrdman, archer, spearman, mage }
+
 namespace CreatureEntities
 {
     public abstract class Unit

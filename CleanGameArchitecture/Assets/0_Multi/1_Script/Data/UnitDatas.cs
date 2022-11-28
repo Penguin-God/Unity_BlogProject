@@ -48,16 +48,17 @@ public struct UnitFlags : IEquatable<UnitFlags>
 
     public string KoreaName => Multi_Managers.Data.UnitNameDataByFlag[this].KoearName;
 
-    public bool Equals(UnitFlags other) 
+    public bool Equals(UnitFlags other)
         => other.ColorNumber == _colorNumber && other.ClassNumber == _classNumber;
 
     public override int GetHashCode() => (_colorNumber, _classNumber).GetHashCode();
     public override bool Equals(object other) => base.Equals(other);
 
-    public static bool operator ==(UnitFlags lhs, UnitFlags rhs) 
+    public static bool operator ==(UnitFlags lhs, UnitFlags rhs)
         => lhs.ColorNumber == rhs.ColorNumber && lhs.ClassNumber == rhs.ClassNumber;
     public static bool operator !=(UnitFlags lhs, UnitFlags rhs) => !(lhs == rhs);
 }
+
 
 [Serializable]
 public class CombineCondition

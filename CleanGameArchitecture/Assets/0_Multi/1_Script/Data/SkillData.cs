@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+public enum UserSkillClass
+{
+    Main,
+    Sub,
+}
+
 [System.Serializable]
 public class UserSkillGoodsData
 {
