@@ -6,9 +6,11 @@ namespace CreatureEntities
 {
     public abstract class Unit
     {
-        public Unit(int damage)
+        public UnitFlags Flag { get; private set; }
+        public Unit(UnitFlags flag)
         {
-            _damage = damage;
+            _damage = 100; // 임시
+            Flag = flag;
         }
 
         int _damage;
@@ -16,11 +18,14 @@ namespace CreatureEntities
         {
             monster.OnDamage(_damage);
         }
+
+        public event Action<Unit> OnDead;
+        public void Dead() => OnDead?.Invoke(this);
     }
 
     public class Knight : Unit
     {
-        public Knight(int damage) : base(damage)
+        public Knight(UnitFlags flag) : base(flag)
         {
 
         }

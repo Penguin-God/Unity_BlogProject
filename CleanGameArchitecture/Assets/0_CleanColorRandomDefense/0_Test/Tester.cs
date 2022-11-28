@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Tests;
+using EntityTests;
+using UseCaseTests;
 
 public class Tester : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class Tester : MonoBehaviour
         print("Test Start");
         TestRule();
         TestCreature();
+        TestCreatureManager();
         print("Test End");
         print("====================");
     }
@@ -28,5 +30,12 @@ public class Tester : MonoBehaviour
     {
         var tester = new TestCreatures();
         tester.TestUnitAttackToMonster();
+    }
+
+    [ContextMenu("TestCreatureManager")]
+    void TestCreatureManager()
+    {
+        var tester = new CreatureManagerTester();
+        tester.TestUnitSpawnAndDead();
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using RuleEntities;
 using CreatureEntities;
 
-namespace Tests
+namespace EntityTests
 {
     public class TestGameRules
     {
@@ -16,7 +16,7 @@ namespace Tests
             Debug.Assert(rule.MaxUnitCount == 15);
             Debug.Assert(rule.CheckLoss(50));
             Debug.Assert(rule.CheckFullUnit(15));
-            Debug.Log("PassCountRule!!");
+            Debug.Log("Pass Count Rule!!");
         }
 
         public void TestStageReul()
@@ -28,7 +28,7 @@ namespace Tests
                 rule.StageUp();
             Debug.Assert(rule.Stage == 6);
             Debug.Assert(testInt == 5);
-            Debug.Log("PassStageRule");
+            Debug.Log("Pass Stage Rule");
         }
     }
 
@@ -36,7 +36,7 @@ namespace Tests
     {
         public void TestUnitAttackToMonster()
         {
-            var unit = new Knight(100);
+            var unit = new Knight(new UnitFlags(0, 0));
             var monster = new NormalMonster(1000);
             int getChangedHp = 0;
             bool getDeadState = false;
@@ -63,7 +63,7 @@ namespace Tests
             Debug.Assert(getChangedHp == 0);
             Debug.Assert(getDeadState);
 
-            Debug.Log("PassAttack!!");
+            Debug.Log("Pass Attack!!");
         }
     }
 }
