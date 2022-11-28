@@ -62,12 +62,12 @@ namespace CreatureEntities
                 Dead();
         }
 
-        public Action OnDead;
+        public Action<Monster> OnDead;
         public bool IsDead { get; private set; }
         void Dead()
         {
             IsDead = true;
-            OnDead?.Invoke();
+            OnDead?.Invoke(this);
         }
     }
 

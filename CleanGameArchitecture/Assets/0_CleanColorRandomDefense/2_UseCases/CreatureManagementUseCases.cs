@@ -37,9 +37,16 @@ namespace CreatureManagementUseCases
 
     public class MonsterManager
     {
-        public void Spawn()
+        List<Monster> _monsters = new List<Monster>();
+        public IReadOnlyList<Monster> Monsters => _monsters;
+        public Monster Spawn()
         {
-
+            var monster = new NormalMonster(1000);
+            _monsters.Add(monster);
+            monster.OnDead += RemoveMonster;
+            return monster;
         }
+
+        void RemoveMonster(Monster monster) => _monsters.Remove(monster);
     }
 }

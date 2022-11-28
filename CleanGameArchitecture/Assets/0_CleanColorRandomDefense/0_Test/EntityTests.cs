@@ -41,7 +41,7 @@ namespace EntityTests
             int getChangedHp = 0;
             bool getDeadState = false;
             monster.OnChanagedHp += (hp) => getChangedHp = hp;
-            monster.OnDead += () => getDeadState = true;
+            monster.OnDead += (deadMonster) => getDeadState = true;
 
             unit.Attack(monster);
             Debug.Assert(monster.CurrentHp == 900);

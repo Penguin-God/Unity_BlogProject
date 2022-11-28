@@ -8,6 +8,12 @@ public class Tester : MonoBehaviour
 {
     void Awake()
     {
+        TestAll();
+    }
+
+    [ContextMenu("TestAll")]
+    void TestAll()
+    {
         print("====================");
         print("Test Start");
         TestRule();
@@ -37,5 +43,6 @@ public class Tester : MonoBehaviour
     {
         var tester = new CreatureManagerTester();
         tester.TestUnitSpawnAndDead();
+        tester.TestMonsterSpawnAndDead();
     }
 }

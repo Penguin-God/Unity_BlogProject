@@ -10,7 +10,7 @@ namespace UseCaseTests
     {
         public void TestUnitSpawnAndDead()
         {
-            var manager = new CreatureManagementUseCases.UnitManager();
+            var manager = new UnitManager();
             var spawnFlag = new UnitFlags(0, 0);
             var unit = manager.Spawn(spawnFlag);
             Debug.Assert(manager.Units[0] == unit);
@@ -24,9 +24,15 @@ namespace UseCaseTests
             Debug.Log("Pass Unit Spawn And Dead!!");
         }
 
-        public void TestMonsterDead()
+        public void TestMonsterSpawnAndDead()
         {
+            var manager = new MonsterManager();
+            var monster = manager.Spawn();
+            Debug.Assert(manager.Monsters[0] == monster);
 
+            monster.OnDamage(monster.CurrentHp);
+            Debug.Assert(manager.Monsters.Count == 0);
+            Debug.Log("Pass Monster Spawn And Dead!!");
         }
     }
 }
