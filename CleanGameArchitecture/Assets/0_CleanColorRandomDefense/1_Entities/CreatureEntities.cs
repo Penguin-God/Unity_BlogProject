@@ -7,16 +7,23 @@ public enum UnitClass { sowrdman, archer, spearman, mage }
 
 namespace CreatureEntities
 {
-    public abstract class Unit
+    public class Unit
     {
         public UnitFlags Flag { get; private set; }
+        int _damage;
+        public IPositionGetter PositionGetter { get; private set; }
         public Unit(UnitFlags flag)
         {
             _damage = 100; // 임시
             Flag = flag;
         }
 
-        int _damage;
+        public Unit(UnitFlags flag, IPositionGetter positionGetter)
+        {
+            Flag = flag;
+            PositionGetter = positionGetter;
+        }
+
         public void Attack(Monster monster)
         {
             monster.OnDamage(_damage);
@@ -34,15 +41,24 @@ namespace CreatureEntities
         }
     }
 
-    public abstract class Monster
+    public class Monster
     {
         int maxHp;
         public int CurrentHp { get; private set; }
+        public IPositionGetter PositionGetter { get; private set; }
         public Monster(int hp)
         {
             maxHp = hp;
             CurrentHp = maxHp;
         }
+
+        public Monster(int hp, IPositionGetter positionGetter)
+        {
+            maxHp = hp;
+            CurrentHp = maxHp;
+            PositionGetter = positionGetter;
+        }
+
         public Action<int> OnChanagedHp;
         void ChangeHp(int newHp)
         {
