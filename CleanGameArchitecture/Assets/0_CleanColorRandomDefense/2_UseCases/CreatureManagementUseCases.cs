@@ -4,6 +4,7 @@ using System.Linq;
 using CreatureEntities;
 using RuleEntities;
 using UnityEngine;
+using System;
 
 public interface IPositionGetter
 {
@@ -15,7 +16,7 @@ namespace CreatureManagementUseCases
     public class UnitManager
     {
         UnitCountRule _unitCountRule;
-        public UnitManager(UnitCountRule unitCountRule) // TODO : Rule 받아와서 Spawn시 조건 검사하기
+        public UnitManager(UnitCountRule unitCountRule)
         {
             _unitCountRule = unitCountRule;
         }
@@ -66,15 +67,21 @@ namespace CreatureManagementUseCases
     {
         List<Monster> _monsters = new List<Monster>();
         public IReadOnlyList<Monster> Monsters => _monsters;
+        public event Action<int> OnMonsterCountChanged;
         public Monster Spawn(int hp, IPositionGetter positionGetter = null)
         {
             var monster = new Monster(hp, positionGetter);
             _monsters.Add(monster);
+            OnMonsterCountChanged?.Invoke(_monsters.Count);
             monster.OnDead += RemoveMonster;
             return monster;
         }
 
-        void RemoveMonster(Monster monster) => _monsters.Remove(monster);
+        void RemoveMonster(Monster monster)
+        {
+            _monsters.Remove(monster); 
+            OnMonsterCountChanged?.Invoke(_monsters.Count);
+        }
 
         public Monster FindProximateMonster(IPositionGetter positionGetter)
         {

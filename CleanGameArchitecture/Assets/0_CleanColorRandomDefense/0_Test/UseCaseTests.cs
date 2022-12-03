@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CreatureManagementUseCases;
 using CreatureEntities;
+using RuleEntities;
 
 namespace UseCaseTests
 {
@@ -10,7 +11,7 @@ namespace UseCaseTests
     {
         public void TestUnitManagement()
         {
-            var manager = new UnitManager(new RuleEntities.UnitCountRule(15));
+            var manager = new UnitManager(new UnitCountRule(15));
             var spawnFlag = new UnitFlags(0, 0);
             var unit = manager.Spawn(spawnFlag);
             Debug.Assert(manager.Units[0] == unit);
@@ -38,6 +39,21 @@ namespace UseCaseTests
             monster.OnDamage(monster.CurrentHp);
             Debug.Assert(manager.Monsters.Count == 0);
             Debug.Log("Pass Monster Spawn And Dead!!");
+        }
+
+        public void TestBattleLoss()
+        {
+            bool isLoss = false;
+            var manager = new MonsterManager();
+            var rule = new BattleRule(50);
+            manager.OnMonsterCountChanged += (count) => { if (rule.CheckLoss(count)) isLoss = true; };
+            for (int i = 0; i < 30; i++)
+                manager.Spawn(1000);
+            Debug.Assert(isLoss == false);
+            for (int i = 0; i < 20; i++)
+                manager.Spawn(1000);
+            Debug.Assert(isLoss);
+            Debug.Log("게임 패배 통과!!");
         }
 
         public void TestFindMonster()

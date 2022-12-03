@@ -46,5 +46,6 @@ public class Tester : MonoBehaviour
         tester.TestUnitManagement();
         tester.TestMonsterManagement();
         tester.TestFindMonster();
+        tester.TestBattleLoss();
     }
 }
