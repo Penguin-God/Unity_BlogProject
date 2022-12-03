@@ -6,24 +6,24 @@ using CreatureEntities;
 
 namespace EntityTests
 {
-    public class TestGameRules
+    public class TestGameRules : Testing
     {
         public void TestBattleRule()
         {
             var rule = new BattleRule(50);
-            Debug.Assert(rule.MaxMonsterCount == 50);
-            Debug.Assert(rule.CheckLoss(33) == false);
-            Debug.Assert(rule.CheckLoss(50));
-            Debug.Log("승패 규칙 통과!!");
+            Assert(rule.MaxMonsterCount == 50);
+            Assert(rule.CheckLoss(33) == false);
+            Assert(rule.CheckLoss(50));
+            Log("승패 규칙 통과!!");
         }
 
         public void TestUnitCountRule()
         {
             var rule = new UnitCountRule(15);
-            Debug.Assert(rule.MaxUnitCount == 15);
-            Debug.Assert(rule.CheckFullUnit(10) == false);
-            Debug.Assert(rule.CheckFullUnit(15));
-            Debug.Log("유닛 최대 갯수 규칙 통과!!");
+            Assert(rule.MaxUnitCount == 15);
+            Assert(rule.CheckFullUnit(10) == false);
+            Assert(rule.CheckFullUnit(15));
+            Log("유닛 최대 갯수 규칙 통과!!");
         }
 
         public void TestStageReul()
@@ -33,13 +33,13 @@ namespace EntityTests
             rule.OnChangedStage += (stage) => testInt += 1;
             for (int i = 0; i < 5; i++)
                 rule.StageUp();
-            Debug.Assert(rule.Stage == 6);
-            Debug.Assert(testInt == 5);
-            Debug.Log("Pass Stage Rule");
+            Assert(rule.Stage == 6);
+            Assert(testInt == 5);
+            Log("Pass Stage Rule");
         }
     }
 
-    public class TestCreatures
+    public class TestCreatures : Testing
     {
         public void TestUnitAttackToMonster()
         {
@@ -51,26 +51,27 @@ namespace EntityTests
             monster.OnDead += (deadMonster) => getDeadState = true;
 
             unit.Attack(monster);
-            Debug.Assert(monster.CurrentHp == 900);
-            Debug.Assert(getChangedHp == 900);
-            Debug.Assert(getDeadState == false);
+            CheckMonsterCondition(900, 900, false);
 
             monster.OnDamage(-333);
-            Debug.Assert(monster.CurrentHp == 900);
-            Debug.Assert(getChangedHp == 900);
-            Debug.Assert(getDeadState == false);
+            CheckMonsterCondition(900, 900, false);
 
             int eventCount = 0;
             monster.OnChanagedHp += (hp) => eventCount++;
             for (int i = 0; i < 15; i++)
                 unit.Attack(monster);
 
-            Debug.Assert(monster.CurrentHp == 0);
-            Debug.Assert(eventCount == 9);
-            Debug.Assert(getChangedHp == 0);
-            Debug.Assert(getDeadState);
+            CheckMonsterCondition(0, 0, true);
+            Assert(eventCount == 9);
 
-            Debug.Log("Pass Attack!!");
+            Log("공격 통과!!");
+
+            void CheckMonsterCondition(int monsterHp, int changedHp, bool deadState)
+            {
+                Assert(monster.CurrentHp == monsterHp);
+                Assert(getChangedHp == changedHp);
+                Assert(getDeadState == deadState);
+            }
         }
     }
 }

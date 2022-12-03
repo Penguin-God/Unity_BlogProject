@@ -7,38 +7,38 @@ using RuleEntities;
 
 namespace UseCaseTests
 {
-    public class CreatureManagerTester
+    public class CreatureManagerTester : Testing
     {
         public void TestUnitManagement()
         {
             var manager = new UnitManager(new UnitCountRule(15));
             var spawnFlag = new UnitFlags(0, 0);
             var unit = manager.Spawn(spawnFlag);
-            Debug.Assert(manager.Units[0] == unit);
-            Debug.Assert(manager.TryFindUnit(spawnFlag, out Unit findUnit));
-            Debug.Assert(findUnit == unit);
+            Assert(manager.Units[0] == unit);
+            Assert(manager.TryFindUnit(spawnFlag, out Unit findUnit));
+            Assert(findUnit == unit);
 
             unit.Dead();
-            Debug.Assert(manager.Units.Count == 0);
-            Debug.Assert(manager.TryFindUnit(spawnFlag, out Unit nullUnit) == false);
-            Debug.Assert(nullUnit == null);
+            Assert(manager.Units.Count == 0);
+            Assert(manager.TryFindUnit(spawnFlag, out Unit nullUnit) == false);
+            Assert(nullUnit == null);
 
             for (int i = 0; i < 14; i++)
                 manager.Spawn(spawnFlag);
-            Debug.Assert(manager.TrySpawn(spawnFlag, out unit));
-            Debug.Assert(manager.TrySpawn(spawnFlag, out unit) == false);
-            Debug.Log("유닛 소환 통과!!");
+            Assert(manager.TrySpawn(spawnFlag, out unit));
+            Assert(manager.TrySpawn(spawnFlag, out unit) == false);
+            Log("유닛 소환 통과!!");
         }
 
         public void TestMonsterManagement()
         {
             var manager = new MonsterManager();
             var monster = manager.Spawn(1000);
-            Debug.Assert(manager.Monsters[0] == monster);
+            Assert(manager.Monsters[0] == monster);
 
             monster.OnDamage(monster.CurrentHp);
-            Debug.Assert(manager.Monsters.Count == 0);
-            Debug.Log("Pass Monster Spawn And Dead!!");
+            Assert(manager.Monsters.Count == 0);
+            Log("Pass Monster Spawn And Dead!!");
         }
 
         public void TestBattleLoss()
@@ -47,13 +47,18 @@ namespace UseCaseTests
             var manager = new MonsterManager();
             var rule = new BattleRule(50);
             manager.OnMonsterCountChanged += (count) => { if (rule.CheckLoss(count)) isLoss = true; };
-            for (int i = 0; i < 30; i++)
+            MonsterSpawn(manager, 30);
+            Assert(isLoss == false);
+
+            MonsterSpawn(manager, 20);
+            Assert(isLoss);
+            Log("게임 패배 통과!!");
+        }
+
+        void MonsterSpawn(MonsterManager manager, int spawnCount)
+        {
+            for (int i = 0; i < spawnCount; i++)
                 manager.Spawn(1000);
-            Debug.Assert(isLoss == false);
-            for (int i = 0; i < 20; i++)
-                manager.Spawn(1000);
-            Debug.Assert(isLoss);
-            Debug.Log("게임 패배 통과!!");
         }
 
         public void TestFindMonster()
@@ -63,12 +68,13 @@ namespace UseCaseTests
 
             for (int i = 0; i < 20; i++)
                 manager.Spawn(1000, new TestPositionGetter(Vector3.one * i));
-            var findMonster = manager.FindProximateMonster(unit.PositionGetter);
-            Debug.Assert(findMonster.PositionGetter.Position == Vector3.zero);
-            findMonster.OnDamage(1000000);
+            var findFirstMonster = manager.FindProximateMonster(unit.PositionGetter);
+            Assert(findFirstMonster.PositionGetter.Position == Vector3.zero);
+            findFirstMonster.OnDamage(1000000);
+
             var findSecondMonster = manager.FindProximateMonster(unit.PositionGetter);
-            Debug.Assert(findSecondMonster.PositionGetter.Position == Vector3.one);
-            Debug.Log("몬스터 찾기 통과!!");
+            Assert(findSecondMonster.PositionGetter.Position == Vector3.one);
+            Log("몬스터 찾기 통과!!");
         }
     }
 
