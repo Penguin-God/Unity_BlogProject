@@ -14,9 +14,10 @@ namespace CreatureManagementUseCases
 {
     public class UnitManager
     {
-        public UnitManager() // TODO : Rule 받아와서 Spawn시 조건 검사하기
+        UnitCountRule _unitCountRule;
+        public UnitManager(UnitCountRule unitCountRule) // TODO : Rule 받아와서 Spawn시 조건 검사하기
         {
-
+            _unitCountRule = unitCountRule;
         }
 
         List<Unit> _units = new List<Unit>();
@@ -29,9 +30,23 @@ namespace CreatureManagementUseCases
             return unit;
         }
 
+        public bool TrySpawn(UnitFlags flag, out Unit unit)
+        {
+            if(_unitCountRule.CheckFullUnit(_units.Count))
+            {
+                unit = null;
+                return false;
+            }
+
+            unit = new Unit(flag);
+            _units.Add(unit);
+            unit.OnDead += RemoveUnit;
+            return true;
+        }
+
         void RemoveUnit(Unit unit) => _units.Remove(unit);
 
-        public bool TryGetUnit(UnitFlags flag, out Unit unit)
+        public bool TryFindUnit(UnitFlags flag, out Unit unit)
         {
             var units = _units.Where(x => x.Flag == flag).ToArray();
             if(units.Length == 0)

@@ -8,23 +8,28 @@ namespace UseCaseTests
 {
     public class CreatureManagerTester
     {
-        public void TestUnitSpawnAndDead()
+        public void TestUnitManagement()
         {
-            var manager = new UnitManager();
+            var manager = new UnitManager(new RuleEntities.UnitCountRule(15));
             var spawnFlag = new UnitFlags(0, 0);
             var unit = manager.Spawn(spawnFlag);
             Debug.Assert(manager.Units[0] == unit);
-            Debug.Assert(manager.TryGetUnit(spawnFlag, out Unit findUnit));
+            Debug.Assert(manager.TryFindUnit(spawnFlag, out Unit findUnit));
             Debug.Assert(findUnit == unit);
 
             unit.Dead();
             Debug.Assert(manager.Units.Count == 0);
-            Debug.Assert(manager.TryGetUnit(spawnFlag, out Unit nullUnit) == false);
+            Debug.Assert(manager.TryFindUnit(spawnFlag, out Unit nullUnit) == false);
             Debug.Assert(nullUnit == null);
-            Debug.Log("Pass Unit Spawn And Dead!!");
+
+            for (int i = 0; i < 14; i++)
+                manager.Spawn(spawnFlag);
+            Debug.Assert(manager.TrySpawn(spawnFlag, out unit));
+            Debug.Assert(manager.TrySpawn(spawnFlag, out unit) == false);
+            Debug.Log("유닛 소환 통과!!");
         }
 
-        public void TestMonsterSpawnAndDead()
+        public void TestMonsterManagement()
         {
             var manager = new MonsterManager();
             var monster = manager.Spawn(1000);
