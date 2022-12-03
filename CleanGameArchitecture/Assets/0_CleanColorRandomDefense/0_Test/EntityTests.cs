@@ -36,8 +36,8 @@ namespace EntityTests
     {
         public void TestUnitAttackToMonster()
         {
-            var unit = new Knight(new UnitFlags(0, 0));
-            var monster = new NormalMonster(1000);
+            var unit = new Unit(new UnitFlags(0, 0));
+            var monster = new Monster(1000);
             int getChangedHp = 0;
             bool getDeadState = false;
             monster.OnChanagedHp += (hp) => getChangedHp = hp;

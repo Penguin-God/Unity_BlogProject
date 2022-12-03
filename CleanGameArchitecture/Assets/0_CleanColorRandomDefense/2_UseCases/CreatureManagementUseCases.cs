@@ -23,7 +23,7 @@ namespace CreatureManagementUseCases
         public IReadOnlyList<Unit> Units => _units;
         public Unit Spawn(UnitFlags flag)
         {
-            var unit = new Knight(flag);
+            var unit = new Unit(flag);
             _units.Add(unit);
             unit.OnDead += RemoveUnit;
             return unit;
@@ -51,9 +51,9 @@ namespace CreatureManagementUseCases
     {
         List<Monster> _monsters = new List<Monster>();
         public IReadOnlyList<Monster> Monsters => _monsters;
-        public Monster Spawn(IPositionGetter positionGetter = null)
+        public Monster Spawn(int hp, IPositionGetter positionGetter = null)
         {
-            var monster = new Monster(1000, positionGetter);
+            var monster = new Monster(hp, positionGetter);
             _monsters.Add(monster);
             monster.OnDead += RemoveMonster;
             return monster;

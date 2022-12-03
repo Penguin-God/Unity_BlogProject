@@ -27,7 +27,7 @@ namespace UseCaseTests
         public void TestMonsterSpawnAndDead()
         {
             var manager = new MonsterManager();
-            var monster = manager.Spawn();
+            var monster = manager.Spawn(1000);
             Debug.Assert(manager.Monsters[0] == monster);
 
             monster.OnDamage(monster.CurrentHp);
@@ -41,7 +41,7 @@ namespace UseCaseTests
             Unit unit = new Unit(new UnitFlags(0, 0), new TestPositionGetter(Vector3.zero));
 
             for (int i = 0; i < 20; i++)
-                manager.Spawn(new TestPositionGetter(Vector3.one * i));
+                manager.Spawn(1000, new TestPositionGetter(Vector3.one * i));
             var findMonster = manager.FindProximateMonster(unit.PositionGetter);
             Debug.Assert(findMonster.PositionGetter.Position == Vector3.zero);
             findMonster.OnDamage(1000000);

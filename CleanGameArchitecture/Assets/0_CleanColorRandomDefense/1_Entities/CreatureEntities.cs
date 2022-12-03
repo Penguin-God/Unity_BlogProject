@@ -33,14 +33,6 @@ namespace CreatureEntities
         public void Dead() => OnDead?.Invoke(this);
     }
 
-    public class Knight : Unit
-    {
-        public Knight(UnitFlags flag) : base(flag)
-        {
-
-        }
-    }
-
     public class Monster
     {
         int maxHp;
@@ -84,14 +76,6 @@ namespace CreatureEntities
         {
             IsDead = true;
             OnDead?.Invoke(this);
-        }
-    }
-
-    public class NormalMonster : Monster
-    {
-        public NormalMonster(int hp) : base(hp)
-        {
-
         }
     }
 }
