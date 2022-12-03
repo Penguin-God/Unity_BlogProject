@@ -34,5 +34,28 @@ namespace UseCaseTests
             Debug.Assert(manager.Monsters.Count == 0);
             Debug.Log("Pass Monster Spawn And Dead!!");
         }
+
+        public void TestFindMonster()
+        {
+            var manager = new MonsterManager();
+            Unit unit = new Unit(new UnitFlags(0, 0), new TestPositionGetter(Vector3.zero));
+
+            for (int i = 0; i < 20; i++)
+                manager.Spawn(new TestPositionGetter(Vector3.one * i));
+            var findMonster = manager.FindProximateMonster(unit.PositionGetter);
+            Debug.Assert(findMonster.PositionGetter.Position == Vector3.zero);
+            findMonster.OnDamage(1000000);
+            var findSecondMonster = manager.FindProximateMonster(unit.PositionGetter);
+            Debug.Assert(findSecondMonster.PositionGetter.Position == Vector3.one);
+            Debug.Log("몬스터 찾기 통과!!");
+        }
+    }
+
+    class TestPositionGetter : IPositionGetter
+    {
+        Vector3 _pos;
+        public TestPositionGetter(Vector3 pos) => _pos = pos;
+
+        public Vector3 Position => _pos;
     }
 }

@@ -44,5 +44,6 @@ public class Tester : MonoBehaviour
         var tester = new CreatureManagerTester();
         tester.TestUnitSpawnAndDead();
         tester.TestMonsterSpawnAndDead();
+        tester.TestFindMonster();
     }
 }

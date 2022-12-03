@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using CreatureEntities;
 using RuleEntities;
+using UnityEngine;
+
+public interface IPositionGetter
+{
+    Vector3 Position { get; }
+}
 
 namespace CreatureManagementUseCases
 {
@@ -45,14 +51,27 @@ namespace CreatureManagementUseCases
     {
         List<Monster> _monsters = new List<Monster>();
         public IReadOnlyList<Monster> Monsters => _monsters;
-        public Monster Spawn()
+        public Monster Spawn(IPositionGetter positionGetter = null)
         {
-            var monster = new NormalMonster(1000);
+            var monster = new Monster(1000, positionGetter);
             _monsters.Add(monster);
             monster.OnDead += RemoveMonster;
             return monster;
         }
 
         void RemoveMonster(Monster monster) => _monsters.Remove(monster);
+
+        public Monster FindProximateMonster(IPositionGetter positionGetter)
+        {
+            if (_monsters.Count == 0) return null;
+            (float minDistance, Monster monster) minDistanceMonster = (Mathf.Infinity, null);
+            foreach (var monster in _monsters)
+            {
+                float distanceToEnemy = Vector3.Distance(positionGetter.Position, monster.PositionGetter.Position);
+                if (distanceToEnemy < minDistanceMonster.minDistance)
+                    minDistanceMonster = (distanceToEnemy, monster);
+            }
+            return minDistanceMonster.monster;
+        }
     }
 }
