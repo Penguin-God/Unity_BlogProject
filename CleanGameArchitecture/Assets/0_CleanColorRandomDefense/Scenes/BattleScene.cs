@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LobbyScene : BaseScene
+public class BattleScene : BaseScene
 {
     protected override void Init()
     {
-        throw new System.NotImplementedException();
+           
     }
 }

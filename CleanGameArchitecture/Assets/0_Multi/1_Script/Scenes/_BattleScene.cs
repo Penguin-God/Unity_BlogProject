@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class BattleScene : BaseScene
+public class _BattleScene : BaseScene
 {
     protected override void Init()
     {
