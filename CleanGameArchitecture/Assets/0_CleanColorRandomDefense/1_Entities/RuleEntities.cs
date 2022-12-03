@@ -19,19 +19,25 @@ namespace RuleEntities
         PlayerLookWorld _playerLookWorld;
     }
 
-    public class CountRule // 룰 2개 분리하기
+    public class UnitCountRule
     {
-        public CountRule(int maxEnemyCount, int maxUnitCount)
-        {
-            MaxMonsterCount = maxEnemyCount;
-            MaxUnitCount = maxUnitCount;
-        }
-
-        public int MaxMonsterCount { get; private set; }
-        public bool CheckLoss(int monsterCount) => monsterCount >= MaxMonsterCount;
-
         public int MaxUnitCount { get; private set; }
+        public UnitCountRule(int maxUnitCount) => MaxUnitCount = maxUnitCount;
+        public Action<int> OnChangedMaxUnitCount;
+        public void IncreasedMaxUnit()
+        {
+            MaxUnitCount++;
+            OnChangedMaxUnitCount?.Invoke(MaxUnitCount);
+        }
         public bool CheckFullUnit(int unitCount) => unitCount >= MaxUnitCount;
+    }
+
+    public class BattleRule
+    {
+        public int MaxMonsterCount { get; private set; }
+        public BattleRule(int maxMonsterCount) => MaxMonsterCount = maxMonsterCount;
+
+        public bool CheckLoss(int monsterCount) => monsterCount >= MaxMonsterCount;
     }
 
     public class StageRule

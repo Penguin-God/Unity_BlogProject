@@ -27,7 +27,8 @@ public class Tester : MonoBehaviour
     void TestRule()
     {
         var tester = new TestGameRules();
-        tester.TestCountRule();
+        tester.TestBattleRule();
+        tester.TestUnitCountRule();
         tester.TestStageReul();
     }
 

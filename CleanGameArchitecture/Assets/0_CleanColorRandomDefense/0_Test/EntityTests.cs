@@ -8,15 +8,22 @@ namespace EntityTests
 {
     public class TestGameRules
     {
-        public void TestCountRule()
+        public void TestBattleRule()
         {
-            var rule = new CountRule(50, 15);
-
+            var rule = new BattleRule(50);
             Debug.Assert(rule.MaxMonsterCount == 50);
-            Debug.Assert(rule.MaxUnitCount == 15);
+            Debug.Assert(rule.CheckLoss(33) == false);
             Debug.Assert(rule.CheckLoss(50));
+            Debug.Log("승패 규칙 통과!!");
+        }
+
+        public void TestUnitCountRule()
+        {
+            var rule = new UnitCountRule(15);
+            Debug.Assert(rule.MaxUnitCount == 15);
+            Debug.Assert(rule.CheckFullUnit(10) == false);
             Debug.Assert(rule.CheckFullUnit(15));
-            Debug.Log("Pass Count Rule!!");
+            Debug.Log("유닛 최대 갯수 규칙 통과!!");
         }
 
         public void TestStageReul()
