@@ -11,7 +11,8 @@ namespace UseCaseTests
     {
         public void TestUnitManagement()
         {
-            var manager = new UnitManager(new UnitCountRule(15));
+            var manager = new UnitManager();
+            manager.Init(new UnitCountRule(15));
             var spawnFlag = new UnitFlags(0, 0);
             var unit = manager.Spawn(spawnFlag);
             Assert(manager.Units[0] == unit);
@@ -27,7 +28,7 @@ namespace UseCaseTests
                 manager.Spawn(spawnFlag);
             Assert(manager.TrySpawn(spawnFlag, out unit));
             Assert(manager.TrySpawn(spawnFlag, out unit) == false);
-            Log("유닛 소환 통과!!");
+            Log("유닛 매니저 통과!!");
         }
 
         public void TestMonsterManagement()

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2348134390153080645}
   - component: {fileID: 2369267432665326177}
   - component: {fileID: 2363659104843052299}
+  - component: {fileID: -9095446139911966002}
   m_Layer: 0
   m_Name: Archer
   m_TagString: Untagged
@@ -82,6 +83,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &-9095446139911966002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2349262537426080881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f35926373b5bcd4db8032fef0705058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2350623965473946661
 GameObject:
   m_ObjectHideFlags: 0

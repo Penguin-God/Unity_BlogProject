@@ -248,6 +248,7 @@ GameObject:
   - component: {fileID: 4753534088770198340}
   - component: {fileID: 4723872247956739324}
   - component: {fileID: 4732028559940976774}
+  - component: {fileID: -2661414287686546415}
   m_Layer: 0
   m_Name: Swordman
   m_TagString: Untagged
@@ -319,3 +320,15 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &-2661414287686546415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4755754957931312706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6af0b3628525c54c98221f7ddaa1c54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -24,10 +24,12 @@ public class Managers : MonoBehaviour
     }
 
     GameManager _game = new GameManager();
+    ResourcesManager _resources = new ResourcesManager();
     SceneManagerEx _scene = new SceneManagerEx();
-
-    public static SceneManagerEx Scene => instance._scene;
-    public static GameManager Game => instance._game;
+    
+    public static GameManager Game => Instance._game;
+    public static ResourcesManager Resounrces => Instance._resources;
+    public static SceneManagerEx Scene => Instance._scene;
 
     void Init()
     {

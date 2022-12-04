@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3249032452512790433}
   - component: {fileID: 3274500924995754819}
   - component: {fileID: 3267092343694503851}
+  - component: {fileID: 1576798168495451427}
   m_Layer: 0
   m_Name: Mage
   m_TagString: Untagged
@@ -80,6 +81,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1576798168495451427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3243164521462625497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f35926373b5bcd4db8032fef0705058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3243399080974492291
 GameObject:
   m_ObjectHideFlags: 0

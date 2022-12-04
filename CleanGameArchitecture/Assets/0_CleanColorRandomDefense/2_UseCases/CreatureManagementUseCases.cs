@@ -16,7 +16,7 @@ namespace CreatureManagementUseCases
     public class UnitManager
     {
         UnitCountRule _unitCountRule;
-        public UnitManager(UnitCountRule unitCountRule)
+        public void Init(UnitCountRule unitCountRule)
         {
             _unitCountRule = unitCountRule;
         }
@@ -49,17 +49,8 @@ namespace CreatureManagementUseCases
 
         public bool TryFindUnit(UnitFlags flag, out Unit unit)
         {
-            var units = _units.Where(x => x.Flag == flag).ToArray();
-            if(units.Length == 0)
-            {
-                unit = null;
-                return false;
-            }
-            else
-            {
-                unit = units[0];
-                return true;
-            }
+            unit = _units.FirstOrDefault(x => x.Flag == flag);
+            return unit != null;
         }
     }
 

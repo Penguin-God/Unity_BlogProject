@@ -24,6 +24,8 @@ namespace CreatureEntities
             PositionGetter = positionGetter;
         }
 
+        public void SetPositionGetter(IPositionGetter positionGetter) => PositionGetter = positionGetter;
+
         public void Attack(Monster monster)
         {
             monster.OnDamage(_damage);
@@ -50,6 +52,7 @@ namespace CreatureEntities
             CurrentHp = maxHp;
             PositionGetter = positionGetter;
         }
+        public void SetPositionGetter(IPositionGetter positionGetter) => PositionGetter = positionGetter;
 
         public Action<int> OnChanagedHp;
         void ChangeHp(int newHp)
