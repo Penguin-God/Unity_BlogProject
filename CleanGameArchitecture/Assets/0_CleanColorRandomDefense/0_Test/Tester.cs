@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using EntityTests;
 using UseCaseTests;
+using GatewayTests;
 
 public class Tester : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class Tester : MonoBehaviour
         TestRule();
         TestCreature();
         TestCreatureManager();
+        TestGateWays();
         print("Test End");
         print("====================");
     }
@@ -47,5 +49,13 @@ public class Tester : MonoBehaviour
         tester.TestMonsterManagement();
         tester.TestFindMonster();
         tester.TestBattleLoss();
+    }
+
+    [ContextMenu("TestSpawnPathBuilder")]
+    void TestGateWays()
+    {
+        var tester = new SpawnPathBuilderTester();
+        tester.TestBuildUnitPath();
+        tester.TestBuildMonsterPath();
     }
 }
