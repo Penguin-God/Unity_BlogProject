@@ -141,10 +141,10 @@ public class Status_UI : Multi_UI_Scene
 
     void UpdateOtherUnitClassCount()
     {
-        GetText((int)Texts.KnigthText).text = "" + Multi_UnitManager.Instance.EnemyPlayerUnitCountByClass[UnitClass.sowrdman];
-        GetText((int)Texts.ArcherText).text = "" + Multi_UnitManager.Instance.EnemyPlayerUnitCountByClass[UnitClass.archer];
-        GetText((int)Texts.SpearmanText).text = "" + Multi_UnitManager.Instance.EnemyPlayerUnitCountByClass[UnitClass.spearman];
-        GetText((int)Texts.MageText).text = "" + Multi_UnitManager.Instance.EnemyPlayerUnitCountByClass[UnitClass.mage];
+        GetText((int)Texts.KnigthText).text = "" + Multi_UnitManager.Instance.EnemyPlayerUnitCountByClass[UnitClass.Swordman];
+        GetText((int)Texts.ArcherText).text = "" + Multi_UnitManager.Instance.EnemyPlayerUnitCountByClass[UnitClass.Archer];
+        GetText((int)Texts.SpearmanText).text = "" + Multi_UnitManager.Instance.EnemyPlayerUnitCountByClass[UnitClass.Spearman];
+        GetText((int)Texts.MageText).text = "" + Multi_UnitManager.Instance.EnemyPlayerUnitCountByClass[UnitClass.Mage];
     }
 
     void UpdateOtherEnemyCountText(int count) => GetText((int)Texts.OhterEnemyCountText).text = "" + count;

@@ -254,7 +254,7 @@ public class Multi_UnitManager : MonoBehaviourPun
         public void UnitColorChange(int id, UnitFlags dieUnitFlag, int changeTargetColor)
         {
             var unit = _masterData.GetRandomUnit(id,
-                    (_unit) => _unit.unitClass == dieUnitFlag.UnitClass && _unit.unitColor != UnitColor.black && _unit.unitColor != UnitColor.white);
+                    (_unit) => _unit.unitClass == dieUnitFlag.UnitClass && _unit.unitColor != UnitColor.Black && _unit.unitColor != UnitColor.White);
             if (unit == null) return;
 
             Multi_SpawnManagers.NormalUnit.Spawn(changeTargetColor, (int)unit.unitClass, unit.transform.position, unit.transform.rotation, id);

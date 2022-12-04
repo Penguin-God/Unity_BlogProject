@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System;
 
-public enum UnitColor { red, blue, yellow, green, orange, violet, white, black };
-public enum UnitClass { sowrdman, archer, spearman, mage }
+public enum UnitColor { Red, Blue, Yellow, Green, Orange, Violet, White, Black };
+public enum UnitClass { Swordman, Archer, Spearman, Mage }
 
 namespace CreatureEntities
 {

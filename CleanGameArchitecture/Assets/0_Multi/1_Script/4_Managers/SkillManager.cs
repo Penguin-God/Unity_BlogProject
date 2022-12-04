@@ -243,23 +243,23 @@ public class BlackUnitUpgrade : UserSkill
 
     void UseSkill(UnitFlags unitFlags)
     {
-        if (unitFlags.UnitColor != UnitColor.black) return;
+        if (unitFlags.UnitColor != UnitColor.Black) return;
 
         int[] datas = GetData().Select(x => (int)x).ToArray();
 
         var strongDamages = new UnitDamages(datas[0], datas[1], datas[2], datas[3]);
         switch (unitFlags.UnitClass)
         {
-            case UnitClass.sowrdman:
+            case UnitClass.Swordman:
                 Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 0), strongDamages.SwordmanDamage);
                 break;
-            case UnitClass.archer:
+            case UnitClass.Archer:
                 Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 1), strongDamages.ArcherDamage);
                 break;
-            case UnitClass.spearman:
+            case UnitClass.Spearman:
                 Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 2), strongDamages.SpearmanDamage);
                 break;
-            case UnitClass.mage:
+            case UnitClass.Mage:
                 Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 3), strongDamages.MageDamage);
                 break;
         }
@@ -289,7 +289,7 @@ public class ColorChange : UserSkill
 
     void UseSkill(UnitFlags flag, int count)
     {
-        if (flag.UnitColor != UnitColor.white) return;
+        if (flag.UnitColor != UnitColor.White) return;
 
         if (count > _prevUnitCounts[flag.ClassNumber])
         {
