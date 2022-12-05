@@ -3,31 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using RuleEntities;
 using CreatureEntities;
+using static UnityEngine.Debug;
 
 namespace EntityTests
 {
-    public class TestGameRules : Testing
+    public class TestGameRules
     {
         public void TestBattleRule()
         {
+            Log("승패 규칙 테스트!!");
             var rule = new BattleRule(50);
             Assert(rule.MaxMonsterCount == 50);
             Assert(rule.CheckLoss(33) == false);
             Assert(rule.CheckLoss(50));
-            Log("승패 규칙 통과!!");
         }
 
         public void TestUnitCountRule()
         {
+            Log("유닛 최대 갯수 규칙 테스트!!");
             var rule = new UnitCountRule(15);
             Assert(rule.MaxUnitCount == 15);
             Assert(rule.CheckFullUnit(10) == false);
             Assert(rule.CheckFullUnit(15));
-            Log("유닛 최대 갯수 규칙 통과!!");
         }
 
         public void TestStageReul()
         {
+            Log("스테이지 규칙 테스트!!");
             int testInt = 0;
             var rule = new StageRule();
             rule.OnChangedStage += (stage) => testInt += 1;
@@ -35,14 +37,14 @@ namespace EntityTests
                 rule.StageUp();
             Assert(rule.Stage == 6);
             Assert(testInt == 5);
-            Log("Pass Stage Rule");
         }
     }
 
-    public class TestCreatures : Testing
+    public class TestCreatures
     {
         public void TestUnitAttackToMonster()
         {
+            Log("유닛 공격 테스트!!");
             var unit = new Unit(new UnitFlags(0, 0));
             var monster = new Monster(1000);
             int getChangedHp = 0;
@@ -64,7 +66,6 @@ namespace EntityTests
             CheckMonsterCondition(0, 0, true);
             Assert(eventCount == 9);
 
-            Log("공격 통과!!");
 
             void CheckMonsterCondition(int monsterHp, int changedHp, bool deadState)
             {

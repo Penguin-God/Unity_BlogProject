@@ -9,10 +9,11 @@ using static UnityEngine.Debug;
 
 namespace UseCaseTests
 {
-    public class CreatureManagerTester : Testing
+    public class CreatureManagerTester
     {
         public void TestUnitManagement()
         {
+            Log("유닛 매니저 테스트!!");
             var manager = new UnitManager(new UnitCountRule(15));
             var spawnFlag = new UnitFlags(0, 0);
             var unit = manager.Spawn(spawnFlag);
@@ -29,22 +30,22 @@ namespace UseCaseTests
                 manager.Spawn(spawnFlag);
             Assert(manager.TrySpawn(spawnFlag, out unit));
             Assert(manager.TrySpawn(spawnFlag, out unit) == false);
-            Log("유닛 매니저 통과!!");
         }
 
         public void TestMonsterManagement()
         {
+            Log("몬스터 매니저 테스트!!");
             var manager = new MonsterManager();
             var monster = manager.Spawn(1000);
             Assert(manager.Monsters[0] == monster);
 
             monster.OnDamage(monster.CurrentHp);
             Assert(manager.Monsters.Count == 0);
-            Log("Pass Monster Spawn And Dead!!");
         }
 
         public void TestBattleLoss()
         {
+            Log("게임 패배 테스트!!");
             bool isLoss = false;
             var manager = new MonsterManager();
             var rule = new BattleRule(50);
@@ -54,7 +55,6 @@ namespace UseCaseTests
 
             MonsterSpawn(manager, 20);
             Assert(isLoss);
-            Log("게임 패배 통과!!");
         }
 
         void MonsterSpawn(MonsterManager manager, int spawnCount)
@@ -65,6 +65,7 @@ namespace UseCaseTests
 
         public void TestFindMonster()
         {
+            Log("몬스터 찾기 테스트!!");
             var manager = new MonsterManager();
             Unit unit = new Unit(new UnitFlags(0, 0), new TestPositionGetter(Vector3.zero));
 
@@ -76,10 +77,7 @@ namespace UseCaseTests
 
             var findSecondMonster = manager.FindProximateMonster(unit.PositionGetter);
             Assert(findSecondMonster.PositionGetter.Position == Vector3.one);
-            Log("몬스터 찾기 통과!!");
         }
-
-
     }
 
     class CreatureUseCaseTester
