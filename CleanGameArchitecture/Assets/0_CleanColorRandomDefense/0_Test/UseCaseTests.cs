@@ -13,8 +13,7 @@ namespace UseCaseTests
     {
         public void TestUnitManagement()
         {
-            var manager = new UnitManager();
-            manager.Init(new UnitCountRule(15));
+            var manager = new UnitManager(new UnitCountRule(15));
             var spawnFlag = new UnitFlags(0, 0);
             var unit = manager.Spawn(spawnFlag);
             Assert(manager.Units[0] == unit);

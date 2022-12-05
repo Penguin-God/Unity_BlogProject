@@ -16,7 +16,7 @@ namespace CreatureManagementUseCases
     public class UnitManager
     {
         UnitCountRule _unitCountRule;
-        public void Init(UnitCountRule unitCountRule)
+        public UnitManager(UnitCountRule unitCountRule)
         {
             _unitCountRule = unitCountRule;
         }
