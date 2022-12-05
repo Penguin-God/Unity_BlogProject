@@ -42,7 +42,7 @@ namespace RuleEntities
 
     public class StageRule
     {
-        public int Stage { get; private set; } = 1;
+        public int Stage { get; private set; }
         public event Action<int> OnChangedStage;
         public void StageUp()
         {

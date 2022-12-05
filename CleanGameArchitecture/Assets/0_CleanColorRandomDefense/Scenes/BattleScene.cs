@@ -12,5 +12,28 @@ public class BattleScene : BaseScene
         var unitManager = new UnitManager(unitCountRule);
         var monsterManager = new MonsterManager();
         Managers.Game.Init(unitManager, monsterManager);
+        var stageRule = new StageRule();
+        stageRule.OnChangedStage += SpawnStageMonster;
+        StartCoroutine(Co_StageStart(stageRule));
+    }
+
+    IEnumerator Co_StageStart(StageRule stage)
+    {
+        while (true)
+        {
+            stage.StageUp();
+            yield return new WaitForSeconds(40);
+        }
+    }
+
+    void SpawnStageMonster(int stage) => StartCoroutine(Co_SpawnStageMonster(stage));
+    IEnumerator Co_SpawnStageMonster(int stage)
+    {
+        for (int i = 0; i < 15; i++)
+        {
+            var mc = Managers.Game.SpawnMonster(0);
+            mc.transform.position = Vector3.one * i;
+            yield return new WaitForSeconds(2f);
+        }
     }
 }

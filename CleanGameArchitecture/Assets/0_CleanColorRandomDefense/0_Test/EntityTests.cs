@@ -35,7 +35,7 @@ namespace EntityTests
             rule.OnChangedStage += (stage) => testInt += 1;
             for (int i = 0; i < 5; i++)
                 rule.StageUp();
-            Assert(rule.Stage == 6);
+            Assert(rule.Stage == 5);
             Assert(testInt == 5);
         }
     }
