@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using CreatureEntities;
-
+using CreatureUseCase;
 
 public class UnitController : MonoBehaviour, IPositionGetter
 {
@@ -12,21 +12,21 @@ public class UnitController : MonoBehaviour, IPositionGetter
     public Vector3 Position => transform.position;
 
     NavMeshAgent _nav;
-    Unit _unit;
+    UnitAttackUseCase _unitAttackUseCase;
     void Awake()
     {
         _nav = gameObject.AddComponent<NavMeshAgent>();
     }
 
-    public void SetInfo(Unit unit)
+    public void SetInfo(UnitAttackUseCase unitAttackUseCase)
     {
-        _unit = unit;
-        _unit.SetPositionGetter(this);
+        _unitAttackUseCase = unitAttackUseCase;
+        _unitAttackUseCase.Unit.SetPositionGetter(this);
     }
 
     void ChangeTarget()
     {
-        _target = Managers.Game.Monster.FindProximateMonster(_unit.PositionGetter);
+        _target = Managers.Game.Monster.FindProximateMonster(Position);
         _nav.SetDestination(ChasePos);
     }
 
@@ -37,7 +37,6 @@ public class UnitController : MonoBehaviour, IPositionGetter
             ChangeTarget();
             return;
         }
-        if (Vector3.Distance(Position, ChasePos) < 5f)
-            _unit.Attack(_target);
+        _unitAttackUseCase.Attack(_target);
     }
 }

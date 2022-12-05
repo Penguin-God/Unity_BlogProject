@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using CreatureManagementUseCases;
+using CreatureUseCase;
 using RuleEntities;
 using GateWays;
 
@@ -21,7 +22,7 @@ public class GameManager
     public UnitController SpawnUnit(UnitFlags flag)
     {
         var unitController = Managers.Resounrces.Instantiate(new SpawnPathBuilder().BuildUnitPath(flag.UnitClass)).GetComponent<UnitController>();
-        unitController.SetInfo(_unit.Spawn(flag));
+        unitController.SetInfo(new UnitAttackUseCase(_unit.Spawn(flag), 5));
         return unitController;
     }
 

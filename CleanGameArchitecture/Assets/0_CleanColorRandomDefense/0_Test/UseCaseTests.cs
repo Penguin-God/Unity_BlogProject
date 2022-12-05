@@ -4,6 +4,8 @@ using UnityEngine;
 using CreatureManagementUseCases;
 using CreatureEntities;
 using RuleEntities;
+using CreatureUseCase;
+using static UnityEngine.Debug;
 
 namespace UseCaseTests
 {
@@ -77,6 +79,25 @@ namespace UseCaseTests
             Assert(findSecondMonster.PositionGetter.Position == Vector3.one);
             Log("몬스터 찾기 통과!!");
         }
+
+
+    }
+
+    class CreatureUseCaseTester
+    {
+        public void TestUnitUseCase()
+        {
+            Log("유닛 유즈케이스 테스트!!");
+            var positionGetter = new TestPositionGetter(Vector3.one * 10);
+            var attacker = new UnitAttackUseCase(new Unit(new UnitFlags(0, 0), positionGetter), 5);
+            var target = new Monster(1000, new TestPositionGetter(Vector3.zero));
+
+            attacker.Attack(target);
+            Assert(target.CurrentHp == 1000);
+            positionGetter.SetPos(Vector3.zero);
+            attacker.Attack(target);
+            Assert(target.CurrentHp == 900);
+        }
     }
 
     class TestPositionGetter : IPositionGetter
@@ -85,5 +106,6 @@ namespace UseCaseTests
         public TestPositionGetter(Vector3 pos) => _pos = pos;
 
         public Vector3 Position => _pos;
+        public void SetPos(Vector3 newPos) => _pos = newPos;
     }
 }

@@ -74,13 +74,15 @@ namespace CreatureManagementUseCases
             OnMonsterCountChanged?.Invoke(_monsters.Count);
         }
 
-        public Monster FindProximateMonster(IPositionGetter positionGetter)
+        public Monster FindProximateMonster(IPositionGetter positionGetter) => FindProximateMonster(positionGetter.Position);
+
+        public Monster FindProximateMonster(Vector3 requesterPos)
         {
             if (_monsters.Count == 0) return null;
             (float minDistance, Monster monster) minDistanceMonster = (Mathf.Infinity, null);
             foreach (var monster in _monsters)
             {
-                float distanceToEnemy = Vector3.Distance(positionGetter.Position, monster.PositionGetter.Position);
+                float distanceToEnemy = Vector3.Distance(requesterPos, monster.PositionGetter.Position);
                 if (distanceToEnemy < minDistanceMonster.minDistance)
                     minDistanceMonster = (distanceToEnemy, monster);
             }

@@ -10,11 +10,10 @@ namespace CreatureEntities
     public class Unit
     {
         public UnitFlags Flag { get; private set; }
-        int _damage;
+        int _damage = 100; // 임시
         public IPositionGetter PositionGetter { get; private set; }
         public Unit(UnitFlags flag)
         {
-            _damage = 100; // 임시
             Flag = flag;
         }
 
@@ -74,7 +73,7 @@ namespace CreatureEntities
         }
 
         public Action<Monster> OnDead;
-        public bool IsDead { get; private set; }
+        public bool IsDead { get; private set; } = false;
         void Dead()
         {
             IsDead = true;

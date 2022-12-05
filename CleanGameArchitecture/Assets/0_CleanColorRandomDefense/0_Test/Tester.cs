@@ -41,6 +41,13 @@ public class Tester : MonoBehaviour
         tester.TestUnitAttackToMonster();
     }
 
+    [ContextMenu("TestCreatureUseCase")]
+    void TestCreatureUseCase()
+    {
+        var tester = new CreatureUseCaseTester();
+        tester.TestUnitUseCase();
+    }
+
     [ContextMenu("TestCreatureManager")]
     void TestCreatureManager()
     {
