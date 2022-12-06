@@ -43,25 +43,8 @@ namespace CreatureManagementUseCases
 
     public class UnitManager
     {
-        UnitCountRule _unitCountRule;
-        public UnitManager(UnitCountRule unitCountRule)
-        {
-            _unitCountRule = unitCountRule;
-        }
-
-        public UnitManager()
-        {
-        }
-
         List<Unit> _units = new List<Unit>();
         public IReadOnlyList<Unit> Units => _units;
-        public Unit Spawn(UnitFlags flag)
-        {
-            var unit = new Unit(flag);
-            _units.Add(unit);
-            unit.OnDead += RemoveUnit;
-            return unit;
-        }
 
         public void AddUnit(Unit unit)
         {
@@ -83,14 +66,6 @@ namespace CreatureManagementUseCases
         List<Monster> _monsters = new List<Monster>();
         public IReadOnlyList<Monster> Monsters => _monsters;
         public event Action<int> OnMonsterCountChanged;
-        public Monster Spawn(int hp, IPositionGetter positionGetter = null)
-        {
-            var monster = new Monster(hp, positionGetter);
-            _monsters.Add(monster);
-            OnMonsterCountChanged?.Invoke(_monsters.Count);
-            monster.OnDead += RemoveMonster;
-            return monster;
-        }
 
         public void AddMonster(Monster monster)
         {

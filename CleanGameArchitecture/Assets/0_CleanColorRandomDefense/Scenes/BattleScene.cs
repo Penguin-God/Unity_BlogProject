@@ -9,11 +9,9 @@ public class BattleScene : BaseScene
     protected override void Init()
     {
         var unitCountRule = new UnitCountRule(15);
-        var unitManager = new UnitManager(unitCountRule);
+        var unitManager = new UnitManager();
         var unitSpawner = new UnitSpanwer(unitCountRule, unitManager);
         Managers.Game.Init(unitManager, unitSpawner);
-        //var monsterManager = new MonsterManager();
-        //Managers.Game.Init(unitManager, monsterManager);
         var stageRule = new StageRule();
         stageRule.OnChangedStage += SpawnStageMonster;
         StartCoroutine(Co_StageStart(stageRule));

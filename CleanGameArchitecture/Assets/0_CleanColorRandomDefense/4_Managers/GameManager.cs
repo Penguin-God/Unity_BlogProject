@@ -14,16 +14,6 @@ public class GameManager
 
     public void Init(UnitManager unitManager, UnitSpanwer unitSpanwer) => (UnitManager, _unitSpanwer) = (unitManager, unitSpanwer);
 
-    public void Init(UnitManager unitManager, MonsterManager monsterManager)
-        => (UnitManager, MonsterManager) = (unitManager, monsterManager);
-
-    public UnitController SpawnUnit(UnitFlags flag)
-    {
-        var unitController = Managers.Resounrces.Instantiate(new SpawnPathBuilder().BuildUnitPath(flag.UnitClass)).GetComponent<UnitController>();
-        unitController.SetInfo(new UnitAttackUseCase(UnitManager.Spawn(flag), 5));
-        return unitController;
-    }
-
     public bool TryUnitSpawn(UnitFlags flag, out UnitController uc)
     {
         if(_unitSpanwer.TrySpawn(flag, out var unit) == false)
