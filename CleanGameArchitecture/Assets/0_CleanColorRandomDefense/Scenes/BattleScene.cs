@@ -6,12 +6,18 @@ using CreatureManagementUseCases;
 
 public class BattleScene : BaseScene
 {
+    BattleRule battleRule;
     protected override void Init()
     {
         var unitCountRule = new UnitCountRule(15);
         var unitManager = new UnitManager();
         var unitSpawner = new UnitSpanwer(unitCountRule, unitManager);
-        Managers.Game.Init(unitManager, unitSpawner);
+        var monsterManager = new MonsterManager();
+        Managers.Game.Init(unitManager, unitSpawner, monsterManager);
+
+        battleRule = new BattleRule(50);
+        monsterManager.OnMonsterCountChanged += CheckGameLoss;
+
         var stageRule = new StageRule();
         stageRule.OnChangedStage += SpawnStageMonster;
         StartCoroutine(Co_StageStart(stageRule));
@@ -35,5 +41,11 @@ public class BattleScene : BaseScene
             mc.transform.position = new Vector3(-45, 0, 35);
             yield return new WaitForSeconds(2f);
         }
+    }
+
+    void CheckGameLoss(int monsterCount)
+    {
+        if (battleRule.CheckLoss(monsterCount))
+            Time.timeScale = 0;
     }
 }

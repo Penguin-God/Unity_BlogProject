@@ -9,10 +9,11 @@ public class GameManager
 {
     public UnitManager UnitManager { get; private set; }
     UnitSpanwer _unitSpanwer;
-    public MonsterManager MonsterManager { get; private set; } = new MonsterManager();
+    public MonsterManager MonsterManager { get; private set; }
     MonsterSpawner _monsterSpawner = new MonsterSpawner();
 
-    public void Init(UnitManager unitManager, UnitSpanwer unitSpanwer) => (UnitManager, _unitSpanwer) = (unitManager, unitSpanwer);
+    public void Init(UnitManager unitManager, UnitSpanwer unitSpanwer, MonsterManager monsterManager) 
+        => (UnitManager, _unitSpanwer, MonsterManager) = (unitManager, unitSpanwer, monsterManager);
 
     public bool TryUnitSpawn(UnitFlags flag, out UnitController uc)
     {
