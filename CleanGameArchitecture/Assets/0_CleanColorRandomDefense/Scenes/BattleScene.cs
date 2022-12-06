@@ -32,7 +32,7 @@ public class BattleScene : BaseScene
         for (int i = 0; i < 15; i++)
         {
             var mc = Managers.Game.SpawnMonster(0);
-            mc.transform.position = Vector3.one * i;
+            mc.transform.position = new Vector3(-45, 0, 35);
             yield return new WaitForSeconds(2f);
         }
     }

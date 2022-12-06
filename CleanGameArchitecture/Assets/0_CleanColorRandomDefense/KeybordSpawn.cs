@@ -13,5 +13,8 @@ public class KeybordSpawn : MonoBehaviour
             var uc = Managers.Game.SpawnUnit(new UnitFlags(0, 1));
             uc.transform.position = Vector3.one * 20;
         }
+
+        if (Input.GetKeyDown(KeyCode.K))
+            Time.timeScale = Time.timeScale == 1 ? 15 : 1;
     }
 }

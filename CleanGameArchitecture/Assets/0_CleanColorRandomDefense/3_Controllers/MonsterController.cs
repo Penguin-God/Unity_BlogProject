@@ -19,4 +19,20 @@ public class MonsterController : MonoBehaviour, IPositionGetter
     {
         gameObject.SetActive(false);
     }
+
+    [SerializeField] float _speed = 5;
+    void Update()
+    {
+        transform.Translate(Vector3.back * _speed * Time.deltaTime);
+    }
+
+    bool isFirstHitToWayPoint = true;
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("WayPoint"))
+        {
+            if (isFirstHitToWayPoint) isFirstHitToWayPoint = false;
+            else transform.Rotate(Vector3.up * -90);
+        }
+    }
 }
