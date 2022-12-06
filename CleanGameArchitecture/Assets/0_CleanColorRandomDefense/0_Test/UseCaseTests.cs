@@ -89,10 +89,10 @@ namespace UseCaseTests
             var attacker = new UnitAttackUseCase(new Unit(new UnitFlags(0, 0), positionGetter), 5);
             var target = new Monster(1000, new TestPositionGetter(Vector3.zero));
 
-            attacker.Attack(target);
+            attacker.TryAttack(target);
             Assert(target.CurrentHp == 1000);
             positionGetter.SetPos(Vector3.zero);
-            attacker.Attack(target);
+            attacker.TryAttack(target);
             Assert(target.CurrentHp == 900);
         }
     }

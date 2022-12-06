@@ -6,12 +6,10 @@ public class KeybordSpawn : MonoBehaviour
 {
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.U))
         {
-            var mc = Managers.Game.SpawnMonster(0);
-            mc.Monster.OnChanagedHp += (hp) => print($"아파요!!! {hp}");
-            var uc = Managers.Game.SpawnUnit(new UnitFlags(0, 1));
-            uc.transform.position = Vector3.one * 20;
+            var unit = Managers.Game.SpawnUnit(new UnitFlags(0, 2));
+            unit.transform.position = Vector3.zero;
         }
 
         if (Input.GetKeyDown(KeyCode.K))

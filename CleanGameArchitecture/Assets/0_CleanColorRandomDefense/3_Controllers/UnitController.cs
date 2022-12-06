@@ -15,7 +15,7 @@ public class UnitController : MonoBehaviour, IPositionGetter
     UnitAttackUseCase _unitAttackUseCase;
     void Awake()
     {
-        _nav = gameObject.AddComponent<NavMeshAgent>();
+        _nav = GetComponent<NavMeshAgent>();
     }
 
     public void SetInfo(UnitAttackUseCase unitAttackUseCase)
@@ -27,16 +27,16 @@ public class UnitController : MonoBehaviour, IPositionGetter
     void ChangeTarget()
     {
         _target = Managers.Game.Monster.FindProximateMonster(Position);
-        _nav.SetDestination(ChasePos);
     }
 
     void Update()
     {
-        if(_target == null)
+        if(_target == null || _target.IsDead)
         {
             ChangeTarget();
             return;
         }
-        _unitAttackUseCase.Attack(_target);
+        _nav.SetDestination(ChasePos);
+        _unitAttackUseCase.TryAttack(_target);
     }
 }

@@ -5,19 +5,20 @@ using CreatureEntities;
 
 public class MonsterController : MonoBehaviour, IPositionGetter
 {
-    public Monster Monster { get; private set; }
+    Monster _monster;
+    public Monster Monster => _monster;
     public Vector3 Position => transform.position;
 
     public void SetInfo(Monster monster)
     {
-        Monster = monster;
-        Monster.SetPositionGetter(this);
-        Monster.OnDead += Dead;
+        _monster = monster;
+        _monster.SetPositionGetter(this);
+        _monster.OnDead += Dead;
     }
 
     void Dead(Monster monster)
     {
-        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 
     [SerializeField] float _speed = 5;

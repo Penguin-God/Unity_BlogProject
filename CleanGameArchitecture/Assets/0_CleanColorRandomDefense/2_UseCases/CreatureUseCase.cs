@@ -12,10 +12,14 @@ namespace CreatureUseCase
 
         public UnitAttackUseCase(Unit unit, float attackRange) => (Unit, _attackRange) = (unit, attackRange);
 
-        public void Attack(Monster target)
+        public bool TryAttack(Monster target)
         {
             if (Vector3.Distance(Unit.PositionGetter.Position, target.PositionGetter.Position) < _attackRange)
+            {
                 Unit.Attack(target);
+                return true;
+            }
+            else return false;
         }
     }
 }
