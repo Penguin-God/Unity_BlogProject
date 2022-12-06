@@ -7,23 +7,45 @@ using GateWays;
 
 public class GameManager
 {
-    public UnitManager Unit { get; private set; }
-    public MonsterManager Monster { get; private set; }
+    public UnitManager UnitManager { get; private set; }
+    UnitSpanwer _unitSpanwer;
+    public MonsterManager MonsterManager { get; private set; } = new MonsterManager();
+    MonsterSpawner _monsterSpawner = new MonsterSpawner();
+
+    public void Init(UnitManager unitManager, UnitSpanwer unitSpanwer) => (UnitManager, _unitSpanwer) = (unitManager, unitSpanwer);
 
     public void Init(UnitManager unitManager, MonsterManager monsterManager)
-        => (Unit, Monster) = (unitManager, monsterManager);
+        => (UnitManager, MonsterManager) = (unitManager, monsterManager);
 
     public UnitController SpawnUnit(UnitFlags flag)
     {
         var unitController = Managers.Resounrces.Instantiate(new SpawnPathBuilder().BuildUnitPath(flag.UnitClass)).GetComponent<UnitController>();
-        unitController.SetInfo(new UnitAttackUseCase(Unit.Spawn(flag), 5));
+        unitController.SetInfo(new UnitAttackUseCase(UnitManager.Spawn(flag), 5));
         return unitController;
+    }
+
+    public bool TryUnitSpawn(UnitFlags flag, out UnitController uc)
+    {
+        if(_unitSpanwer.TrySpawn(flag, out var unit) == false)
+        {
+            uc = null;
+            return false;
+        }
+        else
+        {
+            UnitManager.AddUnit(unit);
+            uc = Managers.Resounrces.Instantiate(new SpawnPathBuilder().BuildUnitPath(flag.UnitClass)).GetComponent<UnitController>();
+            uc.SetInfo(new UnitAttackUseCase(unit, 5));
+            return true;
+        }
     }
 
     public MonsterController SpawnMonster(int monstNumber)
     {
         var monsterController = Managers.Resounrces.Instantiate(new SpawnPathBuilder().BuildMonsterPath(monstNumber)).GetComponent<MonsterController>();
-        monsterController.SetInfo(Monster.Spawn(1000));
+        var monster = _monsterSpawner.SpawnMonster(1000);
+        MonsterManager.AddMonster(monster);
+        monsterController.SetInfo(monster);
         return monsterController;
     }
 }

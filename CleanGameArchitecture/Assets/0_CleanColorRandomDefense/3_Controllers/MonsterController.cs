@@ -15,6 +15,7 @@ public class MonsterController : MonoBehaviour, IPositionGetter
         _monster = monster;
         _monster.SetPositionGetter(this);
         _monster.OnDead += Dead;
+        _hp = _monster.CurrentHp;
         _monster.OnChanagedHp += (hp) => _hp = hp;
     }
 

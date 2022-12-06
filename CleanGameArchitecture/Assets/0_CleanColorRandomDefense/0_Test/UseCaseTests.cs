@@ -14,9 +14,11 @@ namespace UseCaseTests
         public void TestUnitManagement()
         {
             Log("유닛 매니저 테스트!!");
-            var manager = new UnitManager(new UnitCountRule(15));
+            var manager = new UnitManager();
+            var spanwer = new UnitSpanwer(new UnitCountRule(15), manager);
             var spawnFlag = new UnitFlags(0, 0);
-            var unit = manager.Spawn(spawnFlag);
+            spanwer.TrySpawn(spawnFlag, out Unit unit);
+            manager.AddUnit(unit);
             Assert(manager.Units[0] == unit);
             Assert(manager.TryFindUnit(spawnFlag, out Unit findUnit));
             Assert(findUnit == unit);
@@ -27,16 +29,19 @@ namespace UseCaseTests
             Assert(nullUnit == null);
 
             for (int i = 0; i < 14; i++)
-                manager.Spawn(spawnFlag);
-            Assert(manager.TrySpawn(spawnFlag, out unit));
-            Assert(manager.TrySpawn(spawnFlag, out unit) == false);
+                manager.AddUnit(new Unit(spawnFlag));
+            Assert(spanwer.TrySpawn(spawnFlag, out unit));
+            manager.AddUnit(unit);
+            Assert(spanwer.TrySpawn(spawnFlag, out unit) == false);
         }
 
         public void TestMonsterManagement()
         {
             Log("몬스터 매니저 테스트!!");
             var manager = new MonsterManager();
-            var monster = manager.Spawn(1000);
+            var spawner = new MonsterSpawner();
+            var monster = spawner.SpawnMonster(1000);
+            manager.AddMonster(monster);
             Assert(manager.Monsters[0] == monster);
 
             monster.OnDamage(monster.CurrentHp);
@@ -50,17 +55,17 @@ namespace UseCaseTests
             var manager = new MonsterManager();
             var rule = new BattleRule(50);
             manager.OnMonsterCountChanged += (count) => { if (rule.CheckLoss(count)) isLoss = true; };
-            MonsterSpawn(manager, 30);
+            AddMonsters(manager, 30);
             Assert(isLoss == false);
 
-            MonsterSpawn(manager, 20);
+            AddMonsters(manager, 20);
             Assert(isLoss);
         }
 
-        void MonsterSpawn(MonsterManager manager, int spawnCount)
+        void AddMonsters(MonsterManager manager, int spawnCount)
         {
             for (int i = 0; i < spawnCount; i++)
-                manager.Spawn(1000);
+                manager.AddMonster(new Monster(1000));
         }
 
         public void TestFindMonster()
@@ -70,7 +75,7 @@ namespace UseCaseTests
             Unit unit = new Unit(new UnitFlags(0, 0), new TestPositionGetter(Vector3.zero));
 
             for (int i = 0; i < 20; i++)
-                manager.Spawn(1000, new TestPositionGetter(Vector3.one * i));
+                manager.AddMonster(new Monster(1000, new TestPositionGetter(Vector3.one * i)));
             var findFirstMonster = manager.FindProximateMonster(unit.PositionGetter);
             Assert(findFirstMonster.PositionGetter.Position == Vector3.zero);
             findFirstMonster.OnDamage(1000000);

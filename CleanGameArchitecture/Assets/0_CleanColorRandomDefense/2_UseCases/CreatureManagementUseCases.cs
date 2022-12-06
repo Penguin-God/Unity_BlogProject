@@ -13,12 +13,44 @@ public interface IPositionGetter
 
 namespace CreatureManagementUseCases
 {
+    public class UnitSpanwer
+    {
+        UnitCountRule _unitCountRule;
+        UnitManager _unitManager;
+        public UnitSpanwer(UnitCountRule unitCountRule, UnitManager unitManager)
+        {
+            _unitCountRule = unitCountRule;
+            _unitManager = unitManager;
+        }
+
+        public bool TrySpawn(UnitFlags flag, out Unit unit)
+        {
+            if (_unitCountRule.CheckFullUnit(_unitManager.Units.Count))
+            {
+                unit = null;
+                return false;
+            }
+
+            unit = new Unit(flag);
+            return true;
+        }
+    }
+
+    public class MonsterSpawner
+    {
+        public Monster SpawnMonster(int hp, IPositionGetter positionGetter = null) => new Monster(hp, positionGetter);
+    }
+
     public class UnitManager
     {
         UnitCountRule _unitCountRule;
         public UnitManager(UnitCountRule unitCountRule)
         {
             _unitCountRule = unitCountRule;
+        }
+
+        public UnitManager()
+        {
         }
 
         List<Unit> _units = new List<Unit>();
@@ -31,18 +63,10 @@ namespace CreatureManagementUseCases
             return unit;
         }
 
-        public bool TrySpawn(UnitFlags flag, out Unit unit)
+        public void AddUnit(Unit unit)
         {
-            if(_unitCountRule.CheckFullUnit(_units.Count))
-            {
-                unit = null;
-                return false;
-            }
-
-            unit = new Unit(flag);
             _units.Add(unit);
             unit.OnDead += RemoveUnit;
-            return true;
         }
 
         void RemoveUnit(Unit unit) => _units.Remove(unit);
@@ -66,6 +90,13 @@ namespace CreatureManagementUseCases
             OnMonsterCountChanged?.Invoke(_monsters.Count);
             monster.OnDead += RemoveMonster;
             return monster;
+        }
+
+        public void AddMonster(Monster monster)
+        {
+            _monsters.Add(monster);
+            OnMonsterCountChanged?.Invoke(_monsters.Count);
+            monster.OnDead += RemoveMonster;
         }
 
         void RemoveMonster(Monster monster)
