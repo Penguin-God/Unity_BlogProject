@@ -35,9 +35,10 @@ public class BattleScene : BaseScene
     void SpawnStageMonster(int stage) => StartCoroutine(Co_SpawnStageMonster(stage));
     IEnumerator Co_SpawnStageMonster(int stage)
     {
+        int spawnNumber = Random.Range(0, 4);
         for (int i = 0; i < 15; i++)
         {
-            var mc = Managers.Game.SpawnMonster(0);
+            var mc = Managers.Game.SpawnMonster(spawnNumber);
             mc.transform.position = new Vector3(-45, 0, 35);
             yield return new WaitForSeconds(2f);
         }
