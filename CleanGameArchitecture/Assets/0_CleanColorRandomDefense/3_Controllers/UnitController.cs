@@ -11,11 +11,13 @@ public class UnitController : MonoBehaviour, IPositionGetter
     Vector3 ChasePos => _target.PositionGetter.Position;
     public Vector3 Position => transform.position;
 
+    [SerializeField] float _speed = 15;
     NavMeshAgent _nav;
     UnitAttackUseCase _unitAttackUseCase;
     void Awake()
     {
         _nav = GetComponent<NavMeshAgent>();
+        _nav.speed = _speed;
     }
 
     public void SetInfo(UnitAttackUseCase unitAttackUseCase)
@@ -29,6 +31,7 @@ public class UnitController : MonoBehaviour, IPositionGetter
         _target = Managers.Game.Monster.FindProximateMonster(Position);
     }
 
+    [SerializeField] bool _attackable = true;
     void Update()
     {
         if(_target == null || _target.IsDead)
@@ -37,6 +40,17 @@ public class UnitController : MonoBehaviour, IPositionGetter
             return;
         }
         _nav.SetDestination(ChasePos);
-        _unitAttackUseCase.TryAttack(_target);
+        if (_attackable)
+        {
+            _unitAttackUseCase.TryAttack(_target);
+            _attackable = false;
+            StartCoroutine(Co_CoolDawnAttack(1.5f));
+        }
+    }
+
+    IEnumerator Co_CoolDawnAttack(float delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
+        _attackable = true;
     }
 }
