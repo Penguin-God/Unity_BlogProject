@@ -5,7 +5,8 @@ using CreatureEntities;
 
 public class MonsterController : MonoBehaviour, IPositionGetter
 {
-    Monster _monster;
+    [SerializeField] Monster _monster;
+    [SerializeField] int _hp;
     public Monster Monster => _monster;
     public Vector3 Position => transform.position;
 
@@ -14,11 +15,12 @@ public class MonsterController : MonoBehaviour, IPositionGetter
         _monster = monster;
         _monster.SetPositionGetter(this);
         _monster.OnDead += Dead;
+        _monster.OnChanagedHp += (hp) => _hp = hp;
     }
 
     void Dead(Monster monster)
     {
-        Destroy(gameObject);
+        Managers.Resounrces.Destroy(gameObject);
     }
 
     [SerializeField] float _speed = 5;

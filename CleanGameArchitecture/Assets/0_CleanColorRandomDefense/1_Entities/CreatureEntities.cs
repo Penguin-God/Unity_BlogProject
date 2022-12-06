@@ -34,7 +34,6 @@ namespace CreatureEntities
         public void Dead() => OnDead?.Invoke(this);
     }
 
-    [Serializable]
     public class Monster
     {
         int maxHp;
