@@ -48,6 +48,14 @@ public class Tester : MonoBehaviour
         tester.TestUnitUseCase();
     }
 
+    [ContextMenu("TestCreatureSpawner")]
+    void TestCreatureSpawner()
+    {
+        var tester = new CreatureManagerSpawner();
+        tester.TestUnitSpawn();
+        tester.TestMonsterSpawn();
+    }
+
     [ContextMenu("TestCreatureManager")]
     void TestCreatureManager()
     {

@@ -9,15 +9,41 @@ using static UnityEngine.Debug;
 
 namespace UseCaseTests
 {
+    public class CreatureManagerSpawner
+    {
+        public void TestUnitSpawn()
+        {
+            Log("유닛 스폰 테스트!!");
+            var manager = new UnitManager();
+            var spanwer = new UnitSpanwer(new UnitCountRule(15), manager);
+            var spawnFlag = new UnitFlags(3, 2);
+            Assert(spanwer.TrySpawn(spawnFlag, out Unit unit));
+            Assert(spawnFlag == unit.Flag);
+
+            for (int i = 0; i < 15; i++)
+                manager.AddUnit(new Unit(spawnFlag));
+
+            Assert(spanwer.TrySpawn(spawnFlag, out unit) == false);
+        }
+
+        public void TestMonsterSpawn()
+        {
+            Log("몬스터 스폰 테스트!!");
+            var spawner = new MonsterSpawner();
+            var monster = spawner.SpawnMonster(1000);
+            Assert(monster.CurrentHp == 1000);
+        }
+    }
+
     public class CreatureManagerTester
     {
         public void TestUnitManagement()
         {
             Log("유닛 매니저 테스트!!");
             var manager = new UnitManager();
-            var spanwer = new UnitSpanwer(new UnitCountRule(15), manager);
             var spawnFlag = new UnitFlags(0, 0);
-            spanwer.TrySpawn(spawnFlag, out Unit unit);
+            var unit = new Unit(new UnitFlags(0, 0));
+            
             manager.AddUnit(unit);
             Assert(manager.Units[0] == unit);
             Assert(manager.TryFindUnit(spawnFlag, out Unit findUnit));
@@ -27,20 +53,13 @@ namespace UseCaseTests
             Assert(manager.Units.Count == 0);
             Assert(manager.TryFindUnit(spawnFlag, out Unit nullUnit) == false);
             Assert(nullUnit == null);
-
-            for (int i = 0; i < 14; i++)
-                manager.AddUnit(new Unit(spawnFlag));
-            Assert(spanwer.TrySpawn(spawnFlag, out unit));
-            manager.AddUnit(unit);
-            Assert(spanwer.TrySpawn(spawnFlag, out unit) == false);
         }
 
         public void TestMonsterManagement()
         {
             Log("몬스터 매니저 테스트!!");
             var manager = new MonsterManager();
-            var spawner = new MonsterSpawner();
-            var monster = spawner.SpawnMonster(1000);
+            var monster = new Monster(1000);
             manager.AddMonster(monster);
             Assert(manager.Monsters[0] == monster);
 
