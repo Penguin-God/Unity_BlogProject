@@ -15,6 +15,7 @@ public class Swordman : UnitController
     }
 
     protected override void Attack() => StartCoroutine(Co_SwordAttack());
+    
 
     IEnumerator Co_SwordAttack()
     {
@@ -22,7 +23,7 @@ public class Swordman : UnitController
         yield return new WaitForSeconds(0.8f);
         swordTrail.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.3f);
-        DoAttack();
+        _DoAttack();
         swordTrail.gameObject.SetActive(false);
         swordTrail.Clear();
     }

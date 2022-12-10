@@ -14,6 +14,8 @@ public class UnitController : MonoBehaviour, IPositionGetter
     [SerializeField] float _speed = 15;
     NavMeshAgent _nav;
     UnitAttackUseCase _unitAttackUseCase;
+    protected UnitUseCase _unitUseCase;
+
     void Awake()
     {
         _nav = GetComponent<NavMeshAgent>();
@@ -51,7 +53,7 @@ public class UnitController : MonoBehaviour, IPositionGetter
         }
     }
 
-    protected void DoAttack()
+    protected void _DoAttack()
     {
         _unitAttackUseCase.TryAttack(_target);
     }
@@ -61,5 +63,10 @@ public class UnitController : MonoBehaviour, IPositionGetter
     {
         yield return new WaitForSeconds(delayTime);
         _attackable = true;
+    }
+
+    public virtual void DoAttack()
+    {
+        throw new System.NotImplementedException();
     }
 }

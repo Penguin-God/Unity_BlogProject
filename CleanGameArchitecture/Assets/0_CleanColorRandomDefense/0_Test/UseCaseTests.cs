@@ -108,15 +108,17 @@ namespace UseCaseTests
     {
         public void TestUnitAttackUseCase()
         {
-            Log("유닛 유즈케이스 테스트!!");
+            Log("유닛 공격 유즈케이스 테스트!!");
             var positionGetter = new TestPositionGetter(Vector3.one * 10);
             var attacker = new UnitAttackUseCase(new Unit(new UnitFlags(0, 0), positionGetter), 5);
             var target = new Monster(1000, new TestPositionGetter(Vector3.zero));
 
             attacker.TryAttack(target);
+            Assert(attacker.IsAttackable(target.PositionGetter) == false);
             Assert(target.CurrentHp == 1000);
             positionGetter.SetPos(Vector3.zero);
             attacker.TryAttack(target);
+            Assert(attacker.IsAttackable(target.PositionGetter));
             Assert(target.CurrentHp == 900);
         }
 

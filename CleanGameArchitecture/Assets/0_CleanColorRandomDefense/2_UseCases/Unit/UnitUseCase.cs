@@ -13,12 +13,26 @@ namespace UnitUseCases
 
     public class UnitUseCase
     {
+        Unit Unit;
         Monster _target;
         IMonsterFinder _monsterFinder;
+        float _attackRange;
+        int _damage;
+
         public UnitUseCase(IMonsterFinder monsterFinder)
         {
             _monsterFinder = monsterFinder;
         }
+
+        public bool CheckTargetValid() => _target != null && _target.IsDead == false;
+
+        public void DamageToTarget()
+        {
+            _target.OnDamage(_damage);
+        }
+
+        public bool IsAttackable()
+            => _attackRange > Vector3.Distance(Unit.PositionGetter.Position, _target.PositionGetter.Position);
     }
 
     public interface IAttack
@@ -42,5 +56,8 @@ namespace UnitUseCases
             }
             else return false;
         }
+
+        public bool IsAttackable(IPositionGetter targetPosGetter)
+            => _attackRange > Vector3.Distance(Unit.PositionGetter.Position, targetPosGetter.Position);
     }
 }
