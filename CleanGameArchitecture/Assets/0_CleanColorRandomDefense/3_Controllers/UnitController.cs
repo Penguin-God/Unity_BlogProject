@@ -18,7 +18,10 @@ public class UnitController : MonoBehaviour, IPositionGetter
     {
         _nav = GetComponent<NavMeshAgent>();
         _nav.speed = _speed;
+        Init();
     }
+
+    protected virtual void Init() { }
 
     public void SetInfo(UnitAttackUseCase unitAttackUseCase)
     {
@@ -42,11 +45,17 @@ public class UnitController : MonoBehaviour, IPositionGetter
         _nav.SetDestination(ChasePos);
         if (_attackable)
         {
-            _unitAttackUseCase.TryAttack(_target);
             _attackable = false;
             StartCoroutine(Co_CoolDawnAttack(1.5f));
+            Attack();
         }
     }
+
+    protected void DoAttack()
+    {
+        _unitAttackUseCase.TryAttack(_target);
+    }
+    protected virtual void Attack() { }
 
     IEnumerator Co_CoolDawnAttack(float delayTime)
     {
