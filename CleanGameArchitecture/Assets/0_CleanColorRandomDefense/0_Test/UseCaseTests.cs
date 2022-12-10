@@ -4,7 +4,7 @@ using UnityEngine;
 using CreatureManagementUseCases;
 using CreatureEntities;
 using RuleEntities;
-using CreatureUseCase;
+using UnitUseCases;
 using static UnityEngine.Debug;
 
 namespace UseCaseTests
@@ -106,7 +106,7 @@ namespace UseCaseTests
 
     class CreatureUseCaseTester
     {
-        public void TestUnitUseCase()
+        public void TestUnitAttackUseCase()
         {
             Log("유닛 유즈케이스 테스트!!");
             var positionGetter = new TestPositionGetter(Vector3.one * 10);
@@ -119,6 +119,34 @@ namespace UseCaseTests
             attacker.TryAttack(target);
             Assert(target.CurrentHp == 900);
         }
+
+        public void TestRandomSkill()
+        {
+            Log("랜덤 스킬 테스트!!");
+            bool isSkillAttack = false;
+            TestAttackEvent normal = new TestAttackEvent(() => isSkillAttack = false);
+            TestAttackEvent skill = new TestAttackEvent(() => isSkillAttack = true);
+            var skillUseCase = new RandomSkillUseCase(100, normal, skill);
+            for (int i = 0; i < 1000; i++)
+            {
+                skillUseCase.DoAttack();
+                Assert(isSkillAttack);
+            }
+
+            skillUseCase = new RandomSkillUseCase(0, normal, skill);
+            for (int i = 0; i < 1000; i++)
+            {
+                skillUseCase.DoAttack();
+                Assert(isSkillAttack == false);
+            }
+        }
+    }
+
+    class TestAttackEvent : IAttack
+    {
+        public event System.Action OnAttack;
+        public TestAttackEvent(System.Action action) => OnAttack = action;
+        public void DoAttack() => OnAttack?.Invoke();
     }
 
     class TestPositionGetter : IPositionGetter

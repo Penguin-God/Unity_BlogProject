@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using CreatureEntities;
-using CreatureUseCase;
+using UnitUseCases;
 
 public class UnitController : MonoBehaviour, IPositionGetter
 {
