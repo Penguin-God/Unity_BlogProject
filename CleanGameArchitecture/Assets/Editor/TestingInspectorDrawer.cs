@@ -16,11 +16,20 @@ public class TestingInspectorDrawer : Editor
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
-        
+        DrawTestButtons();
     }
 
     void DrawTestButtons()
     {
-        // if (GUILayout.Button())
+        foreach (var method in typeof(Tester).GetMethods(BindingFlags.NonPublic | BindingFlags.Instance))
+        {
+            if (method.Name.StartsWith("Test") == false) continue;
+
+            if (GUILayout.Button(method.Name, GUILayout.Height(20)))
+            {
+                method.Invoke(userSkillTest, new object[] { });
+            }
+            GUILayout.Space(7);
+        }
     }
 }
