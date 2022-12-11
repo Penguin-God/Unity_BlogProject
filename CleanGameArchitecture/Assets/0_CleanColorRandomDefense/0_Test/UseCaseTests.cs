@@ -150,13 +150,13 @@ namespace UseCaseTests
         public TestAttackEvent(System.Action action) => OnAttack = action;
         public void DoAttack() => OnAttack?.Invoke();
     }
+}
 
-    class TestPositionGetter : IPositionGetter
-    {
-        Vector3 _pos;
-        public TestPositionGetter(Vector3 pos) => _pos = pos;
+class TestPositionGetter : IPositionGetter
+{
+    Vector3 _pos;
+    public TestPositionGetter(Vector3 pos) => _pos = pos;
 
-        public Vector3 Position => _pos;
-        public void SetPos(Vector3 newPos) => _pos = newPos;
-    }
+    public Vector3 Position => _pos;
+    public void SetPos(Vector3 newPos) => _pos = newPos;
 }

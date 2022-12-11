@@ -4,6 +4,7 @@ using UnityEngine;
 using EntityTests;
 using UseCaseTests;
 using GatewayTests;
+using CalculatorsTester;
 
 public class Tester : MonoBehaviour
 {
@@ -73,5 +74,11 @@ public class Tester : MonoBehaviour
         var tester = new SpawnPathBuilderTester();
         tester.TestBuildUnitPath();
         tester.TestBuildMonsterPath();
+    }
+
+    void TestCalculators()
+    {
+        var tester = new VectorCalculateTester();
+        tester.TestCalculateChasePos();
     }
 }
