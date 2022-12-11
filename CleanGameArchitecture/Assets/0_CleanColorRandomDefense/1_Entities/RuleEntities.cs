@@ -4,19 +4,15 @@ using System;
 
 namespace RuleEntities
 {
-    enum PlayerLookWorld
+    public static class RuleManager
     {
-        Field,
-        EnemyTower,
-    }
+        public static UnitCountRule UnitCount { get; private set; } = new UnitCountRule(0);
+        public static void InitUnitCountRule(int maxUnitCount) => UnitCount = new UnitCountRule(maxUnitCount);
 
-    public class PlayerStatus
-    {
-        int _enemyCount;
-        int _unitCount;
+        public static BattleRule Battle { get; private set; } = new BattleRule(50);
+        public static void InitBattleRule(int maxMonsterCount) => UnitCount = new UnitCountRule(maxMonsterCount);
 
-        CurrencyManager _currencyManager;
-        PlayerLookWorld _playerLookWorld;
+        public static StageRule Stage { get; private set; } = new StageRule();
     }
 
     public class UnitCountRule

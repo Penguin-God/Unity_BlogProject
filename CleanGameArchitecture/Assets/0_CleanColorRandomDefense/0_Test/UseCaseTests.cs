@@ -15,7 +15,8 @@ namespace UseCaseTests
         {
             Log("유닛 스폰 테스트!!");
             var manager = new UnitManager();
-            var spanwer = new UnitSpanwer(new UnitCountRule(15), manager);
+            RuleManager.InitUnitCountRule(15);
+            var spanwer = new UnitSpanwer(manager);
             var spawnFlag = new UnitFlags(3, 2);
             Assert(spanwer.TrySpawn(spawnFlag, out Unit unit));
             Assert(spawnFlag == unit.Flag);

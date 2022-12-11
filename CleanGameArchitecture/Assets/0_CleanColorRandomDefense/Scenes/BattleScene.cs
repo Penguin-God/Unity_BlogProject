@@ -11,7 +11,7 @@ public class BattleScene : BaseScene
     {
         var unitCountRule = new UnitCountRule(15);
         var unitManager = new UnitManager();
-        var unitSpawner = new UnitSpanwer(unitCountRule, unitManager);
+        var unitSpawner = new UnitSpanwer(unitManager);
         var monsterManager = new MonsterManager();
         Managers.Game.Init(unitManager, unitSpawner, monsterManager);
 

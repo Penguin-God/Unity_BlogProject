@@ -15,17 +15,12 @@ namespace CreatureManagementUseCases
 {
     public class UnitSpanwer
     {
-        UnitCountRule _unitCountRule;
         UnitManager _unitManager;
-        public UnitSpanwer(UnitCountRule unitCountRule, UnitManager unitManager)
-        {
-            _unitCountRule = unitCountRule;
-            _unitManager = unitManager;
-        }
+        public UnitSpanwer(UnitManager unitManager) => _unitManager = unitManager;
 
         public bool TrySpawn(UnitFlags flag, out Unit unit)
         {
-            if (_unitCountRule.CheckFullUnit(_unitManager.Units.Count))
+            if (RuleManager.UnitCount.CheckFullUnit(_unitManager.Units.Count))
             {
                 unit = null;
                 return false;
