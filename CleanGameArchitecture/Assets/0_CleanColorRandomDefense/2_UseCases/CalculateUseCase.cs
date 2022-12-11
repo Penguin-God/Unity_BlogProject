@@ -12,4 +12,10 @@ namespace CalculateUseCase
             return target.Position - (dir * gap);
         }
     }
+
+    public class ShotDirectCalculator
+    {
+        public static Vector3 GetShotDirection(IPositionGetter shoter, IPositionGetter _target, float targetSpeed, Vector3 targetMoveDirection)
+            => ((_target.Position + targetMoveDirection * targetSpeed) - shoter.Position).normalized;
+    }
 }

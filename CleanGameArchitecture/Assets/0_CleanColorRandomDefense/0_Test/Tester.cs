@@ -80,5 +80,6 @@ public class Tester : MonoBehaviour
     {
         var tester = new VectorCalculateTester();
         tester.TestCalculateChasePos();
+        tester.TestCalculateShotDirection();
     }
 }
