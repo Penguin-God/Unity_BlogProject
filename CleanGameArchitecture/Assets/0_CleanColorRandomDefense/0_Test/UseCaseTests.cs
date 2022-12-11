@@ -41,18 +41,48 @@ namespace UseCaseTests
         {
             Log("유닛 매니저 테스트!!");
             var manager = new UnitManager();
-            var spawnFlag = new UnitFlags(0, 0);
+            var unitFlag = new UnitFlags(0, 0);
             var unit = new Unit(new UnitFlags(0, 0));
             
             manager.AddUnit(unit);
             Assert(manager.Units[0] == unit);
-            Assert(manager.TryFindUnit(spawnFlag, out Unit findUnit));
+            Assert(manager.Units.Count == 1);
+            Assert(manager.TryFindUnit(unitFlag, out Unit findUnit));
             Assert(findUnit == unit);
 
             unit.Dead();
             Assert(manager.Units.Count == 0);
-            Assert(manager.TryFindUnit(spawnFlag, out Unit nullUnit) == false);
+            Assert(manager.TryFindUnit(unitFlag, out Unit nullUnit) == false);
             Assert(nullUnit == null);
+        }
+
+        public void TestCombineUnit()
+        {
+            Log("유닛 조합 테스트!!");
+            var manager = new UnitManager();
+            var testCondition = new Dictionary<UnitFlags, CreatureManagementUseCases.CombineCondition[]>()
+            {
+                { new UnitFlags(0, 1), new CreatureManagementUseCases.CombineCondition[] {new CreatureManagementUseCases.CombineCondition(new UnitFlags(0,0), 3) } },
+                { new UnitFlags(0, 2), new CreatureManagementUseCases.CombineCondition[] {new CreatureManagementUseCases.CombineCondition(new UnitFlags(0,0), 2),
+                new CreatureManagementUseCases.CombineCondition(new UnitFlags(0,1), 3)} }
+            };
+
+            var combiner = new UnitCombiner(testCondition, manager);
+            Assert(combiner.TryCombine(new UnitFlags(0, 1), out Unit unit) == false);
+
+            int loopCount = 0;
+            foreach (var item in testCondition) // Key는 조합할 유닛 플래그, Value는 조건[]
+            {
+                loopCount++;
+                foreach (var condition in item.Value)
+                {
+                    for (int i = 0; i < condition.NeedCount; i++)
+                        manager.AddUnit(new Unit(condition.Flag));
+                }
+                Assert(combiner.TryCombine(item.Key, out unit));
+                Assert(unit.Flag == item.Key);
+                Assert(manager.Units.Count == loopCount);
+            }
         }
 
         public void TestMonsterManagement()
@@ -97,7 +127,7 @@ namespace UseCaseTests
                 manager.AddMonster(new Monster(1000, new TestPositionGetter(Vector3.one * i)));
             var findFirstMonster = manager.FindProximateMonster(unit.PositionGetter);
             Assert(findFirstMonster.PositionGetter.Position == Vector3.zero);
-            findFirstMonster.OnDamage(1000000);
+            findFirstMonster.OnDamage(findFirstMonster.CurrentHp);
 
             var findSecondMonster = manager.FindProximateMonster(unit.PositionGetter);
             Assert(findSecondMonster.PositionGetter.Position == Vector3.one);
@@ -114,11 +144,11 @@ namespace UseCaseTests
             var target = new Monster(1000, new TestPositionGetter(Vector3.zero));
 
             attacker.TryAttack(target);
-            Assert(attacker.IsAttackable(target.PositionGetter) == false);
+            //Assert(attacker.IsAttackable(target.PositionGetter) == false);
             Assert(target.CurrentHp == 1000);
             positionGetter.SetPos(Vector3.zero);
             attacker.TryAttack(target);
-            Assert(attacker.IsAttackable(target.PositionGetter));
+            //Assert(attacker.IsAttackable(target.PositionGetter));
             Assert(target.CurrentHp == 900);
         }
 

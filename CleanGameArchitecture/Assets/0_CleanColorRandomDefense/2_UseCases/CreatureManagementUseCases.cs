@@ -61,6 +61,54 @@ namespace CreatureManagementUseCases
         }
     }
 
+    public struct CombineCondition
+    {
+        public UnitFlags Flag { get; private set; }
+        public int NeedCount { get; private set; }
+
+        public CombineCondition(UnitFlags flag, int needCount)
+        {
+            Flag = flag;
+            NeedCount = needCount;
+        }
+    }
+
+    public class UnitCombiner
+    {
+        Dictionary<UnitFlags, CombineCondition[]> _flagBycCombineConditions;
+        UnitManager _manager;
+        public UnitCombiner(Dictionary<UnitFlags, CombineCondition[]> conditons, UnitManager manager)
+        {
+            _flagBycCombineConditions = conditons;
+            _manager = manager;
+        }
+
+        public bool TryCombine(UnitFlags tryCombineFlag, out Unit combineUnit)
+        {
+            foreach (var condition in _flagBycCombineConditions[tryCombineFlag])
+            {
+                if(_manager.Units.Where(x => x.Flag == condition.Flag).Count() < condition.NeedCount)
+                {
+                    combineUnit = null;
+                    return false;
+                }
+            }
+
+            foreach (var condition in _flagBycCombineConditions[tryCombineFlag])
+            {
+                for (int i = 0; i < condition.NeedCount; i++)
+                {
+                    _manager.TryFindUnit(condition.Flag, out Unit unit);
+                    unit.Dead();
+                }
+            }
+
+            combineUnit = new Unit(tryCombineFlag);
+            _manager.AddUnit(combineUnit);
+            return true;
+        }
+    }
+
     public class MonsterManager
     {
         List<Monster> _monsters = new List<Monster>();

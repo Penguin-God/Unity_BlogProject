@@ -47,12 +47,26 @@ namespace EntityTests
             Log("유닛 공격 테스트!!");
             var unit = new Unit(new UnitFlags(0, 0));
             var monster = new Monster(1000);
+            
+            unit.Attack(monster);
+            Assert(monster.CurrentHp == 900 && monster.IsDead == false);
+
+            for (int i = 0; i < 15; i++)
+                unit.Attack(monster);
+
+            Assert(monster.IsDead);
+        }
+
+        public void TestMonsterOnDamaged()
+        {
+            Log("몬스터 피해 받는거 테스트!!");
+            var monster = new Monster(1000);
             int getChangedHp = 0;
             bool getDeadState = false;
             monster.OnChanagedHp += (hp) => getChangedHp = hp;
             monster.OnDead += (deadMonster) => getDeadState = true;
 
-            unit.Attack(monster);
+            monster.OnDamage(100);
             CheckMonsterCondition(900, 900, false);
 
             monster.OnDamage(-333);
@@ -61,11 +75,10 @@ namespace EntityTests
             int eventCount = 0;
             monster.OnChanagedHp += (hp) => eventCount++;
             for (int i = 0; i < 15; i++)
-                unit.Attack(monster);
+                monster.OnDamage(100);
 
             CheckMonsterCondition(0, 0, true);
             Assert(eventCount == 9);
-
 
             void CheckMonsterCondition(int monsterHp, int changedHp, bool deadState)
             {
@@ -73,6 +86,7 @@ namespace EntityTests
                 Assert(getChangedHp == changedHp);
                 Assert(getDeadState == deadState);
             }
+
         }
     }
 }

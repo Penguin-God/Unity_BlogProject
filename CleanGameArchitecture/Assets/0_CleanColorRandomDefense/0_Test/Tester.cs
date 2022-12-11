@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Reflection;
 using EntityTests;
 using UseCaseTests;
 using GatewayTests;
@@ -13,20 +14,21 @@ public class Tester : MonoBehaviour
         TestAll();
     }
 
-    [ContextMenu("TestAll")]
     void TestAll()
     {
         print("====================");
         print("Test Start");
-        TestRule();
-        TestCreature();
-        TestCreatureManager();
-        TestGateWays();
+
+        foreach (var method in typeof(Tester).GetMethods(BindingFlags.NonPublic | BindingFlags.Instance))
+        {
+            if (method.Name.StartsWith("Test") == false || method.Name == "TestAll") continue;
+            method.Invoke(this, new object[] { });
+        }
+
         print("Test End");
         print("====================");
     }
 
-    [ContextMenu("TestRule")]
     void TestRule()
     {
         var tester = new TestGameRules();
@@ -35,14 +37,13 @@ public class Tester : MonoBehaviour
         tester.TestStageReul();
     }
 
-    [ContextMenu("TestCreature")]
     void TestCreature()
     {
         var tester = new TestCreatures();
         tester.TestUnitAttackToMonster();
+        tester.TestMonsterOnDamaged();
     }
 
-    [ContextMenu("TestCreatureUseCase")]
     void TestCreatureUseCase()
     {
         var tester = new CreatureUseCaseTester();
@@ -50,7 +51,6 @@ public class Tester : MonoBehaviour
         tester.TestRandomSkill();
     }
 
-    [ContextMenu("TestCreatureSpawner")]
     void TestCreatureSpawner()
     {
         var tester = new CreatureManagerSpawner();
@@ -58,17 +58,16 @@ public class Tester : MonoBehaviour
         tester.TestMonsterSpawn();
     }
 
-    [ContextMenu("TestCreatureManager")]
     void TestCreatureManager()
     {
         var tester = new CreatureManagerTester();
         tester.TestUnitManagement();
+        tester.TestCombineUnit();
         tester.TestMonsterManagement();
         tester.TestFindMonster();
         tester.TestBattleLoss();
     }
 
-    [ContextMenu("TestSpawnPathBuilder")]
     void TestGateWays()
     {
         var tester = new SpawnPathBuilderTester();
