@@ -80,4 +80,10 @@ public class Tester : MonoBehaviour
         tester.TestCalculateChasePos();
         tester.TestCalculateShotDirection();
     }
+
+    void TestContorllers()
+    {
+        var tester = new ControllerTester();
+        tester.TestShot();
+    }
 }

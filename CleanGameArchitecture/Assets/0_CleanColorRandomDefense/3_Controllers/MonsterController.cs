@@ -25,6 +25,7 @@ public class MonsterController : MonoBehaviour, IPositionGetter
     }
 
     [SerializeField] float _speed = 5;
+    public float Speed => _speed;
     void Update()
     {
         transform.Translate(Vector3.back * _speed * Time.deltaTime);
