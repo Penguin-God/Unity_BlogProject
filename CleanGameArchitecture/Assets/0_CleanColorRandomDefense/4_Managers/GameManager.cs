@@ -26,7 +26,7 @@ public class GameManager
         {
             UnitManager.AddUnit(unit);
             uc = ManagerFacade.Resounrces.Instantiate(new SpawnPathBuilder().BuildUnitPath(flag.UnitClass)).GetComponent<UnitController>();
-            uc.SetInfo(new UnitAttackUseCase(unit, 5));
+            uc.SetInfo(new UnitUseCase(MonsterManager, uc, 5, 100));
             return true;
         }
     }

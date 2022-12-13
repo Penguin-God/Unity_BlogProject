@@ -46,8 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 15
+  _chaseGap: 2
+  _stopDistance: 2
   _attackable: 1
-  swordTrail: {fileID: 0}
 --- !u!195 &6504360537215644211
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -426,7 +427,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5579244660790608168
 Transform:
   m_ObjectHideFlags: 0

@@ -4,14 +4,15 @@ using UnityEngine;
 using UnityEngine.AI;
 using CreatureEntities;
 using UnitUseCases;
+using CalculateUseCase;
 
 public class UnitController : MonoBehaviour, IPositionGetter
 {
-    Monster _target;
-    Vector3 ChasePos => _target.PositionGetter.Position;
     public Vector3 Position => transform.position;
 
     [SerializeField] float _speed = 15;
+    [SerializeField] float _chaseGap;
+    [SerializeField] float _stopDistance;
     NavMeshAgent _nav;
     UnitAttackUseCase _unitAttackUseCase;
     protected UnitUseCase _unitUseCase;
@@ -20,53 +21,37 @@ public class UnitController : MonoBehaviour, IPositionGetter
     {
         _nav = GetComponent<NavMeshAgent>();
         _nav.speed = _speed;
+        _nav.stoppingDistance = _stopDistance;
         Init();
     }
 
     protected virtual void Init() { }
 
-    public void SetInfo(UnitAttackUseCase unitAttackUseCase)
-    {
-        _unitAttackUseCase = unitAttackUseCase;
-        _unitAttackUseCase.Unit.SetPositionGetter(this);
-    }
-
-    void ChangeTarget()
-    {
-        _target = ManagerFacade.Game.MonsterManager.FindProximateMonster(Position);
-    }
+    public void SetInfo(UnitUseCase unitUseCase) => _unitUseCase = unitUseCase;
 
     [SerializeField] bool _attackable = true;
     void Update()
     {
-        if(_target == null || _target.IsDead)
+        if(_unitUseCase.IsTargetValid == false)
         {
-            ChangeTarget();
+            _unitUseCase.FindTarget();
             return;
         }
-        _nav.SetDestination(ChasePos);
-        if (_attackable)
+
+        _nav.SetDestination(ChasePositionCalculator.GetChasePosition(this, _unitUseCase.TargetPosition, _chaseGap));
+        if (_attackable && _unitUseCase.IsAttackable())
         {
-            _attackable = false;
             StartCoroutine(Co_CoolDawnAttack(1.5f));
-            Attack();
+            DoAttack(_unitUseCase);
         }
     }
-
-    protected void _DoAttack()
-    {
-        _unitAttackUseCase.TryAttack(_target);
-    }
-    protected virtual void Attack() { }
 
     IEnumerator Co_CoolDawnAttack(float delayTime)
     {
+        _attackable = false;
         yield return new WaitForSeconds(delayTime);
         _attackable = true;
     }
 
-    public virtual void DoAttack()
-    {
-        throw new System.NotImplementedException();
-    }
+    protected virtual void DoAttack(UnitUseCase useCase) { }
 }

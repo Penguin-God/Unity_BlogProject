@@ -140,7 +140,7 @@ namespace UseCaseTests
         {
             Log("유닛 유즈케이스 테스트!!");
             var monsterManager = new MonsterManager();
-            var monsterPos = new TestPositionGetter(Vector3.one * 10);
+            var monsterPos = new TestPositionGetter(Vector3.one * 30);
             var target = new Monster(1000, monsterPos);
             monsterManager.AddMonster(target);
 

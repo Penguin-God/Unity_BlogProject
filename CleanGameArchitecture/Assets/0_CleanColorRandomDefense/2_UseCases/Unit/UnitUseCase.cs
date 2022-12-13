@@ -11,9 +11,16 @@ namespace UnitUseCases
         Monster FindProximateMonster(IPositionGetter positionGetter);
     }
 
+    public interface IAttack
+    {
+        void DoAttack();
+    }
+
+    [System.Serializable]
     public class UnitUseCase
     {
-        Monster _target;
+        [SerializeField] Monster _target;
+        public IPositionGetter TargetPosition => _target.PositionGetter;
         IMonsterFinder _monsterFinder;
         IPositionGetter _positionGetter;
         float _attackRange;
@@ -31,19 +38,16 @@ namespace UnitUseCases
         public bool IsTargetValid => _target != null && _target.IsDead == false;
         public void AttackToTarget()
         {
-            if (IsAttackable())
+            if (IsTargetValid && ToTargetDistace < _attackRange * 2)
                 _target?.OnDamage(_damage);
         }
         public bool IsAttackable()
         {
             if (IsTargetValid == false) return false;
-            return _attackRange > Vector3.Distance(_positionGetter.Position, _target.PositionGetter.Position);
+            return _attackRange > ToTargetDistace;
         }
-    }
 
-    public interface IAttack
-    {
-        void DoAttack();
+        float ToTargetDistace => Vector3.Distance(_positionGetter.Position, _target.PositionGetter.Position);
     }
 
     public class UnitAttackUseCase
