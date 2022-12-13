@@ -15,8 +15,7 @@ namespace UseCaseTests
         {
             Log("유닛 스폰 테스트!!");
             var manager = new UnitManager();
-            RuleManager.InitUnitCountRule(15);
-            var spanwer = new UnitSpanwer(manager);
+            var spanwer = new UnitSpanwer(manager, new UnitSpawnRule(15));
             var spawnFlag = new UnitFlags(3, 2);
             Assert(spanwer.TrySpawn(spawnFlag, out Unit unit));
             Assert(spawnFlag == unit.Flag);
@@ -103,8 +102,8 @@ namespace UseCaseTests
             Log("게임 패배 테스트!!");
             bool isLoss = false;
             var manager = new MonsterManager();
-            var rule = new BattleRule(50);
-            manager.OnMonsterCountChanged += (count) => { if (rule.CheckLoss(count)) isLoss = true; };
+            var rule = new MaxCountRule(50);
+            manager.OnMonsterCountChanged += (count) => { if (rule.IsMaxCount(count)) isLoss = true; };
             AddMonsters(manager, 30);
             Assert(isLoss == false);
 

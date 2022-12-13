@@ -4,36 +4,22 @@ using System;
 
 namespace RuleEntities
 {
-    public static class RuleManager
+    public class MaxCountRule
     {
-        public static UnitCountRule UnitCount { get; private set; } = new UnitCountRule(0);
-        public static void InitUnitCountRule(int maxUnitCount) => UnitCount = new UnitCountRule(maxUnitCount);
-
-        public static BattleRule Battle { get; private set; } = new BattleRule(50);
-        public static void InitBattleRule(int maxMonsterCount) => UnitCount = new UnitCountRule(maxMonsterCount);
-
-        public static StageRule Stage { get; private set; } = new StageRule();
+        public MaxCountRule(int maxCount) => MaxCount = maxCount;
+        public int MaxCount { get; protected set; }
+        public bool IsMaxCount(int count) => count >= MaxCount;
     }
 
-    public class UnitCountRule
+    public class UnitSpawnRule : MaxCountRule
     {
-        public int MaxUnitCount { get; private set; }
-        public UnitCountRule(int maxUnitCount) => MaxUnitCount = maxUnitCount;
+        public UnitSpawnRule(int maxUnitCount) : base(maxUnitCount) { }
         public Action<int> OnChangedMaxUnitCount;
         public void IncreasedMaxUnit()
         {
-            MaxUnitCount++;
-            OnChangedMaxUnitCount?.Invoke(MaxUnitCount);
+            MaxCount++;
+            OnChangedMaxUnitCount?.Invoke(MaxCount);
         }
-        public bool CheckFullUnit(int unitCount) => unitCount >= MaxUnitCount;
-    }
-
-    public class BattleRule
-    {
-        public int MaxMonsterCount { get; private set; }
-        public BattleRule(int maxMonsterCount) => MaxMonsterCount = maxMonsterCount;
-
-        public bool CheckLoss(int monsterCount) => monsterCount >= MaxMonsterCount;
     }
 
     public class StageRule
@@ -47,4 +33,3 @@ namespace RuleEntities
         }
     }
 }
-

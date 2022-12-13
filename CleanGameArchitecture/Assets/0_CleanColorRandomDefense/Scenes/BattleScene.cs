@@ -6,16 +6,16 @@ using CreatureManagementUseCases;
 
 public class BattleScene : BaseScene
 {
-    BattleRule battleRule;
+    MaxCountRule _battleRule;
     protected override void Init()
     {
-        var unitCountRule = new UnitCountRule(15);
+        var unitSpawnRule = new UnitSpawnRule(15);
         var unitManager = new UnitManager();
-        var unitSpawner = new UnitSpanwer(unitManager);
+        var unitSpawner = new UnitSpanwer(unitManager, unitSpawnRule);
         var monsterManager = new MonsterManager();
         Managers.Game.Init(unitManager, unitSpawner, monsterManager);
 
-        battleRule = new BattleRule(50);
+        _battleRule = new MaxCountRule(50);
         monsterManager.OnMonsterCountChanged += CheckGameLoss;
 
         var stageRule = new StageRule();
@@ -46,7 +46,7 @@ public class BattleScene : BaseScene
 
     void CheckGameLoss(int monsterCount)
     {
-        if (battleRule.CheckLoss(monsterCount))
+        if (_battleRule.IsMaxCount(monsterCount))
             Time.timeScale = 0;
     }
 }

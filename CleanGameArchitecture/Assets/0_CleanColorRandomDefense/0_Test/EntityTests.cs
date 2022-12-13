@@ -9,22 +9,13 @@ namespace EntityTests
 {
     public class TestGameRules
     {
-        public void TestBattleRule()
+        public void TestCountRule()
         {
-            Log("승패 규칙 테스트!!");
-            var rule = new BattleRule(50);
-            Assert(rule.MaxMonsterCount == 50);
-            Assert(rule.CheckLoss(33) == false);
-            Assert(rule.CheckLoss(50));
-        }
-
-        public void TestUnitCountRule()
-        {
-            Log("유닛 최대 갯수 규칙 테스트!!");
-            var rule = new UnitCountRule(15);
-            Assert(rule.MaxUnitCount == 15);
-            Assert(rule.CheckFullUnit(10) == false);
-            Assert(rule.CheckFullUnit(15));
+            Log("카운트 규칙 테스트!!");
+            var rule = new MaxCountRule(50);
+            Assert(rule.MaxCount == 50);
+            Assert(rule.IsMaxCount(33) == false);
+            Assert(rule.IsMaxCount(50));
         }
 
         public void TestStageReul()
