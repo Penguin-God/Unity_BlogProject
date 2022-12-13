@@ -33,7 +33,7 @@ public class UnitController : MonoBehaviour, IPositionGetter
 
     void ChangeTarget()
     {
-        _target = Managers.Game.MonsterManager.FindProximateMonster(Position);
+        _target = ManagerFacade.Game.MonsterManager.FindProximateMonster(Position);
     }
 
     [SerializeField] bool _attackable = true;

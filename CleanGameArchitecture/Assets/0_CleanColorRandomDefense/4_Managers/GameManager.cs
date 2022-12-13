@@ -25,7 +25,7 @@ public class GameManager
         else
         {
             UnitManager.AddUnit(unit);
-            uc = Managers.Resounrces.Instantiate(new SpawnPathBuilder().BuildUnitPath(flag.UnitClass)).GetComponent<UnitController>();
+            uc = ManagerFacade.Resounrces.Instantiate(new SpawnPathBuilder().BuildUnitPath(flag.UnitClass)).GetComponent<UnitController>();
             uc.SetInfo(new UnitAttackUseCase(unit, 5));
             return true;
         }
@@ -33,7 +33,7 @@ public class GameManager
 
     public MonsterController SpawnMonster(int monstNumber)
     {
-        var monsterController = Managers.Resounrces.Instantiate(new SpawnPathBuilder().BuildMonsterPath(monstNumber)).GetComponent<MonsterController>();
+        var monsterController = ManagerFacade.Resounrces.Instantiate(new SpawnPathBuilder().BuildMonsterPath(monstNumber)).GetComponent<MonsterController>();
         var monster = _monsterSpawner.SpawnMonster(1000);
         MonsterManager.AddMonster(monster);
         monsterController.SetInfo(monster);

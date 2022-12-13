@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Managers : MonoBehaviour
+public class ManagerFacade : MonoBehaviour
 {
-    private static Managers instance;
-    private static Managers Instance
+    private static ManagerFacade instance;
+    private static ManagerFacade Instance
     {
         get
         {
             if (instance == null)
             {
-                instance = FindObjectOfType<Managers>();
+                instance = FindObjectOfType<ManagerFacade>();
                 if (instance == null)
-                    instance = new GameObject("Managers").AddComponent<Managers>();
+                    instance = new GameObject("Managers").AddComponent<ManagerFacade>();
 
                 DontDestroyOnLoad(instance.gameObject);
                 instance.Init();

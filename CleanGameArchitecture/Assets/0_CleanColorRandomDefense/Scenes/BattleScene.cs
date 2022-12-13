@@ -13,7 +13,7 @@ public class BattleScene : BaseScene
         var unitManager = new UnitManager();
         var unitSpawner = new UnitSpanwer(unitManager, unitSpawnRule);
         var monsterManager = new MonsterManager();
-        Managers.Game.Init(unitManager, unitSpawner, monsterManager);
+        ManagerFacade.Game.Init(unitManager, unitSpawner, monsterManager);
 
         _battleRule = new MaxCountRule(50);
         monsterManager.OnMonsterCountChanged += CheckGameLoss;
@@ -38,7 +38,7 @@ public class BattleScene : BaseScene
         int spawnNumber = Random.Range(0, 4);
         for (int i = 0; i < 15; i++)
         {
-            var mc = Managers.Game.SpawnMonster(spawnNumber);
+            var mc = ManagerFacade.Game.SpawnMonster(spawnNumber);
             mc.transform.position = new Vector3(-45, 0, 35);
             yield return new WaitForSeconds(2f);
         }
