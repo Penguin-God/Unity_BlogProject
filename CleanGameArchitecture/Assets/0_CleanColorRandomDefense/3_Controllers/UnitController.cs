@@ -14,7 +14,6 @@ public class UnitController : MonoBehaviour, IPositionGetter
     [SerializeField] float _chaseGap;
     [SerializeField] float _stopDistance;
     NavMeshAgent _nav;
-    UnitAttackUseCase _unitAttackUseCase;
     protected UnitUseCase _unitUseCase;
 
     void Awake()
@@ -24,10 +23,10 @@ public class UnitController : MonoBehaviour, IPositionGetter
         _nav.stoppingDistance = _stopDistance;
         Init();
     }
+    public void SetInfo(UnitUseCase unitUseCase) => _unitUseCase = unitUseCase;
 
     protected virtual void Init() { }
-
-    public void SetInfo(UnitUseCase unitUseCase) => _unitUseCase = unitUseCase;
+    protected virtual void DoAttack(UnitUseCase useCase) { }
 
     [SerializeField] bool _attackable = true;
     void Update()
@@ -52,6 +51,4 @@ public class UnitController : MonoBehaviour, IPositionGetter
         yield return new WaitForSeconds(delayTime);
         _attackable = true;
     }
-
-    protected virtual void DoAttack(UnitUseCase useCase) { }
 }
