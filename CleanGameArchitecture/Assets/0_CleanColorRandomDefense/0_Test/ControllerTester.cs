@@ -11,7 +11,8 @@ public class ControllerTester
         var target = new GameObject("Target").AddComponent<MonsterController>();
         target.transform.position = new Vector3(10, 10, 5);
         projectile.Shot(target, null);
-        Assert(Vector3.Angle(projectile.transform.eulerAngles, new Vector3(35.2f, 45, 0)) < 0.1f);
-        Log(Vector3.Angle(projectile.transform.eulerAngles, new Vector3(35.2f, 45, 0)));
+        Assert(Quaternion.Angle(projectile.transform.rotation, Quaternion.Euler(new Vector3(-35.264f, 45, 0))) < 0.1f);
+        Object.DestroyImmediate(projectile.gameObject);
+        Object.DestroyImmediate(target.gameObject);
     }
 }
