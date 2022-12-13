@@ -6,14 +6,14 @@ using CreatureEntities;
 using UnitUseCases;
 using CalculateUseCase;
 
-public class UnitController : MonoBehaviour, IPositionGetter
+public abstract class UnitController : MonoBehaviour, IPositionGetter
 {
     public Vector3 Position => transform.position;
 
     [SerializeField] float _speed = 15;
     [SerializeField] float _chaseGap;
     [SerializeField] float _stopDistance;
-    NavMeshAgent _nav;
+    protected NavMeshAgent _nav;
     protected UnitUseCase _unitUseCase;
 
     void Awake()
@@ -26,7 +26,7 @@ public class UnitController : MonoBehaviour, IPositionGetter
     public void SetInfo(UnitUseCase unitUseCase) => _unitUseCase = unitUseCase;
 
     protected virtual void Init() { }
-    protected virtual void DoAttack(UnitUseCase useCase) { }
+    protected abstract void DoAttack(UnitUseCase useCase);
 
     [SerializeField] bool _attackable = true;
     void Update()
