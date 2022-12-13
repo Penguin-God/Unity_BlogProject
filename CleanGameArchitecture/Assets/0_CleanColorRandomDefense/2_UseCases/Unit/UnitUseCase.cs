@@ -8,31 +8,37 @@ namespace UnitUseCases
 {
     public interface IMonsterFinder
     {
-        Monster FindMonster();
+        Monster FindProximateMonster(IPositionGetter positionGetter);
     }
 
     public class UnitUseCase
     {
-        Unit Unit;
         Monster _target;
         IMonsterFinder _monsterFinder;
+        IPositionGetter _positionGetter;
         float _attackRange;
         int _damage;
 
-        public UnitUseCase(IMonsterFinder monsterFinder)
+        public UnitUseCase(IMonsterFinder monsterFinder, IPositionGetter positionGetter, float attackRange, int damage)
         {
+            _positionGetter = positionGetter;
             _monsterFinder = monsterFinder;
+            _attackRange = attackRange;
+            _damage = damage;
         }
 
-        public bool CheckTargetValid() => _target != null && _target.IsDead == false;
-
-        public void DamageToTarget()
+        public void FindTarget() => _target = _monsterFinder.FindProximateMonster(_positionGetter);
+        public bool IsTargetValid => _target != null && _target.IsDead == false;
+        public void AttackToTarget()
         {
-            _target.OnDamage(_damage);
+            if (IsAttackable())
+                _target?.OnDamage(_damage);
         }
-
         public bool IsAttackable()
-            => _attackRange > Vector3.Distance(Unit.PositionGetter.Position, _target.PositionGetter.Position);
+        {
+            if (IsTargetValid == false) return false;
+            return _attackRange > Vector3.Distance(_positionGetter.Position, _target.PositionGetter.Position);
+        }
     }
 
     public interface IAttack

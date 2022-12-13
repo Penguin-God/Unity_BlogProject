@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CreatureEntities;
 using RuleEntities;
+using UnitUseCases;
 using UnityEngine;
 using System;
 
@@ -106,7 +107,7 @@ namespace CreatureManagementUseCases
         }
     }
 
-    public class MonsterManager
+    public class MonsterManager : IMonsterFinder
     {
         List<Monster> _monsters = new List<Monster>();
         public IReadOnlyList<Monster> Monsters => _monsters;

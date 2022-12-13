@@ -46,6 +46,7 @@ public class Tester : MonoBehaviour
     void TestCreatureUseCase()
     {
         var tester = new CreatureUseCaseTester();
+        tester.TestUnitUseCase();
         tester.TestUnitAttackUseCase();
         tester.TestRandomSkill();
     }

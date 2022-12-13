@@ -11,10 +11,16 @@ namespace CreatureEntities
     {
         public UnitFlags Flag { get; private set; }
         int _damage = 100; // 임시
+        public int Damage => _damage;
         public IPositionGetter PositionGetter { get; private set; }
         public Unit(UnitFlags flag)
         {
             Flag = flag;
+        }
+
+        public Unit(UnitFlags unit, int damage)
+        {
+
         }
 
         public Unit(UnitFlags flag, IPositionGetter positionGetter)
