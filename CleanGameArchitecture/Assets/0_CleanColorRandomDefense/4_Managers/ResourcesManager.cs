@@ -11,9 +11,15 @@ public static class ResourcesManager
     }
 
     public static GameObject Instantiate(string path, Transform parent = null)
+        => Instantiate(path, Vector3.zero, parent);
+
+    public static GameObject Instantiate(string path, Vector3 position, Transform parent = null)
+        => Instantiate(path, position, Quaternion.identity, parent);
+
+    public static GameObject Instantiate(string path, Vector3 position, Quaternion rotation, Transform parent = null)
     {
         GameObject original = Load<GameObject>(GetPrefabPath(path));
-        GameObject go = Object.Instantiate(original, parent);
+        GameObject go = Object.Instantiate(original, position, rotation, parent);
         go.name = original.name;
         return go;
     }

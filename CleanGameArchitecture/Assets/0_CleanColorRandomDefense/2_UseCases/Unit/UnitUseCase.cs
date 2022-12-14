@@ -20,6 +20,7 @@ namespace UnitUseCases
     public class UnitUseCase
     {
         [SerializeField] Monster _target;
+        public Monster Target => _target;
         public IPositionGetter TargetPosition => _target.PositionGetter;
         IMonsterFinder _monsterFinder;
         IPositionGetter _positionGetter;

@@ -5,11 +5,6 @@ using UnityEngine;
 
 public class Archer : UnitController
 {
-    protected override void DoAttack(UnitUseCase useCase)
-    {
-        
-    }
-
     [SerializeField] int skillArrowCount = 3;
     
     [SerializeField] int _useSkillPercent;
@@ -19,9 +14,12 @@ public class Archer : UnitController
     protected override void Init()
     {
         _useSkillPercent = 30;
-        gameObject.AddComponent<ArcherAttack>();
-        _randomSkillUseCase = new RandomSkillUseCase(_useSkillPercent, new ArcherAttack(), new ArcherSkillAttack());
+        var attack = gameObject.AddComponent<ArcherAttack>();
+        attack.SetInfo(this);
+        _randomSkillUseCase = new RandomSkillUseCase(0, attack, new ArcherSkillAttack());
     }
+
+    protected override void DoAttack(UnitUseCase useCase) => _randomSkillUseCase.DoAttack();
 
     //void ShotSkill()
     //{
@@ -67,8 +65,8 @@ public class Archer : UnitController
 
         protected virtual void Attack()
         {
-            var arrow = ResourcesManager.Instantiate("Weapon/Arrow").GetComponent<Projectile>();
-            arrow.Shot(null, null);
+            var arrow = ResourcesManager.Instantiate($"Weapon/{_weaponName}", transform.position).GetComponent<Projectile>();
+            arrow.Shot(ManagerFacade.Game.GetMonseterController(_archer._unitUseCase.Target), _archer._unitUseCase.AttackToTarget);
         }
 
         void Shot()
