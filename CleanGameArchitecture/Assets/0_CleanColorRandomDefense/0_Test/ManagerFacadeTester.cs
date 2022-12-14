@@ -13,7 +13,7 @@ namespace TestManagerFacade
         {
             Log("게임 매니저 테스트!!");
             var game = new GameManager();
-            game.Init(new UnitManager(), null, new MonsterManager());
+            game.Init(null, new MonsterManager());
             var mc = game.SpawnMonster(1);
             var monster = game.GetMonseterController(mc.Monster);
             Assert(monster == mc);

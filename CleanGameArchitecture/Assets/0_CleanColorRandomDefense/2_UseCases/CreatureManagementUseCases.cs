@@ -12,18 +12,23 @@ public interface IPositionGetter
     Vector3 Position { get; }
 }
 
+public interface IMaxCountRule
+{
+    bool IsMaxCount(int count);
+}
+
 namespace CreatureManagementUseCases
 {
     public class UnitSpanwer
     {
         UnitManager _unitManager;
-        UnitSpawnRule _unitSpawnRule;
-        public UnitSpanwer(UnitManager unitManager, UnitSpawnRule unitSpawnRule) 
-            => (_unitManager, _unitSpawnRule) = (unitManager, unitSpawnRule);
+        IMaxCountRule _countRule;
+        public UnitSpanwer(UnitManager unitManager, IMaxCountRule countRule) 
+            => (_unitManager, _countRule) = (unitManager, countRule);
 
         public bool TrySpawn(UnitFlags flag, out Unit unit)
         {
-            if (_unitSpawnRule.IsMaxCount(_unitManager.Units.Count))
+            if (_countRule.IsMaxCount(_unitManager.Units.Count))
             {
                 unit = null;
                 return false;

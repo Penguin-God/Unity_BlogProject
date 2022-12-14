@@ -4,7 +4,7 @@ using System;
 
 namespace RuleEntities
 {
-    public class MaxCountRule
+    public class MaxCountRule : IMaxCountRule
     {
         public MaxCountRule(int maxCount) => MaxCount = maxCount;
         public int MaxCount { get; protected set; }

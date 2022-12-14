@@ -10,10 +10,8 @@ public class BattleScene : BaseScene
     protected override void Init()
     {
         var unitSpawnRule = new UnitSpawnRule(15);
-        var unitManager = new UnitManager();
-        var unitSpawner = new UnitSpanwer(unitManager, unitSpawnRule);
         var monsterManager = new MonsterManager();
-        ManagerFacade.Game.Init(unitManager, unitSpawner, monsterManager);
+        ManagerFacade.Game.Init(unitSpawnRule, monsterManager);
 
         _battleRule = new MaxCountRule(50);
         monsterManager.OnMonsterCountChanged += CheckGameLoss;

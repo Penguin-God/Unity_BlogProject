@@ -8,13 +8,16 @@ using CreatureEntities;
 
 public class GameManager
 {
-    public UnitManager UnitManager { get; private set; }
+    UnitManager _unitManager = new UnitManager();
     UnitSpanwer _unitSpanwer;
-    public MonsterManager MonsterManager { get; private set; }
+    MonsterManager _monsterManager;
     MonsterSpawner _monsterSpawner = new MonsterSpawner();
 
-    public void Init(UnitManager unitManager, UnitSpanwer unitSpanwer, MonsterManager monsterManager) 
-        => (UnitManager, _unitSpanwer, MonsterManager) = (unitManager, unitSpanwer, monsterManager);
+    public void Init(IMaxCountRule unitCountRule, MonsterManager monsterManager)
+    {
+        _unitSpanwer = new UnitSpanwer(_unitManager, unitCountRule);
+        _monsterManager = monsterManager;
+    }
 
     Dictionary<Monster, MonsterController> _monsetrByMc = new Dictionary<Monster, MonsterController>();
     public MonsterController GetMonseterController(Monster monster) => _monsetrByMc[monster];
@@ -28,9 +31,9 @@ public class GameManager
         }
         else
         {
-            UnitManager.AddUnit(unit);
+            _unitManager.AddUnit(unit);
             uc = ResourcesManager.Instantiate(new SpawnPathBuilder().BuildUnitPath(flag.UnitClass)).GetComponent<UnitController>();
-            uc.SetInfo(new UnitUseCase(MonsterManager, uc, 50, 100));
+            uc.SetInfo(new UnitUseCase(_monsterManager, uc, 50, 100));
             return true;
         }
     }
@@ -39,9 +42,10 @@ public class GameManager
     {
         var monsterController = ResourcesManager.Instantiate(new SpawnPathBuilder().BuildMonsterPath(monstNumber)).GetComponent<MonsterController>();
         var monster = _monsterSpawner.SpawnMonster(1000);
-        MonsterManager.AddMonster(monster);
+        _monsterManager.AddMonster(monster);
         monsterController.SetInfo(monster);
         _monsetrByMc.Add(monster, monsterController);
+        monster.OnDead += (m) => _monsetrByMc.Remove(m);
         return monsterController;
     }
 }
