@@ -21,7 +21,7 @@ public class MonsterController : MonoBehaviour, IPositionGetter
 
     void Dead(Monster monster)
     {
-        ManagerFacade.Resounrces.Destroy(gameObject);
+        ResourcesManager.Destroy(gameObject);
     }
 
     [SerializeField] float _speed = 5;

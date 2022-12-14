@@ -24,11 +24,9 @@ public class ManagerFacade : MonoBehaviour
     }
 
     GameManager _game = new GameManager();
-    ResourcesManager _resources = new ResourcesManager();
     SceneManagerEx _scene = new SceneManagerEx();
     
     public static GameManager Game => Instance._game;
-    public static ResourcesManager Resounrces => Instance._resources;
     public static SceneManagerEx Scene => Instance._scene;
 
     void Init()

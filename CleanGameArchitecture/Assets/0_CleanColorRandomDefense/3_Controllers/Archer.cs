@@ -67,7 +67,7 @@ public class Archer : UnitController
 
         protected virtual void Attack()
         {
-            var arrow = ManagerFacade.Resounrces.Instantiate("Weapon/Arrow").GetComponent<Projectile>();
+            var arrow = ResourcesManager.Instantiate("Weapon/Arrow").GetComponent<Projectile>();
             arrow.Shot(null, null);
         }
 
