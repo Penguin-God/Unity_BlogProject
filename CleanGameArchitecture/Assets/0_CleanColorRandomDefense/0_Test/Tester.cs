@@ -6,6 +6,7 @@ using EntityTests;
 using UseCaseTests;
 using GatewayTests;
 using CalculatorsTester;
+using TestManagerFacade;
 
 public class Tester : MonoBehaviour
 {
@@ -85,5 +86,11 @@ public class Tester : MonoBehaviour
     {
         var tester = new ControllerTester();
         tester.TestShot();
+    }
+
+    void TestManagerFacade()
+    {
+        var tester = new ManagerFacadeTester();
+        tester.TestGameManager();
     }
 }
