@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using CreatureManagementUseCases;
-using CreatureEntities;
 using static UnityEngine.Debug;
 
 namespace TestManagerFacade
@@ -18,6 +17,15 @@ namespace TestManagerFacade
             var monster = game.GetMonseterController(mc.Monster);
             Assert(monster == mc);
             Object.DestroyImmediate(mc.gameObject);
+        }
+
+        public void TestDataManager()
+        {
+            Log("데이터 매니저 테스트!!");
+            var data = new DataManager();
+            var unitData = data.GetUnitData(new UnitFlags(0, 0));
+            Assert(unitData.Damage == 25);
+            Assert(unitData.Name == "빨간 기사");
         }
     }
 }
