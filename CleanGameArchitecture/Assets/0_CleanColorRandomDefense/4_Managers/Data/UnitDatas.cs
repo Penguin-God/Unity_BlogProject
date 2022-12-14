@@ -6,8 +6,8 @@ namespace UnitDatas
 {
     public struct UnitData
     {
-        [SerializeField] UnitFlags _flag;
-        public UnitFlags Flag => _flag;
+        [SerializeField] public string _name;
+        public string Name => _name;
 
         [SerializeField] public int _damage;
         public int Damage => _damage;
@@ -23,9 +23,5 @@ namespace UnitDatas
 
         [SerializeField] public Color32 _unitColor;
         public Color32 UnitColor => _unitColor;
-
-
-        [SerializeField] public string _name;
-        public string Name => _name;
     }
 }
