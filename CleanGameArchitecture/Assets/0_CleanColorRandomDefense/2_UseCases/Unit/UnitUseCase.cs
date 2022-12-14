@@ -11,11 +11,6 @@ namespace UnitUseCases
         Monster FindProximateMonster(IPositionGetter positionGetter);
     }
 
-    public interface IAttack
-    {
-        void DoAttack();
-    }
-
     [System.Serializable]
     public class UnitUseCase
     {
