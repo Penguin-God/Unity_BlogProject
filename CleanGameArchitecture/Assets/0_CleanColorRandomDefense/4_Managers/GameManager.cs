@@ -6,7 +6,7 @@ using UnitUseCases;
 using GateWays;
 using CreatureEntities;
 
-public class GameManager
+public class GameManager // 이 녀석의 정체성에 심각한 수준의 의문 발생 : 얜 맨 바깥쪽 녀석이다. UseCase접근하면 안 된다.
 {
     UnitManager _unitManager = new UnitManager();
     UnitSpanwer _unitSpanwer;
@@ -33,7 +33,7 @@ public class GameManager
         {
             _unitManager.AddUnit(unit);
             uc = ResourcesManager.Instantiate(new SpawnPathBuilder().BuildUnitPath(flag.UnitClass)).GetComponent<UnitController>();
-            uc.SetInfo(new UnitUseCase(_monsterManager, uc, 50, 100));
+            uc.SetInfo(_monsterManager, ManagerFacade.Data.GetUnitData(flag));
             return true;
         }
     }
