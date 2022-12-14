@@ -14,7 +14,7 @@ public abstract class UnitController : MonoBehaviour, IPositionGetter
     [SerializeField] float _chaseGap;
     [SerializeField] float _stopDistance;
     protected NavMeshAgent _nav;
-    protected UnitUseCase _unitUseCase;
+    [SerializeField] protected UnitUseCase _unitUseCase;
 
     void Awake()
     {

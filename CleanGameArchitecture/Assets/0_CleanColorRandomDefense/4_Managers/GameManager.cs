@@ -30,7 +30,7 @@ public class GameManager
         {
             UnitManager.AddUnit(unit);
             uc = ResourcesManager.Instantiate(new SpawnPathBuilder().BuildUnitPath(flag.UnitClass)).GetComponent<UnitController>();
-            uc.SetInfo(new UnitUseCase(MonsterManager, uc, 5, 100));
+            uc.SetInfo(new UnitUseCase(MonsterManager, uc, 50, 100));
             return true;
         }
     }

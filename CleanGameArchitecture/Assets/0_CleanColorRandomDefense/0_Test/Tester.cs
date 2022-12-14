@@ -82,12 +82,6 @@ public class Tester : MonoBehaviour
         tester.TestCalculateShotDirection();
     }
 
-    void TestContorllers()
-    {
-        var tester = new ControllerTester();
-        tester.TestShot();
-    }
-
     void TestManagerFacade()
     {
         var tester = new ManagerFacadeTester();

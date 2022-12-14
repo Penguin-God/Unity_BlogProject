@@ -19,13 +19,13 @@ namespace UnitUseCases
     [System.Serializable]
     public class UnitUseCase
     {
-        [SerializeField] Monster _target;
+        Monster _target;
         public Monster Target => _target;
         public IPositionGetter TargetPosition => _target.PositionGetter;
         IMonsterFinder _monsterFinder;
         IPositionGetter _positionGetter;
-        float _attackRange;
-        int _damage;
+        [SerializeField] float _attackRange;
+        [SerializeField] int _damage;
 
         public UnitUseCase(IMonsterFinder monsterFinder, IPositionGetter positionGetter, float attackRange, int damage)
         {

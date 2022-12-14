@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4753266089580559284}
   - component: {fileID: 4723846231139429302}
   - component: {fileID: 4732605099497793506}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TB_Soldier_Swordman_Leg_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 4753216412524559780}
   - component: {fileID: 4723840292692444602}
   - component: {fileID: 4731190433199527234}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TB_Soldier_Swordman_Leg_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 4749127522083200244}
   - component: {fileID: 4723851067729264968}
   - component: {fileID: 4732059478972043110}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TB_Soldier_Swordman_Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -250,7 +250,7 @@ GameObject:
   - component: {fileID: 4732028559940976774}
   - component: {fileID: -2661414287686546415}
   - component: {fileID: -8216826036011782902}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Swordman
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -333,6 +333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6af0b3628525c54c98221f7ddaa1c54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hp: 0
   _speed: 5
 --- !u!136 &-8216826036011782902
 CapsuleCollider:

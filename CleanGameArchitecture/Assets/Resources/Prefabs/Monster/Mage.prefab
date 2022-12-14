@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1412197455200328705}
   - component: {fileID: 1432566023246726373}
   - component: {fileID: 1424802971301314951}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: TB_Soldier_Mage_Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 1424999298778717207}
   - component: {fileID: 769100650341760458}
   - component: {fileID: -6830630672004837860}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Mage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,6 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6af0b3628525c54c98221f7ddaa1c54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hp: 0
   _speed: 5
 --- !u!136 &-6830630672004837860
 CapsuleCollider:

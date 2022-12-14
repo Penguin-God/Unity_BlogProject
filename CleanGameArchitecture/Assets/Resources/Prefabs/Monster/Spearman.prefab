@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8449288175917205960}
   - component: {fileID: 6004315569872392203}
   - component: {fileID: 7063416951360312190}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Spearman
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6af0b3628525c54c98221f7ddaa1c54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hp: 0
   _speed: 5
 --- !u!136 &7063416951360312190
 CapsuleCollider:
@@ -122,7 +123,7 @@ GameObject:
   - component: {fileID: 8431083771120986544}
   - component: {fileID: 8460036943502848234}
   - component: {fileID: 8449831781343126008}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: TB_Soldier_Spearman_Leg_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,7 +202,7 @@ GameObject:
   - component: {fileID: 8439606592868018178}
   - component: {fileID: 8459348220780886140}
   - component: {fileID: 8449318897147322470}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: TB_Soldier_Spearman_Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -280,7 +281,7 @@ GameObject:
   - component: {fileID: 8439401254705716020}
   - component: {fileID: 8459796512967579114}
   - component: {fileID: 8449355833163956190}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: TB_Soldier_Spearman_Leg_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}

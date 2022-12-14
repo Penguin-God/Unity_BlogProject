@@ -66,7 +66,7 @@ public class Archer : UnitController
         protected virtual void Attack()
         {
             var arrow = ResourcesManager.Instantiate($"Weapon/{_weaponName}", transform.position).GetComponent<Projectile>();
-            arrow.Shot(ManagerFacade.Game.GetMonseterController(_archer._unitUseCase.Target), _archer._unitUseCase.AttackToTarget);
+            arrow.Shot(ManagerFacade.Game.GetMonseterController(_archer._unitUseCase.Target), null);
         }
 
         void Shot()

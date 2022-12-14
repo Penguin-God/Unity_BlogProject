@@ -503,8 +503,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 15
-  _chaseGap: 0
-  _stopDistance: 0
+  _chaseGap: 3
+  _stopDistance: 20
+  _unitUseCase:
+    _attackRange: 50
+    _damage: 100
   _attackable: 1
   skillArrowCount: 3
   _useSkillPercent: 0

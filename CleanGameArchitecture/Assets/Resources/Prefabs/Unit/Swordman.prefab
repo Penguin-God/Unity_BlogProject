@@ -48,6 +48,9 @@ MonoBehaviour:
   _speed: 15
   _chaseGap: 2
   _stopDistance: 2
+  _unitUseCase:
+    _attackRange: 5
+    _damage: 10
   _attackable: 1
 --- !u!195 &6504360537215644211
 NavMeshAgent:

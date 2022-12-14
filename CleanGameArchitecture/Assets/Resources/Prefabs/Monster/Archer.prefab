@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1832104231509788175}
   - component: {fileID: 1915345817766788385}
   - component: {fileID: 7667183500618510690}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Archer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6af0b3628525c54c98221f7ddaa1c54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hp: 0
   _speed: 5
 --- !u!136 &7667183500618510690
 CapsuleCollider:
@@ -122,7 +123,7 @@ GameObject:
   - component: {fileID: 1816803476744736201}
   - component: {fileID: 1823621154183021483}
   - component: {fileID: 1831893612308842507}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TB_Soldier_Archer_Leg_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,7 +202,7 @@ GameObject:
   - component: {fileID: 1816815378613139957}
   - component: {fileID: 1823719642864895299}
   - component: {fileID: 1831578082397403067}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TB_Soldier_Archer_Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -280,7 +281,7 @@ GameObject:
   - component: {fileID: 1813041168058967261}
   - component: {fileID: 1823169041935185519}
   - component: {fileID: 1831205903564133015}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TB_Soldier_Archer_Leg_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
