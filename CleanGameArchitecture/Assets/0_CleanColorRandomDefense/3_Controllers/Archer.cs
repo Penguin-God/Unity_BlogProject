@@ -20,7 +20,7 @@ public class Archer : UnitController
     {
         _useSkillPercent = 30;
         gameObject.AddComponent<ArcherAttack>();
-        _randomSkillUseCase = new RandomSkillUseCase(_useSkillPercent, null, null);
+        _randomSkillUseCase = new RandomSkillUseCase(_useSkillPercent, new ArcherAttack(), new ArcherSkillAttack());
     }
 
     //void ShotSkill()
@@ -40,7 +40,6 @@ public class Archer : UnitController
     {
         Archer _archer;
         const string _weaponName = "Arrow";
-        IAttack _attack;
         TrailRenderer _trail;
 
         void Awake()
@@ -48,10 +47,9 @@ public class Archer : UnitController
             _trail = GetComponentInChildren<TrailRenderer>(true);
         }
 
-        public void SetInfo(Archer archer, IAttack attack)
+        public void SetInfo(Archer archer)
         {
             _archer = archer;
-            _attack = attack;
         }
 
         public void DoAttack() => StartCoroutine(Co_ArrowAttack());
@@ -60,11 +58,30 @@ public class Archer : UnitController
         {
             _archer._nav.isStopped = true;
             _trail.gameObject.SetActive(false);
-            _attack?.DoAttack();
+            Attack();
             yield return new WaitForSeconds(1f);
             _trail.gameObject.SetActive(true);
             _trail.Clear();
             _archer._nav.isStopped = false;
+        }
+
+        protected virtual void Attack()
+        {
+            var arrow = ManagerFacade.Resounrces.Instantiate("Weapon/Arrow").GetComponent<Projectile>();
+            arrow.Shot(null, null);
+        }
+
+        void Shot()
+        {
+
+        }
+    }
+
+    class ArcherSkillAttack : ArcherAttack
+    {
+        protected override void Attack()
+        {
+            base.Attack();
         }
     }
 }
