@@ -17,4 +17,9 @@ namespace GateWays
         };
         public string BuildMonsterPath(int monsterNumber) => $"Prefabs/Monster/{_numberByName[monsterNumber]}";
     }
+
+    public static class ResourcesPathBuilder
+    {
+        public static string BuildUnitMaterialPath(UnitColor color) => $"Materials/Unit/Soldiers_{Enum.GetName(typeof(UnitColor), color)}";
+    }
 }

@@ -12,6 +12,22 @@ public interface IAttack
     void DoAttack();
 }
 
+public struct UnitControllerData // 위에 3개는 유즈케이스 데이터, 아래 3개는 컨트롤러 데이터로 분리하기
+{
+    public UnitFlags Flag { get; private set; }
+    public int Damage { get; private set; }
+    public float AttackRange { get; private set; }
+    public float Speed { get; private set; }
+    public float AttackDelayTime { get; private set; }
+    public Material Material { get; private set; }
+
+    public UnitControllerData((UnitFlags flag, int dam, float range) useCaseData, (float speed, float delay, Material mat) controllerData)
+    {
+        (Flag, Damage, AttackRange) = useCaseData;
+        (Speed, AttackDelayTime, Material) = controllerData;
+    }
+}
+
 public abstract class UnitController : MonoBehaviour, IPositionGetter
 {
     public Vector3 Position => transform.position;
@@ -31,8 +47,7 @@ public abstract class UnitController : MonoBehaviour, IPositionGetter
         Init();
         StartCoroutine(aa(2f).GetEnumerator()); // 이 코드를 참고해서 DoAttack 대기하기. 그러려면 DoAttack이 IEnumerable을 반환해야 함.
     }
-    public void SetInfo(UnitUseCase unitUseCase) => _unitUseCase = unitUseCase;
-    public void SetInfo(IMonsterFinder monsterFinder, UnitData data)
+    public void SetInfo(IMonsterFinder monsterFinder, UnitControllerData data)
     {
         _speed = data.Speed;
         _attackDelayTime = data.AttackDelayTime;

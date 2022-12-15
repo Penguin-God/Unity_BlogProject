@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GateWays;
 using static UnityEngine.Debug;
+using System;
 
 namespace GatewayTests
 {
@@ -26,6 +27,16 @@ namespace GatewayTests
             Assert(builder.BuildMonsterPath(1) == "Prefabs/Monster/Archer");
             Assert(builder.BuildMonsterPath(2) == "Prefabs/Monster/Spearman");
             Assert(builder.BuildMonsterPath(3) == "Prefabs/Monster/Mage");
+        }
+    }
+
+    public class ResourcesPathBuilderTester
+    {
+        public void TestLoadUnitMaterial()
+        {
+            Log("유닛 메테리얼 로드 테스트!!");
+            foreach (UnitColor color in Enum.GetValues(typeof(UnitColor)))
+                Assert(Resources.Load<Material>(ResourcesPathBuilder.BuildUnitMaterialPath(color)).name == $"Soldiers_{Enum.GetName(typeof(UnitColor), color)}");
         }
     }
 }

@@ -75,6 +75,12 @@ public class Tester : MonoBehaviour
         tester.TestBuildMonsterPath();
     }
 
+    void TestLoad()
+    {
+        var tester = new ResourcesPathBuilderTester();
+        tester.TestLoadUnitMaterial();
+    }
+
     void TestCalculators()
     {
         var tester = new VectorCalculateTester();
