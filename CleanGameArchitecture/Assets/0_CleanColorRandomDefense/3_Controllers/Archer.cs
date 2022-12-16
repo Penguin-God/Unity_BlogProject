@@ -11,10 +11,7 @@ public class Archer : UnitController
     [SerializeField] float _skillReboundTime;
     RandomSkillUseCase _randomSkillUseCase;
 
-    protected override IEnumerator Co_Attack()
-    {
-        throw new System.NotImplementedException();
-    }
+    protected override IEnumerator Co_Attack() => _randomSkillUseCase.Co_DoAttack();
 
     protected override void Init()
     {
@@ -37,7 +34,7 @@ public class Archer : UnitController
     //}
     // 노말 어택용 공격, 스킬용 공격 클래스 만들기
 
-    class ArcherAttack : MonoBehaviour, IAttack
+    class ArcherAttack : MonoBehaviour, ICo_Attack
     {
         Archer _archer;
         const string _weaponName = "Arrow";
@@ -53,9 +50,7 @@ public class Archer : UnitController
             _archer = archer;
         }
 
-        public void DoAttack() => StartCoroutine(Co_ArrowAttack());
-
-        IEnumerator Co_ArrowAttack()
+        public IEnumerator Co_DoAttack()
         {
             _archer._nav.isStopped = true;
             _trail.gameObject.SetActive(false);

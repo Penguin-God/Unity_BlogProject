@@ -3,24 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnitUseCases;
 
-public class RandomSkillUseCase : IAttack
+public class RandomSkillUseCase : ICo_Attack
 {
     int _useSkillPersent;
-    IAttack _normalAttack;
-    IAttack _skillAttack;
-    public RandomSkillUseCase(int useSkillPersent, IAttack normalAttack, IAttack skillAttack)
+    ICo_Attack _normalAttack;
+    ICo_Attack _skillAttack;
+    public RandomSkillUseCase(int useSkillPersent, ICo_Attack normalAttack, ICo_Attack skillAttack)
     {
         _useSkillPersent = useSkillPersent;
         _normalAttack = normalAttack;
         _skillAttack = skillAttack;
     }
 
-    public void DoAttack()
+    public IEnumerator Co_DoAttack()
     {
         int rand = Random.Range(1, 101);
-        if (rand > _useSkillPersent)
-            _normalAttack?.DoAttack();
-        else
-            _skillAttack?.DoAttack();
+        return rand > _useSkillPersent ? _normalAttack?.Co_DoAttack() : _skillAttack?.Co_DoAttack();
     }
 }

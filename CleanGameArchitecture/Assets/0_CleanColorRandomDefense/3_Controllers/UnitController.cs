@@ -7,11 +7,6 @@ using UnitUseCases;
 using CalculateUseCase;
 using UnitDatas;
 
-public interface IAttack
-{
-    void DoAttack();
-}
-
 public interface ICo_Attack
 {
     IEnumerator Co_DoAttack();
@@ -71,10 +66,7 @@ public abstract class UnitController : MonoBehaviour, IPositionGetter
 
         _nav.SetDestination(ChasePositionCalculator.GetChasePosition(this, _unitUseCase.TargetPosition, _chaseGap));
         if (_attackable && _unitUseCase.IsAttackable())
-        {
             StartCoroutine(Co_DoAttack());
-            // DoAttack(_unitUseCase);
-        }
     }
 
     IEnumerator Co_DoAttack()

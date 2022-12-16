@@ -174,24 +174,29 @@ namespace UseCaseTests
             var skillUseCase = new RandomSkillUseCase(100, normal, skill);
             for (int i = 0; i < 1000; i++)
             {
-                skillUseCase.DoAttack();
+                skillUseCase.Co_DoAttack();
                 Assert(isSkillAttack);
             }
 
             skillUseCase = new RandomSkillUseCase(0, normal, skill);
             for (int i = 0; i < 1000; i++)
             {
-                skillUseCase.DoAttack();
+                skillUseCase.Co_DoAttack();
                 Assert(isSkillAttack == false);
             }
         }
     }
 
-    class TestAttackEvent : IAttack
+    class TestAttackEvent : ICo_Attack
     {
         public event System.Action OnAttack;
         public TestAttackEvent(System.Action action) => OnAttack = action;
-        public void DoAttack() => OnAttack?.Invoke();
+
+        public IEnumerator Co_DoAttack()
+        {
+            OnAttack?.Invoke();
+            return null;
+        }
     }
 }
 
