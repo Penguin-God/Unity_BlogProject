@@ -145,5 +145,11 @@ namespace CreatureManagementUseCases
             }
             return minDistanceMonster.monster;
         }
+
+        public Monster[] FindProximateMonsters(IPositionGetter positionGetter, int count)
+        {
+
+            return null;
+        }
     }
 }
