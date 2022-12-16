@@ -14,15 +14,13 @@ public class Swordman : UnitController
         swordTrail = GetComponentInChildren<TrailRenderer>(true);
     }
 
-    protected override void DoAttack(UnitUseCase useCase) => StartCoroutine(Co_SwordAttack(useCase));
-
-    IEnumerator Co_SwordAttack(UnitUseCase useCase)
+    protected override IEnumerator Co_Attack()
     {
         animator.SetTrigger("isSword");
         yield return new WaitForSeconds(0.8f);
         swordTrail.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.3f);
-        useCase.AttackToTarget();
+        _unitUseCase.AttackToTarget();
         swordTrail.gameObject.SetActive(false);
         swordTrail.Clear();
     }

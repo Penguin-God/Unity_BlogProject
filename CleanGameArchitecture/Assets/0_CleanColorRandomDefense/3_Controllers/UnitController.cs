@@ -12,6 +12,11 @@ public interface IAttack
     void DoAttack();
 }
 
+public interface ICo_Attack
+{
+    IEnumerator Co_DoAttack();
+}
+
 public struct UnitControllerData // 위에 3개는 유즈케이스 데이터, 아래 3개는 컨트롤러 데이터로 분리하기
 {
     public UnitFlags Flag { get; private set; }
@@ -44,7 +49,6 @@ public abstract class UnitController : MonoBehaviour, IPositionGetter
         _nav.speed = _speed;
         _nav.stoppingDistance = _stopDistance;
         Init();
-        StartCoroutine(aa(2f).GetEnumerator()); // 이 코드를 참고해서 DoAttack 대기하기. 그러려면 DoAttack이 IEnumerable을 반환해야 함.
     }
     public void SetInfo(IMonsterFinder monsterFinder, UnitControllerData data)
     {
@@ -54,7 +58,7 @@ public abstract class UnitController : MonoBehaviour, IPositionGetter
     }
 
     protected virtual void Init() { }
-    protected abstract void DoAttack(UnitUseCase useCase);
+    //protected abstract void DoAttack(UnitUseCase useCase);
 
     [SerializeField] bool _attackable = true;
     void Update()
@@ -68,22 +72,22 @@ public abstract class UnitController : MonoBehaviour, IPositionGetter
         _nav.SetDestination(ChasePositionCalculator.GetChasePosition(this, _unitUseCase.TargetPosition, _chaseGap));
         if (_attackable && _unitUseCase.IsAttackable())
         {
-            StartCoroutine(Co_CoolDawnAttack(_attackDelayTime));
-            DoAttack(_unitUseCase);
+            StartCoroutine(Co_DoAttack());
+            // DoAttack(_unitUseCase);
         }
     }
 
-    IEnumerable aa(float delayTime)
+    IEnumerator Co_DoAttack()
     {
-        Debug.Log("안녕!!");
-        yield return new WaitForSeconds(delayTime);
-        Debug.Log("잘가!!");
+        _attackable = false;
+        yield return StartCoroutine(Co_Attack());
+        StartCoroutine(Co_CoolDawnAttack(_attackDelayTime));
     }
+    protected abstract IEnumerator Co_Attack();
+    
 
     IEnumerator Co_CoolDawnAttack(float delayTime)
     {
-        _attackable = false;
-
         yield return new WaitForSeconds(delayTime);
         _attackable = true;
     }

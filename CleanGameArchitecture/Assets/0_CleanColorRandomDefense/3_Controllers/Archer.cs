@@ -11,6 +11,11 @@ public class Archer : UnitController
     [SerializeField] float _skillReboundTime;
     RandomSkillUseCase _randomSkillUseCase;
 
+    protected override IEnumerator Co_Attack()
+    {
+        throw new System.NotImplementedException();
+    }
+
     protected override void Init()
     {
         _useSkillPercent = 30;
@@ -18,8 +23,6 @@ public class Archer : UnitController
         attack.SetInfo(this);
         _randomSkillUseCase = new RandomSkillUseCase(0, attack, new ArcherSkillAttack());
     }
-
-    protected override void DoAttack(UnitUseCase useCase) => _randomSkillUseCase.DoAttack();
 
     //void ShotSkill()
     //{
