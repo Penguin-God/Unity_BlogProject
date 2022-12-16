@@ -20,8 +20,5 @@ namespace UnitDatas
 
         [SerializeField] public float _speed;
         public float Speed => _speed;
-
-        [SerializeField] public Color32 _unitColor;
-        public Color32 UnitColor => _unitColor;
     }
 }

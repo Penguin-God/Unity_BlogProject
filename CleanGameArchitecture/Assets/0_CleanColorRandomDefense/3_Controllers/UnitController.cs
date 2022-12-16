@@ -19,12 +19,11 @@ public struct UnitControllerData // 위에 3개는 유즈케이스 데이터, �
     public float AttackRange { get; private set; }
     public float Speed { get; private set; }
     public float AttackDelayTime { get; private set; }
-    public Material Material { get; private set; }
 
-    public UnitControllerData((UnitFlags flag, int dam, float range) useCaseData, (float speed, float delay, Material mat) controllerData)
+    public UnitControllerData((UnitFlags flag, int dam, float range) useCaseData, (float speed, float delay) controllerData)
     {
         (Flag, Damage, AttackRange) = useCaseData;
-        (Speed, AttackDelayTime, Material) = controllerData;
+        (Speed, AttackDelayTime) = controllerData;
     }
 }
 
@@ -52,8 +51,6 @@ public abstract class UnitController : MonoBehaviour, IPositionGetter
         _speed = data.Speed;
         _attackDelayTime = data.AttackDelayTime;
         _unitUseCase = new UnitUseCase(monsterFinder, this, data.AttackRange, data.Damage);
-        foreach (var mesh in GetComponentsInChildren<MeshRenderer>())
-            mesh.material = data.Material;
     }
 
     protected virtual void Init() { }

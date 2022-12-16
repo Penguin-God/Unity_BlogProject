@@ -33,11 +33,12 @@ public class GameManager // 이 녀석의 정체성에 심각한 수준의 의�
         {
             _unitManager.AddUnit(unit);
             uc = ResourcesManager.Instantiate(SpawnPathBuilder.BuildUnitPath(flag.UnitClass)).GetComponent<UnitController>();
-
+            foreach (var mesh in uc.GetComponentsInChildren<MeshRenderer>())
+                mesh.material = ResourcesManager.Load<Material>(ResourcesPathBuilder.BuildUnitMaterialPath(flag.UnitColor));
             var dbData = ManagerFacade.Data.GetUnitData(flag);
             var data = new UnitControllerData(
                 (flag, dbData.Damage, dbData.AttackRange),
-                (dbData.Speed, dbData.AttackDelayTime, ResourcesManager.Load<Material>(ResourcesPathBuilder.BuildUnitMaterialPath(flag.UnitColor)))
+                (dbData.Speed, dbData.AttackDelayTime)
                 );
             uc.SetInfo(_monsterManager, data);
             return true;
