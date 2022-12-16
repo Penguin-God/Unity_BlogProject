@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using CreatureEntities;
 using RuleEntities;
 using UnitUseCases;
 using UnityEngine;
 using System;
+using System.Linq;
 
 public interface IPositionGetter
 {
@@ -131,25 +131,15 @@ namespace CreatureManagementUseCases
             OnMonsterCountChanged?.Invoke(_monsters.Count);
         }
 
-        public Monster FindProximateMonster(IPositionGetter positionGetter) => FindProximateMonster(positionGetter.Position);
-
-        public Monster FindProximateMonster(Vector3 requesterPos)
-        {
-            if (_monsters.Count == 0) return null;
-            (float minDistance, Monster monster) minDistanceMonster = (Mathf.Infinity, null);
-            foreach (var monster in _monsters)
-            {
-                float distanceToEnemy = Vector3.Distance(requesterPos, monster.PositionGetter.Position);
-                if (distanceToEnemy < minDistanceMonster.minDistance)
-                    minDistanceMonster = (distanceToEnemy, monster);
-            }
-            return minDistanceMonster.monster;
-        }
+        public Monster FindProximateMonster(IPositionGetter positionGetter) => GetOrderMonstersByDistance(positionGetter).FirstOrDefault();
 
         public Monster[] FindProximateMonsters(IPositionGetter positionGetter, int count)
         {
-
-            return null;
+            if (_monsters.Count == 0) return null;
+            return GetOrderMonstersByDistance(positionGetter).Take(count).ToArray();
         }
+
+        IEnumerable<Monster> GetOrderMonstersByDistance(IPositionGetter positionGetter)
+            => _monsters.OrderBy(x => Vector3.Distance(positionGetter.Position, x.PositionGetter.Position));
     }
 }
