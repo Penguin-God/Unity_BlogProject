@@ -4,9 +4,9 @@ using System;
 
 namespace GateWays
 {
-    public class SpawnPathBuilder
+    public static class SpawnPathBuilder
     {
-        public string BuildUnitPath(UnitClass unitClass) => $"Prefabs/Unit/{Enum.GetName(typeof(UnitClass), unitClass)}";
+        public static string BuildUnitPath(UnitClass unitClass) => $"Prefabs/Unit/{Enum.GetName(typeof(UnitClass), unitClass)}";
 
         static Dictionary<int, string> _numberByName = new Dictionary<int, string>()
         {
@@ -15,7 +15,7 @@ namespace GateWays
             {2, "Spearman" },
             {3, "Mage" },
         };
-        public string BuildMonsterPath(int monsterNumber) => $"Prefabs/Monster/{_numberByName[monsterNumber]}";
+        public static string BuildMonsterPath(int monsterNumber) => $"Prefabs/Monster/{_numberByName[monsterNumber]}";
     }
 
     public static class ResourcesPathBuilder

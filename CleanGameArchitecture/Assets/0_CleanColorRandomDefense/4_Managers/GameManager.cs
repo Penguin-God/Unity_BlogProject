@@ -32,7 +32,7 @@ public class GameManager // 이 녀석의 정체성에 심각한 수준의 의�
         else
         {
             _unitManager.AddUnit(unit);
-            uc = ResourcesManager.Instantiate(new SpawnPathBuilder().BuildUnitPath(flag.UnitClass)).GetComponent<UnitController>();
+            uc = ResourcesManager.Instantiate(SpawnPathBuilder.BuildUnitPath(flag.UnitClass)).GetComponent<UnitController>();
 
             var dbData = ManagerFacade.Data.GetUnitData(flag);
             var data = new UnitControllerData(
@@ -46,7 +46,7 @@ public class GameManager // 이 녀석의 정체성에 심각한 수준의 의�
 
     public MonsterController SpawnMonster(int monstNumber)
     {
-        var monsterController = ResourcesManager.Instantiate(new SpawnPathBuilder().BuildMonsterPath(monstNumber)).GetComponent<MonsterController>();
+        var monsterController = ResourcesManager.Instantiate(SpawnPathBuilder.BuildMonsterPath(monstNumber)).GetComponent<MonsterController>();
         var monster = _monsterSpawner.SpawnMonster(1000);
         _monsterManager.AddMonster(monster);
         monsterController.SetInfo(monster);
