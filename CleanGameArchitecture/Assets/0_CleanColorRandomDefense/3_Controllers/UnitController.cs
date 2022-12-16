@@ -52,6 +52,8 @@ public abstract class UnitController : MonoBehaviour, IPositionGetter
         _speed = data.Speed;
         _attackDelayTime = data.AttackDelayTime;
         _unitUseCase = new UnitUseCase(monsterFinder, this, data.AttackRange, data.Damage);
+        foreach (var mesh in GetComponentsInChildren<MeshRenderer>())
+            mesh.material = data.Material;
     }
 
     protected virtual void Init() { }

@@ -22,7 +22,7 @@ public class GameManager // 이 녀석의 정체성에 심각한 수준의 의�
     Dictionary<Monster, MonsterController> _monsetrByMc = new Dictionary<Monster, MonsterController>();
     public MonsterController GetMonseterController(Monster monster) => _monsetrByMc[monster];
 
-    public bool TryUnitSpawn(UnitFlags flag, out UnitController uc)
+    public bool TrySpawnUnit(UnitFlags flag, out UnitController uc)
     {
         if(_unitSpanwer.TrySpawn(flag, out var unit) == false)
         {
