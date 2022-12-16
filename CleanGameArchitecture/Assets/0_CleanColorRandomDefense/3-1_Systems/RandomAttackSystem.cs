@@ -1,14 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnitUseCases;
 
-public class RandomSkillUseCase : ICo_Attack
+public class RandomAttackSystem : ICo_Attack
 {
     int _useSkillPersent;
     ICo_Attack _normalAttack;
     ICo_Attack _skillAttack;
-    public RandomSkillUseCase(int useSkillPersent, ICo_Attack normalAttack, ICo_Attack skillAttack)
+    
+    public RandomAttackSystem(int useSkillPersent, ICo_Attack normalAttack, ICo_Attack skillAttack)
     {
         _useSkillPersent = useSkillPersent;
         _normalAttack = normalAttack;

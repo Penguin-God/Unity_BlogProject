@@ -171,14 +171,14 @@ namespace UseCaseTests
             bool isSkillAttack = false;
             TestAttackEvent normal = new TestAttackEvent(() => isSkillAttack = false);
             TestAttackEvent skill = new TestAttackEvent(() => isSkillAttack = true);
-            var skillUseCase = new RandomSkillUseCase(100, normal, skill);
+            var skillUseCase = new RandomAttackSystem(100, normal, skill);
             for (int i = 0; i < 1000; i++)
             {
                 skillUseCase.Co_DoAttack();
                 Assert(isSkillAttack);
             }
 
-            skillUseCase = new RandomSkillUseCase(0, normal, skill);
+            skillUseCase = new RandomAttackSystem(0, normal, skill);
             for (int i = 0; i < 1000; i++)
             {
                 skillUseCase.Co_DoAttack();

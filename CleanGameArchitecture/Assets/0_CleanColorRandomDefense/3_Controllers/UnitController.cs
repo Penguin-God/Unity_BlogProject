@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using CreatureEntities;
 using UnitUseCases;
 using CalculateUseCase;
-using UnitDatas;
 
 public interface ICo_Attack
 {
@@ -53,7 +51,6 @@ public abstract class UnitController : MonoBehaviour, IPositionGetter
     }
 
     protected virtual void Init() { }
-    //protected abstract void DoAttack(UnitUseCase useCase);
 
     [SerializeField] bool _attackable = true;
     void Update()
