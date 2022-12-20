@@ -10,30 +10,14 @@ namespace CreatureEntities
     public class Unit
     {
         public UnitFlags Flag { get; private set; }
-        int _damage = 100; // 임시
-        public int Damage => _damage;
-        public IPositionGetter PositionGetter { get; private set; }
         public Unit(UnitFlags flag)
         {
             Flag = flag;
         }
 
-        public Unit(UnitFlags unit, int damage)
-        {
-
-        }
-
-        public Unit(UnitFlags flag, IPositionGetter positionGetter)
-        {
-            Flag = flag;
-            PositionGetter = positionGetter;
-        }
-
-        public void SetPositionGetter(IPositionGetter positionGetter) => PositionGetter = positionGetter;
-
         public void Attack(Monster monster)
         {
-            monster.OnDamage(_damage);
+            monster.OnDamage(100);
         }
 
         public event Action<Unit> OnDead;
