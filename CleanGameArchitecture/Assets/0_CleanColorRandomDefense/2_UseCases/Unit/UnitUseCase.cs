@@ -9,6 +9,7 @@ namespace UnitUseCases
     public interface IMonsterFinder
     {
         Monster FindProximateMonster(IPositionGetter positionGetter);
+        Monster[] FindProximateMonsters(IPositionGetter positionGetter, int count);
     }
 
     [System.Serializable]

@@ -1,14 +1,12 @@
-﻿using System.Collections;
+﻿using CreatureEntities;
+using System.Collections;
 using System.Collections.Generic;
 using UnitUseCases;
 using UnityEngine;
 
 public class Archer : UnitController
 {
-    [SerializeField] int skillArrowCount = 3;
-    
     [SerializeField] int _useSkillPercent;
-    [SerializeField] float _skillReboundTime;
     RandomAttackSystem _randomSkillUseCase;
 
     protected override IEnumerator Co_Attack() => _randomSkillUseCase.Co_DoAttack();
@@ -16,38 +14,22 @@ public class Archer : UnitController
     protected override void Init()
     {
         _useSkillPercent = 30;
-        var attack = gameObject.AddComponent<ArcherAttack>();
-        attack.SetInfo(this);
-        _randomSkillUseCase = new RandomAttackSystem(0, attack, new ArcherSkillAttack());
+        var normal = gameObject.AddComponent<ArcherAttack>();
+        var skill = gameObject.AddComponent<ArcherSkill>();
+        _randomSkillUseCase = new RandomAttackSystem(_useSkillPercent, normal, skill);
     }
 
-    //void ShotSkill()
-    //{
-    //    Transform[] targetArray = GetTargets();
-    //    if (targetArray == null || targetArray.Length == 0) return;
-
-    //    for (int i = 0; i < skillArrowCount; i++)
-    //    {
-    //        int targetIndex = i % targetArray.Length;
-    //        ProjectileShotDelegate.ShotProjectile(arrawData, targetArray[targetIndex], OnSkillHit);
-    //    }
-    //}
-    // 노말 어택용 공격, 스킬용 공격 클래스 만들기
-
-    class ArcherAttack : MonoBehaviour, ICo_Attack
+    class ArcherAttack : ShoterUnit, ICo_Attack
     {
-        Archer _archer;
-        const string _weaponName = "Arrow";
+        protected Archer _archer;
         TrailRenderer _trail;
 
-        void Awake()
+        protected override string ProjectileName => "Arrow";
+
+        protected override void Init()
         {
             _trail = GetComponentInChildren<TrailRenderer>(true);
-        }
-
-        public void SetInfo(Archer archer)
-        {
-            _archer = archer;
+            _archer = (Archer)_uc;
         }
 
         public IEnumerator Co_DoAttack()
@@ -61,23 +43,22 @@ public class Archer : UnitController
             _archer._nav.isStopped = false;
         }
 
-        protected virtual void Attack()
-        {
-            var arrow = ResourcesManager.Instantiate($"Weapon/{_weaponName}", transform.position).GetComponent<Projectile>();
-            arrow.Shot(ManagerFacade.Game.GetMonseterController(_archer._unitUseCase.Target), null);
-        }
-
-        void Shot()
-        {
-
-        }
+        protected virtual void Attack() => DoShot(ManagerFacade.Game.GetMonseterController(_archer._unitUseCase.Target), (mo) => Debug.Log("맞았어!!"));
     }
 
-    class ArcherSkillAttack : ArcherAttack
+    class ArcherSkill : ArcherAttack
     {
+        readonly int SKILL_ATTOW_COUNT = 3;
         protected override void Attack()
         {
-            base.Attack();
+            Monster[] targets = _archer._monsterFinder.FindProximateMonsters(_archer, SKILL_ATTOW_COUNT);
+            if (targets == null || targets.Length == 0) return;
+
+            for (int i = 0; i < SKILL_ATTOW_COUNT; i++)
+            {
+                int targetIndex = i % targets.Length;
+                DoShot(ManagerFacade.Game.GetMonseterController(targets[targetIndex]), (mo) => Debug.Log("맞았어!!"));
+            }
         }
     }
 }

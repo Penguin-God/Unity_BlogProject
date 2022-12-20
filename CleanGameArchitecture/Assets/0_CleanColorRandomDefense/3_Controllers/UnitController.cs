@@ -35,6 +35,7 @@ public abstract class UnitController : MonoBehaviour, IPositionGetter
     [SerializeField] float _stopDistance;
     protected NavMeshAgent _nav;
     [SerializeField] protected UnitUseCase _unitUseCase;
+    protected IMonsterFinder _monsterFinder;
 
     void Awake()
     {
@@ -48,6 +49,7 @@ public abstract class UnitController : MonoBehaviour, IPositionGetter
         _speed = data.Speed;
         _attackDelayTime = data.AttackDelayTime;
         _unitUseCase = new UnitUseCase(monsterFinder, this, data.AttackRange, data.Damage);
+        _monsterFinder = monsterFinder;
     }
 
     protected virtual void Init() { }
