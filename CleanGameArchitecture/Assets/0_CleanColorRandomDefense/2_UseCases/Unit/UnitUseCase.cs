@@ -32,6 +32,7 @@ namespace UnitUseCases
         }
 
         public void FindTarget() => _target = _monsterFinder.FindProximateMonster(_positionGetter);
+        public void SetTarget(Monster target) => _target = target;
         public bool IsTargetValid => _target != null && _target.IsDead == false;
         public void AttackToTarget()
         {

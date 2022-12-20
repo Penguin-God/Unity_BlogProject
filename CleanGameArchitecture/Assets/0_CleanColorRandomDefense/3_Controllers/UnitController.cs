@@ -25,6 +25,12 @@ public struct UnitControllerData // 위에 3개는 유즈케이스 데이터, �
     }
 }
 
+public interface IMonsterControllerFinder
+{
+    MonsterController FindProximateMonster(Vector3 findStartPos);
+    MonsterController[] FindProximateMonsters(Vector3 findStartPos, int count);
+}
+
 public abstract class UnitController : MonoBehaviour, IPositionGetter
 {
     public Vector3 Position => transform.position;
@@ -36,6 +42,7 @@ public abstract class UnitController : MonoBehaviour, IPositionGetter
     protected NavMeshAgent _nav;
     [SerializeField] protected UnitUseCase _unitUseCase;
     protected IMonsterFinder _monsterFinder;
+    protected IMonsterControllerFinder _targetFinder;
 
     void Awake()
     {
@@ -66,6 +73,13 @@ public abstract class UnitController : MonoBehaviour, IPositionGetter
         _nav.SetDestination(ChasePositionCalculator.GetChasePosition(this, _unitUseCase.TargetPosition, _chaseGap));
         if (_attackable && _unitUseCase.IsAttackable())
             StartCoroutine(Co_DoAttack());
+    }
+
+    void FindTarget()
+    {
+        var mc = _targetFinder.FindProximateMonster(transform.position);
+        if (mc == null) return;
+        _unitUseCase.SetTarget(mc.Monster);
     }
 
     IEnumerator Co_DoAttack()

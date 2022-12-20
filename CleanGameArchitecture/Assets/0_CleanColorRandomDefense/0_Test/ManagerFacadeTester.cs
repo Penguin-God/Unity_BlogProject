@@ -32,5 +32,33 @@ namespace TestManagerFacade
             Assert(unitData.Damage == 25000);
             Assert(unitData.Name == "노란 마법사");
         }
+
+        public void TestControllerManager()
+        {
+            Log("컨트롤러 매니저 테스트!!");
+            var controller = new ControllerManager();
+            Vector3 findStartPos = Vector3.zero;
+            for (int i = 0; i < 20; i++)
+            {
+                var mc = SpawnComponent<MonsterController>();
+                mc.transform.position = Vector3.one * i;
+                controller.AddMonsterController(mc);
+            }
+
+            var findFirstMc = controller.FindProximateMonster(findStartPos);
+            Assert(findFirstMc.PositionGetter.Position == Vector3.zero);
+            findFirstMc.OnDamage(findFirstMc.CurrentHp);
+
+            var findSecondMc = controller.FindProximateMonster(findStartPos);
+            Assert(findSecondMc.PositionGetter.Position == Vector3.one);
+        }
+
+        GameObject SpawnObject(string name = "") => new GameObject(name);
+        T SpawnComponent<T>(string name = "") where T : Component
+        {
+            var go = new GameObject(name);
+            go.AddComponent<T>();
+            return go;
+        }
     }
 }
