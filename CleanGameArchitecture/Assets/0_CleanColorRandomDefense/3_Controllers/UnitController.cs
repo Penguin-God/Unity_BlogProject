@@ -35,16 +35,17 @@ public abstract class UnitController : MonoBehaviour, IPositionGetter
 {
     public Vector3 Position => transform.position;
 
+    [SerializeField] protected UnitUseCase _unitUseCase;
     [SerializeField] float _speed;
     [SerializeField] float _attackDelayTime;
+    [SerializeField] float _attackRange;
     [SerializeField] float _chaseGap;
     [SerializeField] float _stopDistance;
-    protected NavMeshAgent _nav;
-    [SerializeField] protected UnitUseCase _unitUseCase;
-    protected MonsterController _target;
-    protected IMonsterFinder _monsterFinder;
-    protected IMonsterControllerFinder _targetFinder;
+    [SerializeField] protected MonsterController _target;
 
+    protected NavMeshAgent _nav;
+    protected IMonsterFinder _monsterFinder;
+    
     void Awake()
     {
         _nav = GetComponent<NavMeshAgent>();
@@ -56,24 +57,25 @@ public abstract class UnitController : MonoBehaviour, IPositionGetter
     {
         _speed = data.Speed;
         _attackDelayTime = data.AttackDelayTime;
-        _unitUseCase = new UnitUseCase(monsterFinder, this, data.AttackRange, data.Damage);
+        _unitUseCase = new UnitUseCase(data.Damage);
+        _attackRange = data.AttackRange;
         _monsterFinder = monsterFinder;
     }
 
     protected virtual void Init() { }
 
     [SerializeField] bool _attackable = true;
+    bool TargetInRange => _attackRange > Vector3.Distance(_target.transform.position, transform.position);
     void Update()
     {
         if(_unitUseCase.IsTargetValid == false)
         {
             FindTarget();
-            //_unitUseCase.FindTarget();
             return;
         }
 
         _nav.SetDestination(ChasePositionCalculator.GetChasePosition(this, _unitUseCase.TargetPosition, _chaseGap));
-        if (_attackable && _unitUseCase.IsAttackable())
+        if (_attackable && _unitUseCase.IsTargetValid && TargetInRange)
             StartCoroutine(Co_DoAttack());
     }
 

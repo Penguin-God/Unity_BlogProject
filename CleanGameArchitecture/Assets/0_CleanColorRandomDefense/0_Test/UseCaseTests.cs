@@ -152,28 +152,19 @@ namespace UseCaseTests
         public void TestUnitUseCase()
         {
             Log("유닛 유즈케이스 테스트!!");
-            var monsterManager = new MonsterManager();
-            var monsterPos = new TestPositionGetter(Vector3.one * 30);
-            var target = new Monster(1000, monsterPos);
-            monsterManager.AddMonster(target);
-
-            var unitUseCase = new UnitUseCase(monsterManager, new TestPositionGetter(Vector3.zero), 10, 100);
+            var target = MonsterSpawner.SpawnMonster(1000);
+            var unitUseCase = new UnitUseCase(100);
             
             unitUseCase.AttackToTarget();
-            StateAssert(false, false, 1000);
-
-            unitUseCase.FindTarget();
-            unitUseCase.AttackToTarget();
-            StateAssert(true, false, 1000);
+            StateAssert(false, 1000);
             
-            monsterPos.SetPos(Vector3.zero);
+            unitUseCase.SetTarget(target);
             unitUseCase.AttackToTarget();
-            StateAssert(true, true, 900);
+            StateAssert(true, 900);
 
-            void StateAssert(bool targetValid, bool attackable, int hp)
+            void StateAssert(bool targetValid, int hp)
             {
                 Assert(unitUseCase.IsTargetValid == targetValid);
-                Assert(unitUseCase.IsAttackable() == attackable);
                 Assert(target.CurrentHp == hp);
             }
         }

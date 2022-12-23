@@ -43,7 +43,7 @@ public class Archer : UnitController
             _archer._nav.isStopped = false;
         }
 
-        protected virtual void Attack() => DoShot(ManagerFacade.Game.GetMonseterController(_archer._unitUseCase.Target), (mo) => Debug.Log("맞았어!!"));
+        protected virtual void Attack() => DoShot(_archer._target, (mo) => Debug.Log("맞았어!!"));
     }
 
     class ArcherSkill : ArcherAttack

@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 public class ControllerManager : MonoBehaviour
 {
     List<MonsterController> _monsters = new List<MonsterController>();
     public IReadOnlyList<MonsterController> Monsters => _monsters;
+    public event Action<int> OnMonsterCountChanaged;
+
     public void AddMonsterController(MonsterController mc)
     {
         _monsters.Add(mc);
+        OnMonsterCountChanaged?.Invoke(_monsters.Count);
     }
 
     public MonsterController FindProximateMonster(Vector3 findStartPos)
