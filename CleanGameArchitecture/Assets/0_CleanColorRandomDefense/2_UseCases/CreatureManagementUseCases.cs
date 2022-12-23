@@ -42,6 +42,7 @@ namespace CreatureManagementUseCases
     public class MonsterSpawner
     {
         public Monster SpawnMonster(int hp, IPositionGetter positionGetter = null) => new Monster(hp, positionGetter);
+        public static Monster SpawnMonster(int hp) => new Monster(hp);
     }
 
     public class UnitManager

@@ -1,18 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class ControllerManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    List<MonsterController> _monsters = new List<MonsterController>();
+    public IReadOnlyList<MonsterController> Monsters => _monsters;
+    public void AddMonsterController(MonsterController mc)
     {
-        
+        _monsters.Add(mc);
     }
 
-    // Update is called once per frame
-    void Update()
+    public MonsterController FindProximateMonster(Vector3 findStartPos)
+        => GetOrderMonstersByDistance(findStartPos).FirstOrDefault();
+
+    public MonsterController[] FindProximateMonsters(Vector3 findStartPos, int count)
     {
-        
+        if (_monsters.Count == 0) return null;
+        return GetOrderMonstersByDistance(findStartPos).Take(count).ToArray();
     }
+
+    IEnumerable<MonsterController> GetOrderMonstersByDistance(Vector3 findStartPos)
+        => _monsters.OrderBy(x => Vector3.Distance(x.transform.position, findStartPos));
 }

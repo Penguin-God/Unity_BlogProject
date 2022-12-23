@@ -94,5 +94,6 @@ public class Tester : MonoBehaviour
         var tester = new ManagerFacadeTester();
         tester.TestGameManager();
         tester.TestDataManager();
+        tester.TestControllerManager();
     }
 }
