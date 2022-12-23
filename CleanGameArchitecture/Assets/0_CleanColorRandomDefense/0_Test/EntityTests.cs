@@ -80,4 +80,24 @@ namespace EntityTests
 
         }
     }
+
+    public class BattleShopTester
+    {
+        public void TestCreateMoney()
+        {
+            Log("재화 생성 테스트!!");
+            var five = MoneyFactory.Gold(5);
+            Assert(five.Amount == 5);
+        }
+
+        public void TestGetMoney()
+        {
+            Log("재화 획득 테스트!!");
+        }
+
+        public void TestUseMoney()
+        {
+            Log("재화 사용 테스트!!");
+        }
+    }
 }
