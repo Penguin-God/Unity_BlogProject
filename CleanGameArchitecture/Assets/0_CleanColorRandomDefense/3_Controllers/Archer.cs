@@ -51,13 +51,13 @@ public class Archer : UnitController
         readonly int SKILL_ATTOW_COUNT = 3;
         protected override void Attack()
         {
-            Monster[] targets = _archer._monsterFinder.FindProximateMonsters(_archer, SKILL_ATTOW_COUNT);
+            MonsterController[] targets = ManagerFacade.Controller.FindProximateMonsters(transform.position, SKILL_ATTOW_COUNT);
             if (targets == null || targets.Length == 0) return;
 
             for (int i = 0; i < SKILL_ATTOW_COUNT; i++)
             {
                 int targetIndex = i % targets.Length;
-                DoShot(ManagerFacade.Game.GetMonseterController(targets[targetIndex]), (mo) => Debug.Log("맞았어!!"));
+                DoShot(targets[targetIndex], (mo) => Debug.Log("맞았어!!"));
             }
         }
     }

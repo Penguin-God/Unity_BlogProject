@@ -10,7 +10,7 @@ public interface ICo_Attack
     IEnumerator Co_DoAttack();
 }
 
-public struct UnitControllerData // 위에 3개는 유즈케이스 데이터, 아래 3개는 컨트롤러 데이터로 분리하기
+public struct UnitControllerData
 {
     public UnitFlags Flag { get; private set; }
     public int Damage { get; private set; }
@@ -23,12 +23,6 @@ public struct UnitControllerData // 위에 3개는 유즈케이스 데이터, �
         (Flag, Damage, AttackRange) = useCaseData;
         (Speed, AttackDelayTime) = controllerData;
     }
-}
-
-public interface IMonsterControllerFinder
-{
-    MonsterController FindProximateMonster(Vector3 findStartPos);
-    MonsterController[] FindProximateMonsters(Vector3 findStartPos, int count);
 }
 
 public abstract class UnitController : MonoBehaviour, IPositionGetter
@@ -44,7 +38,6 @@ public abstract class UnitController : MonoBehaviour, IPositionGetter
     [SerializeField] protected MonsterController _target;
 
     protected NavMeshAgent _nav;
-    protected IMonsterFinder _monsterFinder;
     
     void Awake()
     {
@@ -53,13 +46,12 @@ public abstract class UnitController : MonoBehaviour, IPositionGetter
         _nav.stoppingDistance = _stopDistance;
         Init();
     }
-    public void SetInfo(IMonsterFinder monsterFinder, UnitControllerData data)
+    public void SetInfo(UnitControllerData data)
     {
         _speed = data.Speed;
         _attackDelayTime = data.AttackDelayTime;
         _unitUseCase = new UnitUseCase(data.Damage);
         _attackRange = data.AttackRange;
-        _monsterFinder = monsterFinder;
     }
 
     protected virtual void Init() { }

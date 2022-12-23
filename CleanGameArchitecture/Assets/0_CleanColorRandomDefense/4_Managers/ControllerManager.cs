@@ -10,9 +10,16 @@ public class ControllerManager : MonoBehaviour
     public IReadOnlyList<MonsterController> Monsters => _monsters;
     public event Action<int> OnMonsterCountChanaged;
 
-    public void AddMonsterController(MonsterController mc)
+    public void AddMonster(MonsterController mc)
     {
         _monsters.Add(mc);
+        mc.Monster.OnDead += (monster) => RemoveMonster(mc);
+        OnMonsterCountChanaged?.Invoke(_monsters.Count);
+    }
+
+    void RemoveMonster(MonsterController mc)
+    {
+        _monsters.Remove(mc);
         OnMonsterCountChanaged?.Invoke(_monsters.Count);
     }
 

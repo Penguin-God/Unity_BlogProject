@@ -66,7 +66,6 @@ public class Tester : MonoBehaviour
         tester.TestMonsterManagement();
         tester.TestFindMonster();
         tester.TestFindMonsters();
-        tester.TestBattleLoss();
     }
 
     void TestGateWays()
@@ -92,7 +91,6 @@ public class Tester : MonoBehaviour
     void TestManagerFacade()
     {
         var tester = new ManagerFacadeTester();
-        tester.TestGameManager();
         tester.TestDataManager();
         tester.TestControllerManager();
     }

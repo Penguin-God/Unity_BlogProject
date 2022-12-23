@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RuleEntities;
-using CreatureManagementUseCases;
 
 public class BattleScene : BaseScene
 {
@@ -10,12 +9,10 @@ public class BattleScene : BaseScene
     protected override void Init()
     {
         var unitSpawnRule = new UnitSpawnRule(15);
-        var monsterManager = new MonsterManager();
-        ManagerFacade.Game.Init(unitSpawnRule, monsterManager);
+        ManagerFacade.Game.Init(unitSpawnRule);
 
         _battleRule = new MaxCountRule(50);
-        monsterManager.OnMonsterCountChanged += CheckGameLoss;
-
+        ManagerFacade.Controller.OnMonsterCountChanaged += CheckGameLoss;
         var stageRule = new StageRule();
         stageRule.OnChangedStage += SpawnStageMonster;
         StartCoroutine(Co_StageStart(stageRule));

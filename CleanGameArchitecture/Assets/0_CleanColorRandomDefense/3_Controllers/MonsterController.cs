@@ -6,7 +6,7 @@ using CreatureEntities;
 public class MonsterController : MonoBehaviour, IPositionGetter
 {
     [SerializeField] Monster _monster;
-    [SerializeField] int _hp;
+    [SerializeField] int _hp; // UI 넣기전까지만 테스트용으로 넣어둠
     public Monster Monster => _monster;
     public Vector3 Position => transform.position;
 

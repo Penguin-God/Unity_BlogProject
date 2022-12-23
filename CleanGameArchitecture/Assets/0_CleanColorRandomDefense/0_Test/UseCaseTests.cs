@@ -96,26 +96,6 @@ namespace UseCaseTests
             Assert(manager.Monsters.Count == 0);
         }
 
-        public void TestBattleLoss()
-        {
-            Log("게임 패배 테스트!!");
-            bool isLoss = false;
-            var manager = new MonsterManager();
-            var rule = new MaxCountRule(50);
-            manager.OnMonsterCountChanged += (count) => { if (rule.IsMaxCount(count)) isLoss = true; };
-            AddMonsters(manager, 30);
-            Assert(isLoss == false);
-
-            AddMonsters(manager, 20);
-            Assert(isLoss);
-        }
-
-        void AddMonsters(MonsterManager manager, int spawnCount)
-        {
-            for (int i = 0; i < spawnCount; i++)
-                manager.AddMonster(new Monster(1000));
-        }
-
         public void TestFindMonster()
         {
             Log("몬스터 찾기 테스트!!");

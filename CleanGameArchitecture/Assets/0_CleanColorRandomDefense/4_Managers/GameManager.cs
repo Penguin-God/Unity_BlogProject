@@ -10,16 +10,11 @@ public class GameManager // 이 녀석의 정체성에 심각한 수준의 의�
 {
     UnitManager _unitManager = new UnitManager();
     UnitSpanwer _unitSpanwer;
-    MonsterManager _monsterManager;
 
-    public void Init(IMaxCountRule unitCountRule, MonsterManager monsterManager)
+    public void Init(IMaxCountRule unitCountRule)
     {
         _unitSpanwer = new UnitSpanwer(_unitManager, unitCountRule);
-        _monsterManager = monsterManager;
     }
-
-    Dictionary<Monster, MonsterController> _monsetrByMc = new Dictionary<Monster, MonsterController>();
-    public MonsterController GetMonseterController(Monster monster) => _monsetrByMc[monster];
 
     public bool TrySpawnUnit(UnitFlags flag, out UnitController uc)
     {
@@ -39,7 +34,7 @@ public class GameManager // 이 녀석의 정체성에 심각한 수준의 의�
                 (flag, dbData.Damage, dbData.AttackRange),
                 (dbData.Speed, dbData.AttackDelayTime)
                 );
-            uc.SetInfo(_monsterManager, data);
+            uc.SetInfo(data);
             return true;
         }
     }
@@ -48,11 +43,8 @@ public class GameManager // 이 녀석의 정체성에 심각한 수준의 의�
     {
         var monsterController = ResourcesManager.Instantiate(SpawnPathBuilder.BuildMonsterPath(monstNumber)).GetComponent<MonsterController>();
         var monster = MonsterSpawner.SpawnMonster(1000);
-        _monsterManager.AddMonster(monster);
         monsterController.SetInfo(monster);
-        _monsetrByMc.Add(monster, monsterController);
-        monster.OnDead += (m) => _monsetrByMc.Remove(m);
-        ManagerFacade.Controller.AddMonsterController(monsterController);
+        ManagerFacade.Controller.AddMonster(monsterController);
 
         return monsterController;
     }
