@@ -57,6 +57,7 @@ public class Tester : MonoBehaviour
     {
         var tester = new CreatureManagerTester();
         tester.TestUnitManagement();
+        tester.TestUnitFind();
         tester.TestCombineUnit();
         tester.TestMonsterManagement();
     }

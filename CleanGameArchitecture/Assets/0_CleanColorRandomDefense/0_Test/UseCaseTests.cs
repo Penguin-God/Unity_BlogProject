@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using CreatureManagementUseCases;
 using CreatureEntities;
 using RuleEntities;
@@ -40,18 +39,27 @@ namespace UseCaseTests
         {
             Log("유닛 매니저 테스트!!");
             var manager = new UnitManager();
-            var unitFlag = new UnitFlags(0, 0);
             var unit = new Unit(new UnitFlags(0, 0));
             
             manager.AddUnit(unit);
             Assert(manager.Units[0] == unit);
             Assert(manager.Units.Count == 1);
-            Assert(manager.TryFindUnit(unitFlag, out Unit findUnit));
-            Assert(findUnit == unit);
 
             unit.Dead();
             Assert(manager.Units.Count == 0);
-            Assert(manager.TryFindUnit(unitFlag, out Unit nullUnit) == false);
+        }
+
+        public void TestUnitFind()
+        {
+            Log("유닛 찾기 테스트!!");
+            var manager = new UnitManager();
+            var unit = new Unit(new UnitFlags(0, 0));
+
+            manager.AddUnit(unit);
+            Assert(manager.TryFindUnit(new UnitFlags(0, 0), out Unit findUnit));
+            Assert(findUnit == unit);
+
+            Assert(manager.TryFindUnit(new UnitFlags(0, 1), out Unit nullUnit) == false);
             Assert(nullUnit == null);
         }
 
