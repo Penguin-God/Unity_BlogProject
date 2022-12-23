@@ -24,10 +24,12 @@ public class ManagerFacade : MonoBehaviour
     }
 
     GameManager _game = new GameManager();
+    ControllerManager _controller = new ControllerManager();
     DataManager _data = new DataManager();
     SceneManagerEx _scene = new SceneManagerEx();
 
     public static GameManager Game => Instance._game;
+    public static ControllerManager Controller => Instance._controller;
     public static DataManager Data => Instance._data;
     public static SceneManagerEx Scene => Instance._scene;
 

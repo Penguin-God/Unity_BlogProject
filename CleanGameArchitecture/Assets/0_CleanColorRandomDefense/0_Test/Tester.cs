@@ -12,7 +12,7 @@ public class Tester : MonoBehaviour
 {
     void Awake()
     {
-        TestAll();
+        // TestAll();
     }
 
     void TestAll()

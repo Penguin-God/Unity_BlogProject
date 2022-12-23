@@ -11,7 +11,6 @@ public class GameManager // 이 녀석의 정체성에 심각한 수준의 의�
     UnitManager _unitManager = new UnitManager();
     UnitSpanwer _unitSpanwer;
     MonsterManager _monsterManager;
-    MonsterSpawner _monsterSpawner = new MonsterSpawner();
 
     public void Init(IMaxCountRule unitCountRule, MonsterManager monsterManager)
     {
@@ -48,11 +47,13 @@ public class GameManager // 이 녀석의 정체성에 심각한 수준의 의�
     public MonsterController SpawnMonster(int monstNumber)
     {
         var monsterController = ResourcesManager.Instantiate(SpawnPathBuilder.BuildMonsterPath(monstNumber)).GetComponent<MonsterController>();
-        var monster = _monsterSpawner.SpawnMonster(1000);
+        var monster = MonsterSpawner.SpawnMonster(1000);
         _monsterManager.AddMonster(monster);
         monsterController.SetInfo(monster);
         _monsetrByMc.Add(monster, monsterController);
         monster.OnDead += (m) => _monsetrByMc.Remove(m);
+        ManagerFacade.Controller.AddMonsterController(monsterController);
+
         return monsterController;
     }
 }

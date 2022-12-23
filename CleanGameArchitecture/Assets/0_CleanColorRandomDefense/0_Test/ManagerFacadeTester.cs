@@ -53,6 +53,7 @@ namespace TestManagerFacade
 
             foreach (var monster in controller.Monsters)
                 Object.DestroyImmediate(monster.gameObject);
+            controller = null;
         }
 
         GameObject SpawnObject(string name = "") => new GameObject(name);

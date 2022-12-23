@@ -41,7 +41,6 @@ namespace CreatureManagementUseCases
 
     public class MonsterSpawner
     {
-        public Monster SpawnMonster(int hp, IPositionGetter positionGetter = null) => new Monster(hp, positionGetter);
         public static Monster SpawnMonster(int hp) => new Monster(hp);
     }
 
@@ -79,17 +78,17 @@ namespace CreatureManagementUseCases
 
     public class UnitCombiner
     {
-        Dictionary<UnitFlags, CombineCondition[]> _flagBycCombineConditions;
+        Dictionary<UnitFlags, CombineCondition[]> _flagByCombineConditions;
         UnitManager _manager;
         public UnitCombiner(Dictionary<UnitFlags, CombineCondition[]> conditons, UnitManager manager)
         {
-            _flagBycCombineConditions = conditons;
+            _flagByCombineConditions = conditons;
             _manager = manager;
         }
 
         public bool TryCombine(UnitFlags tryCombineFlag, out Unit combineUnit)
         {
-            foreach (var condition in _flagBycCombineConditions[tryCombineFlag])
+            foreach (var condition in _flagByCombineConditions[tryCombineFlag])
             {
                 if(_manager.Units.Where(x => x.Flag == condition.Flag).Count() < condition.NeedCount)
                 {
@@ -98,7 +97,7 @@ namespace CreatureManagementUseCases
                 }
             }
 
-            foreach (var condition in _flagBycCombineConditions[tryCombineFlag])
+            foreach (var condition in _flagByCombineConditions[tryCombineFlag])
             {
                 for (int i = 0; i < condition.NeedCount; i++)
                 {

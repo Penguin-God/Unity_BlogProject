@@ -29,8 +29,7 @@ namespace UseCaseTests
         public void TestMonsterSpawn()
         {
             Log("몬스터 스폰 테스트!!");
-            var spawner = new MonsterSpawner();
-            var monster = spawner.SpawnMonster(1000);
+            var monster = MonsterSpawner.SpawnMonster(1000);
             Assert(monster.CurrentHp == 1000);
         }
     }

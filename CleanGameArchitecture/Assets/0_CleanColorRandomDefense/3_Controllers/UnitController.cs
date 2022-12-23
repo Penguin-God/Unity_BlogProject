@@ -41,6 +41,7 @@ public abstract class UnitController : MonoBehaviour, IPositionGetter
     [SerializeField] float _stopDistance;
     protected NavMeshAgent _nav;
     [SerializeField] protected UnitUseCase _unitUseCase;
+    protected MonsterController _target;
     protected IMonsterFinder _monsterFinder;
     protected IMonsterControllerFinder _targetFinder;
 
@@ -66,7 +67,8 @@ public abstract class UnitController : MonoBehaviour, IPositionGetter
     {
         if(_unitUseCase.IsTargetValid == false)
         {
-            _unitUseCase.FindTarget();
+            FindTarget();
+            //_unitUseCase.FindTarget();
             return;
         }
 
@@ -77,8 +79,9 @@ public abstract class UnitController : MonoBehaviour, IPositionGetter
 
     void FindTarget()
     {
-        var mc = _targetFinder.FindProximateMonster(transform.position);
+        var mc = ManagerFacade.Controller.FindProximateMonster(transform.position);
         if (mc == null) return;
+        _target = mc;
         _unitUseCase.SetTarget(mc.Monster);
     }
 
