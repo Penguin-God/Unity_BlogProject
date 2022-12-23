@@ -8,7 +8,7 @@ namespace TestManagerFacade
 {
     public class ManagerFacadeTester
     {
-        public void TestDataManager()
+        public void TestDataManager() // 엑셀 데이터가 바뀌면 테스트 통과 못함. 데이터를 직접 넣기
         {
             Log("데이터 매니저 테스트!!");
             var data = new DataManager();
@@ -22,26 +22,26 @@ namespace TestManagerFacade
             Assert(unitData.Name == "노란 마법사");
         }
 
-        public void TestControllerManager()
+        public void TestFindMonsterController()
         {
-            Log("컨트롤러 매니저 일반 몬스터 관리 테스트!!");
-            var controller = new ControllerManager();
+            Log("컨트롤러 매니저 몬스터 찾기 테스트!!");
+            var finder = new ControllerManager();
             for (int i = 0; i < 20; i++)
             {
                 var mc = SpawnComponent<MonsterController>();
                 mc.SetInfo(MonsterSpawner.SpawnMonster(1000));
                 mc.transform.position = Vector3.one * i;
-                controller.AddMonster(mc);
+                finder.AddMonster(mc);
             }
-            Assert(controller.Monsters.Count == 20);
+            Assert(finder.Monsters.Count == 20);
 
-            var findFirstMc = controller.FindProximateMonster(Vector3.zero);
+            var findFirstMc = finder.FindProximateMonster(Vector3.zero);
             Assert(findFirstMc.transform.position == Vector3.zero);
 
-            var findSecondMc = controller.FindProximateMonster(Vector3.one);
-            Assert(findSecondMc.transform.position == Vector3.one);
+            var findSecondMc = finder.FindProximateMonster(Vector3.one * 3);
+            Assert(findSecondMc.transform.position == Vector3.one * 3);
 
-            foreach (var monster in controller.Monsters)
+            foreach (var monster in finder.Monsters)
                 Object.DestroyImmediate(monster.gameObject);
         }
 

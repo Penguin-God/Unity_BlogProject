@@ -112,7 +112,7 @@ namespace CreatureManagementUseCases
         }
     }
 
-    public class MonsterManager : IMonsterFinder
+    public class MonsterManager
     {
         List<Monster> _monsters = new List<Monster>();
         public IReadOnlyList<Monster> Monsters => _monsters;
@@ -130,16 +130,5 @@ namespace CreatureManagementUseCases
             _monsters.Remove(monster); 
             OnMonsterCountChanged?.Invoke(_monsters.Count);
         }
-
-        public Monster FindProximateMonster(IPositionGetter positionGetter) => GetOrderMonstersByDistance(positionGetter).FirstOrDefault();
-
-        public Monster[] FindProximateMonsters(IPositionGetter positionGetter, int count)
-        {
-            if (_monsters.Count == 0) return null;
-            return GetOrderMonstersByDistance(positionGetter).Take(count).ToArray();
-        }
-
-        IEnumerable<Monster> GetOrderMonstersByDistance(IPositionGetter positionGetter)
-            => _monsters.OrderBy(x => Vector3.Distance(positionGetter.Position, x.PositionGetter.Position));
     }
 }

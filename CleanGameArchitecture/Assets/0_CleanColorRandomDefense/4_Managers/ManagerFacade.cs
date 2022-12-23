@@ -24,7 +24,7 @@ public class ManagerFacade : MonoBehaviour
     }
 
     GameManager _game = new GameManager();
-    ControllerManager _controller = new ControllerManager();
+    [SerializeField] ControllerManager _controller = new ControllerManager();
     DataManager _data = new DataManager();
     SceneManagerEx _scene = new SceneManagerEx();
 

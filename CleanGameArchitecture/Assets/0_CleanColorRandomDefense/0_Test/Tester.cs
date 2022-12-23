@@ -10,11 +10,6 @@ using TestManagerFacade;
 
 public class Tester : MonoBehaviour
 {
-    void Awake()
-    {
-        // TestAll();
-    }
-
     void TestAll()
     {
         print("====================");
@@ -64,8 +59,6 @@ public class Tester : MonoBehaviour
         tester.TestUnitManagement();
         tester.TestCombineUnit();
         tester.TestMonsterManagement();
-        tester.TestFindMonster();
-        tester.TestFindMonsters();
     }
 
     void TestGateWays()
@@ -92,6 +85,6 @@ public class Tester : MonoBehaviour
     {
         var tester = new ManagerFacadeTester();
         tester.TestDataManager();
-        tester.TestControllerManager();
+        tester.TestFindMonsterController();
     }
 }

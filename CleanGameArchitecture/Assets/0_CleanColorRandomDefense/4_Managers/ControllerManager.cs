@@ -4,9 +4,10 @@ using UnityEngine;
 using System.Linq;
 using System;
 
-public class ControllerManager : MonoBehaviour
+[Serializable]
+public class ControllerManager
 {
-    List<MonsterController> _monsters = new List<MonsterController>();
+    [SerializeField] List<MonsterController> _monsters = new List<MonsterController>();
     public IReadOnlyList<MonsterController> Monsters => _monsters;
     public event Action<int> OnMonsterCountChanaged;
 

@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using CreatureManagementUseCases;
-using UnitUseCases;
 using GateWays;
-using CreatureEntities;
 
 public class GameManager // 이 녀석의 정체성에 심각한 수준의 의문 발생 : 얜 맨 바깥쪽 녀석이다. UseCase접근하면 안 된다.
 {

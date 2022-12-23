@@ -95,36 +95,6 @@ namespace UseCaseTests
             monster.OnDamage(monster.CurrentHp);
             Assert(manager.Monsters.Count == 0);
         }
-
-        public void TestFindMonster()
-        {
-            Log("몬스터 찾기 테스트!!");
-            var manager = new MonsterManager();
-            IPositionGetter finder = new TestPositionGetter(Vector3.zero);
-            
-            for (int i = 0; i < 20; i++)
-                manager.AddMonster(new Monster(1000, new TestPositionGetter(Vector3.one * i)));
-            var findFirstMonster = manager.FindProximateMonster(finder);
-            Assert(findFirstMonster.PositionGetter.Position == Vector3.zero);
-            findFirstMonster.OnDamage(findFirstMonster.CurrentHp);
-
-            var findSecondMonster = manager.FindProximateMonster(finder);
-            Assert(findSecondMonster.PositionGetter.Position == Vector3.one);
-        }
-
-        public void TestFindMonsters()
-        {
-            Log("여러 몬스터 찾기 테스트!!");
-            var manager = new MonsterManager();
-            IPositionGetter finder = new TestPositionGetter(Vector3.zero);
-
-            for (int i = 0; i < 20; i++)
-                manager.AddMonster(new Monster(1000, new TestPositionGetter(Vector3.one * i)));
-
-            var monsters = manager.FindProximateMonsters(finder, 3);
-            for (int i = 0; i < monsters.Length; i++)
-                Assert(monsters[i].PositionGetter.Position == Vector3.one * i);
-        }
     }
 
     class CreatureUseCaseTester
