@@ -7,11 +7,6 @@ using UnityEngine;
 using System;
 using System.Linq;
 
-public interface IPositionGetter
-{
-    Vector3 Position { get; }
-}
-
 public interface IMaxCountRule
 {
     bool IsMaxCount(int count);

@@ -153,12 +153,3 @@ namespace UseCaseTests
         }
     }
 }
-
-class TestPositionGetter : IPositionGetter
-{
-    Vector3 _pos;
-    public TestPositionGetter(Vector3 pos) => _pos = pos;
-
-    public Vector3 Position => _pos;
-    public void SetPos(Vector3 newPos) => _pos = newPos;
-}

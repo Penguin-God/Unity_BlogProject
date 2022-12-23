@@ -26,27 +26,18 @@ namespace CreatureEntities
 
     public class Monster
     {
-        int maxHp;
+        int _maxHp;
         public int CurrentHp { get; private set; }
-        public IPositionGetter PositionGetter { get; private set; }
         public Monster(int hp)
         {
-            maxHp = hp;
-            CurrentHp = maxHp;
+            _maxHp = hp;
+            CurrentHp = _maxHp;
         }
-
-        public Monster(int hp, IPositionGetter positionGetter)
-        {
-            maxHp = hp;
-            CurrentHp = maxHp;
-            PositionGetter = positionGetter;
-        }
-        public void SetPositionGetter(IPositionGetter positionGetter) => PositionGetter = positionGetter;
 
         public Action<int> OnChanagedHp;
         void ChangeHp(int newHp)
         {
-            if (newHp > maxHp) newHp = maxHp;
+            if (newHp > _maxHp) newHp = _maxHp;
             if (0 >= newHp) newHp = 0;
             CurrentHp = newHp;
             OnChanagedHp?.Invoke(CurrentHp);

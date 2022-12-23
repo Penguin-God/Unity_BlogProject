@@ -25,10 +25,8 @@ public struct UnitControllerData
     }
 }
 
-public abstract class UnitController : MonoBehaviour, IPositionGetter
+public abstract class UnitController : MonoBehaviour
 {
-    public Vector3 Position => transform.position;
-
     [SerializeField] protected UnitUseCase _unitUseCase;
     [SerializeField] float _speed;
     [SerializeField] float _attackDelayTime;
@@ -66,7 +64,7 @@ public abstract class UnitController : MonoBehaviour, IPositionGetter
             return;
         }
 
-        _nav.SetDestination(ChasePositionCalculator.GetChasePosition(this, _unitUseCase.TargetPosition, _chaseGap));
+        _nav.SetDestination(ChasePositionCalculator.GetChasePosition(transform.position, _target.transform.position, _chaseGap));
         if (_attackable && _unitUseCase.IsTargetValid && TargetInRange)
             StartCoroutine(Co_DoAttack());
     }

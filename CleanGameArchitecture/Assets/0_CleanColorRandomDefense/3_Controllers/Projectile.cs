@@ -4,9 +4,8 @@ using UnityEngine;
 using CalculateUseCase;
 using System;
 
-public class Projectile : MonoBehaviour, IPositionGetter
+public class Projectile : MonoBehaviour
 {
-    public Vector3 Position => transform.position;
     [SerializeField] float _speed;
     Rigidbody _rigidbody;
     void Awake()
@@ -18,7 +17,7 @@ public class Projectile : MonoBehaviour, IPositionGetter
     Action<MonsterController> _onHit = null;
     public void Shot(MonsterController mc, Action<MonsterController> onHit)
     {
-        Quaternion lookDir = Quaternion.LookRotation(ShotDirectCalculator.GetShotDirection(this, mc, mc.Speed, mc.transform.forward));
+        Quaternion lookDir = Quaternion.LookRotation(ShotDirectCalculator.GetShotDirection(transform.position, mc.transform.position, mc.Speed, mc.transform.forward));
         transform.rotation = lookDir;
         _rigidbody.velocity = transform.forward * _speed;
         _onHit = onHit;

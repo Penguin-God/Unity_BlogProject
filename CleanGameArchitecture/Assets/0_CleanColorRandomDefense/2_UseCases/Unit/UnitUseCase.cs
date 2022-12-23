@@ -6,17 +6,10 @@ using CreatureEntities;
 
 namespace UnitUseCases
 {
-    public interface IMonsterFinder
-    {
-        Monster FindProximateMonster(IPositionGetter positionGetter);
-        Monster[] FindProximateMonsters(IPositionGetter positionGetter, int count);
-    }
-
     [System.Serializable]
     public class UnitUseCase
     {
         Monster _target;
-        public IPositionGetter TargetPosition => _target.PositionGetter;
         [SerializeField] int _damage;
 
         public UnitUseCase(int damage)

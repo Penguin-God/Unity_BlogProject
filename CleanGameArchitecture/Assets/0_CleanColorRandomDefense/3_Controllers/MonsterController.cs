@@ -3,17 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using CreatureEntities;
 
-public class MonsterController : MonoBehaviour, IPositionGetter
+public class MonsterController : MonoBehaviour
 {
     [SerializeField] Monster _monster;
     [SerializeField] int _hp; // UI 넣기전까지만 테스트용으로 넣어둠
     public Monster Monster => _monster;
-    public Vector3 Position => transform.position;
     
     public void SetInfo(Monster monster)
     {
         _monster = monster;
-        _monster.SetPositionGetter(this);
         _monster.OnDead += Dead;
         _hp = _monster.CurrentHp;
         _monster.OnChanagedHp += (hp) => _hp = hp;
