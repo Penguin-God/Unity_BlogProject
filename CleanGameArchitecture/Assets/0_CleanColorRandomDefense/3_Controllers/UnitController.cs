@@ -18,24 +18,24 @@ public struct UnitControllerData
     public float Speed { get; private set; }
     public float AttackDelayTime { get; private set; }
 
-    public UnitControllerData((UnitFlags flag, int dam, float range) useCaseData, (float speed, float delay) controllerData)
+    public UnitControllerData((UnitFlags flag, int dam) useCaseData, (float speed, float delay, float range) controllerData)
     {
-        (Flag, Damage, AttackRange) = useCaseData;
-        (Speed, AttackDelayTime) = controllerData;
+        (Flag, Damage) = useCaseData;
+        (Speed, AttackDelayTime, AttackRange) = controllerData;
     }
 }
 
 public abstract class UnitController : MonoBehaviour
 {
     [SerializeField] protected UnitUseCase _unitUseCase;
-    [SerializeField] float _speed;
     [SerializeField] float _attackDelayTime;
     [SerializeField] float _attackRange;
-    [SerializeField] float _chaseGap;
-    [SerializeField] float _stopDistance;
     [SerializeField] protected MonsterController _target;
 
     protected NavMeshAgent _nav;
+    [SerializeField] float _speed;
+    [SerializeField] float _chaseGap;
+    [SerializeField] float _stopDistance;
     
     void Awake()
     {

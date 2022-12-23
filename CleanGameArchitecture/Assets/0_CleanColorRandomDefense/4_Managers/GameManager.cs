@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CreatureManagementUseCases;
 using GateWays;
+using System;
 
 public class GameManager // 이 녀석의 정체성에 심각한 수준의 의문 발생 : 얜 맨 바깥쪽 녀석이다. UseCase접근하면 안 된다.
 {
@@ -14,6 +15,7 @@ public class GameManager // 이 녀석의 정체성에 심각한 수준의 의�
         _unitSpanwer = new UnitSpanwer(_unitManager, unitCountRule);
     }
 
+    public event Action<UnitController> OnUnitSpawn;
     public bool TrySpawnUnit(UnitFlags flag, out UnitController uc)
     {
         if(_unitSpanwer.TrySpawn(flag, out var unit) == false)
@@ -29,10 +31,11 @@ public class GameManager // 이 녀석의 정체성에 심각한 수준의 의�
                 mesh.material = ResourcesManager.Load<Material>(ResourcesPathBuilder.BuildUnitMaterialPath(flag.UnitColor));
             var dbData = ManagerFacade.Data.GetUnitData(flag);
             var data = new UnitControllerData(
-                (flag, dbData.Damage, dbData.AttackRange),
-                (dbData.Speed, dbData.AttackDelayTime)
+                (flag, dbData.Damage),
+                (dbData.Speed, dbData.AttackDelayTime, dbData.AttackRange)
                 );
             uc.SetInfo(data);
+            OnUnitSpawn?.Invoke(uc);
             return true;
         }
     }
