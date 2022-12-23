@@ -29,6 +29,7 @@ namespace TestManagerFacade
             for (int i = 0; i < 20; i++)
             {
                 var mc = SpawnComponent<MonsterController>();
+                mc.SetInfo(MonsterSpawner.SpawnMonster(1000));
                 mc.transform.position = Vector3.one * i;
                 controller.AddMonster(mc);
             }
