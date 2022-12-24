@@ -3,33 +3,50 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.Reflection;
+using System;
 
-[CustomEditor(typeof(Tester))]
 public class TestingInspectorDrawer : Editor
 {
-    Tester userSkillTest;
-    private void OnEnable()
-    {
-        userSkillTest = (Tester)target;
-    }
+    protected object _target;
 
-    public override void OnInspectorGUI()
-    {
-        base.OnInspectorGUI();
-        DrawTestButtons();
-    }
+    void OnEnable() => _target = Target;
+    protected virtual object Target => target;
 
-    void DrawTestButtons()
+    protected void DrawTestButtons(object target)
     {
-        foreach (var method in typeof(Tester).GetMethods(BindingFlags.NonPublic | BindingFlags.Instance))
+        foreach (var method in target.GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Instance))
         {
             if (method.Name.StartsWith("Test") == false) continue;
 
             if (GUILayout.Button(method.Name, GUILayout.Height(20)))
-            {
-                method.Invoke(userSkillTest, new object[] { });
-            }
+                method.Invoke(target, new object[] { });
             GUILayout.Space(7);
         }
     }
 }
+
+
+[CustomEditor(typeof(Tester))]
+public class PureObjectTestDrawer : TestingInspectorDrawer
+{
+    protected override object Target => (Tester)base.Target;
+
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+        DrawTestButtons(_target);
+    }
+}
+
+[CustomEditor(typeof(MonoBehaviourTester))]
+public class MonoBehaviourTestDrawer : TestingInspectorDrawer
+{
+    protected override object Target => (MonoBehaviourTester)base.Target;
+
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+        DrawTestButtons(_target);
+    }
+}
+
