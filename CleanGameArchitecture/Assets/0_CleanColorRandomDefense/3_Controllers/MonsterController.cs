@@ -17,6 +17,8 @@ public class MonsterController : MonoBehaviour
         _monster.OnChanagedHp += (hp) => _hp = hp;
     }
 
+    public void Dead() => Monster.OnDamage(Monster.CurrentHp);
+
     void Dead(Monster monster)
     {
         ResourcesManager.Destroy(gameObject);
