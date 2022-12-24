@@ -70,6 +70,14 @@ public class Tester : MonoBehaviour
         tester.TestMonsterManagement();
     }
 
+    void TestBattleMoneyManagement()
+    {
+        var tester = new BattleGoodBuyTester();
+        tester.TestCreateMoneyManager();
+        tester.TestGetMoney();
+        tester.TestUseMoney();
+    }
+
     void TestGateWays()
     {
         var tester = new SpawnPathBuilderTester();

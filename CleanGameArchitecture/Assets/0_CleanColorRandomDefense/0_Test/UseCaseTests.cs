@@ -160,4 +160,42 @@ namespace UseCaseTests
             return null;
         }
     }
+
+    class BattleGoodBuyTester
+    {
+        public void TestCreateMoneyManager()
+        {
+            Log("돈 관리자 생성 테스트!!");
+            var useCase = new BattleMoneyManager(15, 1);
+            Assert(useCase.GoldAmount == 15);
+            Assert(useCase.FoodAmount == 1);
+        }
+
+        public void TestGetMoney()
+        {
+            Log("돈 획득 테스트!!");
+            var useCase = new BattleMoneyManager(15, 1);
+            Assert(useCase.GetMoney(BattleMoneyType.Gold, 10) == 25);
+            Assert(useCase.GetMoney(BattleMoneyType.Food, 1) == 2);
+            Assert(useCase.GoldAmount == 25);
+            Assert(useCase.FoodAmount == 2);
+        }
+
+        public void TestUseMoney()
+        {
+            Log("돈 사용 테스트!!");
+            var useCase = new BattleMoneyManager(15, 1);
+            Assert(useCase.UseMoney(BattleMoneyType.Gold, 10, out int goldAmount));
+            Assert(goldAmount == 5);
+            Assert(useCase.UseMoney(BattleMoneyType.Food, 1, out int foodAmount));
+            Assert(foodAmount == 0);
+            Assert(useCase.GoldAmount == 5);
+            Assert(useCase.FoodAmount == 0);
+
+            Assert(useCase.UseMoney(BattleMoneyType.Gold, 10, out goldAmount) == false);
+            Assert(goldAmount == 5);
+            Assert(useCase.UseMoney(BattleMoneyType.Food, 1, out foodAmount) == false);
+            Assert(foodAmount == 0);
+        }
+    }
 }
