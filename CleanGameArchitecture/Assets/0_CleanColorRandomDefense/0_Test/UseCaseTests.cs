@@ -167,8 +167,7 @@ namespace UseCaseTests
         {
             Log("돈 관리자 생성 테스트!!");
             var useCase = new BattleMoneyManager(15, 1);
-            Assert(useCase.GoldAmount == 15);
-            Assert(useCase.FoodAmount == 1);
+            CheckMoneyStatus(useCase, 15, 1);
         }
 
         public void TestGetMoney()
@@ -177,25 +176,31 @@ namespace UseCaseTests
             var useCase = new BattleMoneyManager(15, 1);
             Assert(useCase.GetMoney(BattleMoneyType.Gold, 10) == 25);
             Assert(useCase.GetMoney(BattleMoneyType.Food, 1) == 2);
-            Assert(useCase.GoldAmount == 25);
-            Assert(useCase.FoodAmount == 2);
+            CheckMoneyStatus(useCase, 25, 2);
         }
 
         public void TestUseMoney()
         {
             Log("돈 사용 테스트!!");
             var useCase = new BattleMoneyManager(15, 1);
-            Assert(useCase.UseMoney(BattleMoneyType.Gold, 10, out int goldAmount));
-            Assert(goldAmount == 5);
-            Assert(useCase.UseMoney(BattleMoneyType.Food, 1, out int foodAmount));
-            Assert(foodAmount == 0);
-            Assert(useCase.GoldAmount == 5);
-            Assert(useCase.FoodAmount == 0);
+            CheckUseMoney(BattleMoneyType.Gold, 10, true, 5);
+            CheckUseMoney(BattleMoneyType.Food, 1, true, 0);
+            CheckMoneyStatus(useCase, 5, 0);
 
-            Assert(useCase.UseMoney(BattleMoneyType.Gold, 10, out goldAmount) == false);
-            Assert(goldAmount == 5);
-            Assert(useCase.UseMoney(BattleMoneyType.Food, 1, out foodAmount) == false);
-            Assert(foodAmount == 0);
+            CheckUseMoney(BattleMoneyType.Gold, 10, false, 5);
+            CheckUseMoney(BattleMoneyType.Food, 1, false, 0);
+
+            void CheckUseMoney(BattleMoneyType type, int useAmount, bool useable, int result)
+            {
+                Assert(useCase.UseMoney(type, useAmount, out int change) == useable);
+                Assert(result == change);
+            }
+        }
+
+        void CheckMoneyStatus(BattleMoneyManager useCase, int gold, int food)
+        {
+            Assert(useCase.GoldAmount == gold);
+            Assert(useCase.FoodAmount == food);
         }
     }
 }
