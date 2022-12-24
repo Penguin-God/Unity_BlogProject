@@ -7,7 +7,7 @@ namespace MageSkillTests
 {
     public class MageSkillTester
     {
-        void TestAOE()
+        public void TestAOE()
         {
             var mc = ManagerFacade.Game.SpawnMonster(0);
             AOE_System.AOE_Expansion(Vector3.zero, 15, 1.5f,
