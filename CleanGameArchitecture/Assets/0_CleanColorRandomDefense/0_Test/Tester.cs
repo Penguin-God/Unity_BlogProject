@@ -39,9 +39,9 @@ public class Tester : MonoBehaviour
         tester.TestMonsterOnDamaged();
     }
 
-    void TestBattleShop()
+    void TestBattleMoney()
     {
-        var tester = new BattleShopTester();
+        var tester = new BattleMoneyTester();
         tester.TestCreateMoney();
         tester.TestGetMoney();
         tester.TestUseMoney();

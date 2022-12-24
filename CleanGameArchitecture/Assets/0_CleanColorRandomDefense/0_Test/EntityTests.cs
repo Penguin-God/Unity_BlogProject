@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RuleEntities;
 using CreatureEntities;
+using BattleMoneyEntities;
 using static UnityEngine.Debug;
 
 namespace EntityTests
@@ -81,7 +82,7 @@ namespace EntityTests
         }
     }
 
-    public class BattleShopTester
+    public class BattleMoneyTester
     {
         public void TestCreateMoney()
         {
@@ -93,11 +94,19 @@ namespace EntityTests
         public void TestGetMoney()
         {
             Log("재화 획득 테스트!!");
+            var five = MoneyFactory.Gold(5);
+            var nine = five.Add(4);
+            Assert(nine.Amount == 9);
         }
 
         public void TestUseMoney()
         {
             Log("재화 사용 테스트!!");
+            var five = MoneyFactory.Gold(5);
+            Assert(five.Use(2, out var three));
+            Assert(three.Amount == 3);
+            Assert(three.Use(5, out three) == false);
+            Assert(three.Amount == 3);
         }
     }
 }
