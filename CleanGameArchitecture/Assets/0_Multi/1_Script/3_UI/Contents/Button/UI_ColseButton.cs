@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_ColseButton : Multi_UI_Base
+public class UI_ColseButton : UI_Base
 {
     [SerializeField] GameObject colseObj;
 

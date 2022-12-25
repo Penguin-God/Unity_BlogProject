@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LookWorldChangedButton : Multi_UI_Scene
+public class LookWorldChangedButton : UI_Scene
 {
     [SerializeField] Sprite lookMyWorldIcon;
     [SerializeField] Sprite lookEnemyWorldIcon;

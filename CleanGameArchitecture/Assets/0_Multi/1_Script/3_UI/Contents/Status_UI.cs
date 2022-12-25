@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
-public class Status_UI : Multi_UI_Scene
+public class Status_UI : UI_Scene
 {
     enum Texts
     {

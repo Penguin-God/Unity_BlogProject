@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BalckUnitShop_UI : Multi_UI_Popup
+public class BalckUnitShop_UI : UI_Popup
 {
     enum Buttons
     {

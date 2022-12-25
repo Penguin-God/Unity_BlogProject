@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Skill_Info_UI : Multi_UI_Popup
+public class Skill_Info_UI : UI_Popup
 {
     enum Images
     {

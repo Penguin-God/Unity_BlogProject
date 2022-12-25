@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-public class RandomShopPanel_UI : Multi_UI_Base
+public class RandomShopPanel_UI : UI_Base
 {
     [SerializeField] Button sellButton;
     [SerializeField] Text text;

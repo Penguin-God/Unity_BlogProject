@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_UnitManagedWindow : Multi_UI_Popup
+public class UI_UnitManagedWindow : UI_Popup
 {
     [SerializeField] Text _description;
     [SerializeField] UI_CombineButtonParent _combineButtonsParent;

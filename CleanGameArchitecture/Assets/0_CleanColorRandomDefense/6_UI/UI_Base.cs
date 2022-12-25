@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using System;
 using Object = UnityEngine.Object;
 
-public abstract class Multi_UI_Base : MonoBehaviour
+public abstract class UI_Base : MonoBehaviour
 {
     protected Dictionary<Type, Object[]> _objectsByType = new Dictionary<Type, Object[]>();
 
@@ -18,6 +18,19 @@ public abstract class Multi_UI_Base : MonoBehaviour
         if (_initDone) return;
         Init();
         _initDone = true;
+    }
+
+    void SetCanvas()
+    {
+        Canvas canvas = gameObject.GetOrAddComponent<Canvas>();
+        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        canvas.overrideSorting = true; // canvas안의 canvas가 부모 관계없이 독립적인 sort값을 가지게 하는 옵션
+        gameObject.GetOrAddComponent<GraphicRaycaster>();
+
+        CanvasScaler canvasScaler = gameObject.GetOrAddComponent<CanvasScaler>();
+        canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        canvasScaler.referenceResolution = new Vector2(800, 480);
+        canvasScaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
     }
 
     protected void Bind<T>(Type type) where T : Object

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_UnitTracker : Multi_UI_Base
+public class UI_UnitTracker : UI_Base
 {
     [SerializeField] UnitFlags unitFlags;
     [SerializeField] Image backGround;

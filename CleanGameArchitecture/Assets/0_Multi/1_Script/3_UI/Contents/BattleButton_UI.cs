@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BattleButton_UI : Multi_UI_Scene
+public class BattleButton_UI : UI_Scene
 {
     enum GameObjects
     {

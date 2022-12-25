@@ -118,7 +118,7 @@ public class GoodsManager
 
 
 
-public class RandomShop_UI : Multi_UI_Popup
+public class RandomShop_UI : UI_Popup
 {
     enum Buttons
     {

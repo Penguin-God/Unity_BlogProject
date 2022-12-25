@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SkillEquip_UI : Multi_UI_Popup
+public class SkillEquip_UI : UI_Popup
 {
     enum GameObjects
     {

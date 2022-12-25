@@ -15,11 +15,11 @@ public class Multi_UI_Manager
 {
     int _order = 10; // 기본 UI랑 팝업 UI 오더 다르게 하기 위해 초기값 10으로 세팅
 
-    Stack<Multi_UI_Popup> _currentPopupStack = new Stack<Multi_UI_Popup>();
-    Multi_UI_Base _sceneUI = null;
+    Stack<UI_Popup> _currentPopupStack = new Stack<UI_Popup>();
+    UI_Base _sceneUI = null;
 
-    Dictionary<string, Multi_UI_Popup> _nameByPopupCash = new Dictionary<string, Multi_UI_Popup>();
-    Dictionary<PopupGroupType, Multi_UI_Popup> _groupTypeByCurrentPopup = new Dictionary<PopupGroupType, Multi_UI_Popup>();
+    Dictionary<string, UI_Popup> _nameByPopupCash = new Dictionary<string, UI_Popup>();
+    Dictionary<PopupGroupType, UI_Popup> _groupTypeByCurrentPopup = new Dictionary<PopupGroupType, UI_Popup>();
 
     public void Init()
     {
@@ -64,7 +64,7 @@ public class Multi_UI_Manager
         }
     }
 
-    public T MakeSubItem<T>(Transform parent = null, string name = null) where T : Multi_UI_Base
+    public T MakeSubItem<T>(Transform parent = null, string name = null) where T : UI_Base
     {
         if (string.IsNullOrEmpty(name)) name = typeof(T).Name;
 
@@ -75,7 +75,7 @@ public class Multi_UI_Manager
         return go.GetOrAddComponent<T>();
     }
 
-    public T ShowSceneUI<T>(string name = null) where T : Multi_UI_Scene
+    public T ShowSceneUI<T>(string name = null) where T : UI_Scene
     {
         if (string.IsNullOrEmpty(name)) name = typeof(T).Name;
 
@@ -86,7 +86,7 @@ public class Multi_UI_Manager
         return sceneUI;
     }
 
-    public T ShowPopGroupUI<T>(PopupGroupType type, string name = null) where T : Multi_UI_Popup
+    public T ShowPopGroupUI<T>(PopupGroupType type, string name = null) where T : UI_Popup
     {
         if (_groupTypeByCurrentPopup[type] != null)
             ClosePopupUI();
@@ -95,12 +95,12 @@ public class Multi_UI_Manager
         return popup;
     }
 
-    public T ShowPopupUI<T>(string name = null) where T : Multi_UI_Popup
+    public T ShowPopupUI<T>(string name = null) where T : UI_Popup
     {
         if (string.IsNullOrEmpty(name))
             name = typeof(T).Name;
         string path = $"UI/Popup/{name}";
-        if (_nameByPopupCash.TryGetValue(path, out Multi_UI_Popup popupCash))
+        if (_nameByPopupCash.TryGetValue(path, out UI_Popup popupCash))
         {
             ActivePopupUI(popupCash);
             return popupCash.gameObject.GetComponent<T>();
@@ -113,7 +113,7 @@ public class Multi_UI_Manager
         return popup;
     }
 
-    void ActivePopupUI(Multi_UI_Popup popup)
+    void ActivePopupUI(UI_Popup popup)
     {
         popup.gameObject.GetOrAddComponent<Canvas>().sortingOrder = _order;
         popup.transform.SetParent(Root);

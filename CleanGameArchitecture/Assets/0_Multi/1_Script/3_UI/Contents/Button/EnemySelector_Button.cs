@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class EnemySelector_Button : Multi_UI_Base
+public class EnemySelector_Button : UI_Base
 {
     enum GameObjects
     {

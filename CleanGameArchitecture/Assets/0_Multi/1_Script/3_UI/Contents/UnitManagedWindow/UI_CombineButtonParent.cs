@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
-public class UI_CombineButtonParent : Multi_UI_Base
+public class UI_CombineButtonParent : UI_Base
 {
     [SerializeField] Button[] _combineButtons;
 

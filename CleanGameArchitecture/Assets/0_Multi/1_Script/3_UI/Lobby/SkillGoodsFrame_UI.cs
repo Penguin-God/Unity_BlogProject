@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SkillGoodsFrame_UI : Multi_UI_Base
+public class SkillGoodsFrame_UI : UI_Base
 {
     enum Buttons
     {
