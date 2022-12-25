@@ -17,11 +17,12 @@ public struct UnitControllerData
     public float AttackRange { get; private set; }
     public float Speed { get; private set; }
     public float AttackDelayTime { get; private set; }
+    public Material Material { get; private set; }
 
-    public UnitControllerData((UnitFlags flag, int dam) useCaseData, (float speed, float delay, float range) controllerData)
+    public UnitControllerData((UnitFlags flag, int dam) useCaseData, (float speed, float delay, float range, Material material) controllerData)
     {
         (Flag, Damage) = useCaseData;
-        (Speed, AttackDelayTime, AttackRange) = controllerData;
+        (Speed, AttackDelayTime, AttackRange, Material) = controllerData;
     }
 }
 
@@ -46,10 +47,12 @@ public abstract class UnitController : MonoBehaviour
     }
     public void SetInfo(UnitControllerData data)
     {
+        _unitUseCase = new UnitUseCase(data.Damage);
         _speed = data.Speed;
         _attackDelayTime = data.AttackDelayTime;
-        _unitUseCase = new UnitUseCase(data.Damage);
         _attackRange = data.AttackRange;
+        foreach (var mesh in GetComponentsInChildren<MeshRenderer>())
+            mesh.material = data.Material;
     }
 
     protected virtual void Init() { }

@@ -33,12 +33,10 @@ public class Spawner // 컨트롤러 매니저랑 합칠까?
         else
         {
             uc = ResourcesManager.Instantiate(SpawnPathBuilder.BuildUnitPath(flag.UnitClass)).GetComponent<UnitController>();
-            foreach (var mesh in uc.GetComponentsInChildren<MeshRenderer>())
-                mesh.material = ResourcesManager.Load<Material>(ResourcesPathBuilder.BuildUnitMaterialPath(flag.UnitColor));
             var dbData = _unitDataLoder.LoadUnitData(flag);
             var data = new UnitControllerData(
                 (flag, dbData.Damage),
-                (dbData.Speed, dbData.AttackDelayTime, dbData.AttackRange)
+                (dbData.Speed, dbData.AttackDelayTime, dbData.AttackRange, ResourcesManager.Load<Material>(ResourcesPathBuilder.BuildUnitMaterialPath(flag.UnitColor)))
                 );
             uc.SetInfo(data);
             OnUnitSpawn?.Invoke(uc);
