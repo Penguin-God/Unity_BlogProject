@@ -38,10 +38,10 @@ public class PureObjectTestDrawer : TestingInspectorDrawer
     }
 }
 
-[CustomEditor(typeof(MonoBehaviourTester))]
+[CustomEditor(typeof(MonoBehaviourTestExecuter))]
 public class MonoBehaviourTestDrawer : TestingInspectorDrawer
 {
-    protected override object Target => (MonoBehaviourTester)base.Target;
+    protected override object Target => (MonoBehaviourTestExecuter)base.Target;
 
     public override void OnInspectorGUI()
     {
