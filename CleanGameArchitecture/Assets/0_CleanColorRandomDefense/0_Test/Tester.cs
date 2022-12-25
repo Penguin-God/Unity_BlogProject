@@ -7,6 +7,7 @@ using UseCaseTests;
 using GatewayTests;
 using CalculatorsTester;
 using TestManagerFacade;
+using ControllerTester;
 
 public class Tester : MonoBehaviour
 {
@@ -103,5 +104,11 @@ public class Tester : MonoBehaviour
         var tester = new ManagerFacadeTester();
         tester.TestDataManager();
         tester.TestFindMonsterController();
+    }
+
+    void TestControllers()
+    {
+        var tester = new UnitBuyTester();
+        tester.TestDrawUnitFlag();
     }
 }
