@@ -8,7 +8,7 @@ public class KeybordSpawn : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.U))
         {
-            ManagerFacade.Game.TrySpawnUnit(new UnitFlags(0, 1), out var uc);
+            ManagerFacade.Spawn.TrySpawnUnit(new UnitFlags(0, 1), out var uc);
             uc.transform.position = Vector3.zero;
         }
 

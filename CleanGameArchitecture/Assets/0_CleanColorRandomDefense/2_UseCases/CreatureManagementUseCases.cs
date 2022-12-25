@@ -30,6 +30,7 @@ namespace CreatureManagementUseCases
             }
 
             unit = new Unit(flag);
+            _unitManager.AddUnit(unit); // 유닛 매니저에 스폰까지 합치기
             return true;
         }
     }

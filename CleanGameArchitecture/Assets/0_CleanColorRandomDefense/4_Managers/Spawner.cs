@@ -4,15 +4,22 @@ using UnityEngine;
 using CreatureManagementUseCases;
 using GateWays;
 using System;
+using UnitDatas;
 
-public class GameManager
+public interface IUnitDataLoder
 {
-    UnitManager _unitManager = new UnitManager();
-    UnitSpanwer _unitSpanwer;
+    UnitData LoadUnitData(UnitFlags flag);
+}
 
-    public void Init(IMaxCountRule unitCountRule)
+public class Spawner // 컨트롤러 매니저랑 합칠까?
+{
+    UnitSpanwer _unitSpanwer;
+    IUnitDataLoder _unitDataLoder;
+
+    public void Init(UnitSpanwer unitSpanwer, IUnitDataLoder unitDataLoder)
     {
-        _unitSpanwer = new UnitSpanwer(_unitManager, unitCountRule);
+        _unitSpanwer = unitSpanwer;
+        _unitDataLoder = unitDataLoder;
     }
 
     public event Action<UnitController> OnUnitSpawn;
@@ -25,11 +32,10 @@ public class GameManager
         }
         else
         {
-            _unitManager.AddUnit(unit);
             uc = ResourcesManager.Instantiate(SpawnPathBuilder.BuildUnitPath(flag.UnitClass)).GetComponent<UnitController>();
             foreach (var mesh in uc.GetComponentsInChildren<MeshRenderer>())
                 mesh.material = ResourcesManager.Load<Material>(ResourcesPathBuilder.BuildUnitMaterialPath(flag.UnitColor));
-            var dbData = ManagerFacade.Data.GetUnitData(flag);
+            var dbData = _unitDataLoder.LoadUnitData(flag);
             var data = new UnitControllerData(
                 (flag, dbData.Damage),
                 (dbData.Speed, dbData.AttackDelayTime, dbData.AttackRange)

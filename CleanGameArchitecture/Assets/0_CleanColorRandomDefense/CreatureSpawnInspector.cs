@@ -5,5 +5,5 @@ using GateWays;
 
 public class CreatureSpawnInspector : MonoBehaviour
 {
-    public void SpanwUnit(UnitFlags flag) => ManagerFacade.Game.TrySpawnUnit(flag, out var uc);
+    public void SpanwUnit(UnitFlags flag) => ManagerFacade.Spawn.TrySpawnUnit(flag, out var uc);
 }

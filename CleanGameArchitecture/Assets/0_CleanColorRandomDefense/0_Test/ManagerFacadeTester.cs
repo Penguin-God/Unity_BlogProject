@@ -13,11 +13,11 @@ namespace TestManagerFacade
             Log("데이터 매니저 테스트!!");
             var data = new DataManager();
             data.Init();
-            var unitData = data.GetUnitData(new UnitFlags(0, 0));
+            var unitData = data.LoadUnitData(new UnitFlags(0, 0));
             Assert(unitData.Damage == 25);
             Assert(unitData.Name == "빨간 기사");
 
-            unitData = data.GetUnitData(new UnitFlags(2, 3));
+            unitData = data.LoadUnitData(new UnitFlags(2, 3));
             Assert(unitData.Damage == 25000);
             Assert(unitData.Name == "노란 마법사");
         }

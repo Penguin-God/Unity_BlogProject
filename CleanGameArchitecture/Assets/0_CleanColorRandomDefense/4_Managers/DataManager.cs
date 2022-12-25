@@ -4,7 +4,7 @@ using UnityEngine;
 using UnitDatas;
 using System.Linq;
 
-public class DataManager
+public class DataManager : IUnitDataLoder
 {
     public void Init()
     {
@@ -14,5 +14,5 @@ public class DataManager
 
     Dictionary<string, UnitFlags> _unitFlagByName = new Dictionary<string, UnitFlags>();
     Dictionary<UnitFlags, UnitData> _unitDataByFlag = new Dictionary<UnitFlags, UnitData>();
-    public UnitData GetUnitData(UnitFlags flag) => _unitDataByFlag[flag];
+    public UnitData LoadUnitData(UnitFlags flag) => _unitDataByFlag[flag];
 }

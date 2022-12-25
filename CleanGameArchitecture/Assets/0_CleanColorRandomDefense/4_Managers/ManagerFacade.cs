@@ -23,12 +23,12 @@ public class ManagerFacade : MonoBehaviour
         }
     }
 
-    GameManager _game = new GameManager();
+    Spawner _spawn = new Spawner();
     [SerializeField] ControllerManager _controller = new ControllerManager();
     DataManager _data = new DataManager();
     SceneManagerEx _scene = new SceneManagerEx();
 
-    public static GameManager Game => Instance._game;
+    public static Spawner Spawn => Instance._spawn;
     public static ControllerManager Controller => Instance._controller;
     public static DataManager Data => Instance._data;
     public static SceneManagerEx Scene => Instance._scene;

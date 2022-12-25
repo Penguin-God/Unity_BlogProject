@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RuleEntities;
+using CreatureManagementUseCases;
 
 public class BattleScene : BaseScene
 {
@@ -9,7 +10,7 @@ public class BattleScene : BaseScene
     protected override void Init()
     {
         var unitSpawnRule = new UnitSpawnRule(15);
-        ManagerFacade.Game.Init(unitSpawnRule);
+        ManagerFacade.Spawn.Init(new UnitSpanwer(new UnitManager(), unitSpawnRule), ManagerFacade.Data);
 
         _battleRule = new MaxCountRule(50);
         ManagerFacade.Controller.OnMonsterCountChanaged += CheckGameLoss;
@@ -33,7 +34,7 @@ public class BattleScene : BaseScene
         int spawnNumber = Random.Range(0, 4);
         for (int i = 0; i < 15; i++)
         {
-            var mc = ManagerFacade.Game.SpawnMonster(spawnNumber);
+            var mc = ManagerFacade.Spawn.SpawnMonster(spawnNumber);
             mc.transform.position = new Vector3(-45, 0, 35);
             yield return new WaitForSeconds(2f);
         }
